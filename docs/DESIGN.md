@@ -38,33 +38,37 @@
 
 ## 2. Design System
 
-### 2.1. Color Palette
+### 2.1. Color Palette - Minimalist (Trắng, Đen, Xám)
 
 **Light Mode:**
-- Primary: `#2c3e50` (Dark blue-gray) - **GIỮ NGUYÊN**
-- Secondary: `#007bff` (Bootstrap Blue) - **ĐÃ ĐIỀU CHỈNH** từ #3498db
-- Accent: `#e74c3c` (Red - cho links, highlights)
-- Background: `#fafafa` (Trắng ngà nhẹ) - **ĐÃ ĐIỀU CHỈNH** từ #ffffff
-- Text: `#2c3e50` (Dark gray)
-- Text Secondary: `#7f8c8d` (Gray)
-- Border: `#ecf0f1` (Light gray)
-- **Gradients:** Đã thêm gradient cho header, buttons, cards, và background
+- Primary: `#000000` (Đen - cho text chính, headings)
+- Secondary: `#333333` (Xám đậm - cho links, buttons, hover states)
+- Accent: `#666666` (Xám vừa - cho highlights, hover effects)
+- Background: `#ffffff` (Trắng - background chính)
+- Text: `#000000` (Đen - text chính)
+- Text Secondary: `#666666` (Xám - text phụ, metadata)
+- Border: `#e0e0e0` (Xám nhạt - borders, dividers)
+- Header Background: `#1a1a1a` (Đen - header background)
+- Status Background: `#f5f5f5` (Xám rất nhạt - status boxes)
 
 **Dark Mode:**
-- Primary: `#e4e4e4` (Light gray)
-- Secondary: `#5dade2` (Light blue)
-- Accent: `#ec7063` (Light red)
-- Background: `#1a1a1a` (Dark)
-- Text: `#e4e4e4` (Light gray)
-- Text Secondary: `#95a5a6` (Medium gray)
-- Border: `#2c2c2c` (Dark gray)
+- Primary: `#ffffff` (Trắng - cho text chính, headings)
+- Secondary: `#cccccc` (Xám sáng - cho links, buttons, hover states)
+- Accent: `#999999` (Xám vừa - cho highlights, hover effects)
+- Background: `#000000` (Đen - background chính)
+- Text: `#ffffff` (Trắng - text chính)
+- Text Secondary: `#999999` (Xám - text phụ, metadata)
+- Border: `#333333` (Xám đậm - borders, dividers)
+- Header Background: `#1a1a1a` (Xám đen - header background)
+- Status Background: `#0a0a0a` (Đen đậm - status boxes)
 
-*Note: PaperMod theme đã có sẵn color scheme, có thể customize qua CSS variables*
+**Nguyên tắc:**
+- ✅ Chỉ sử dụng trắng, đen, và các tông xám
+- ✅ Không sử dụng màu sắc rực rỡ (xanh, đỏ, vàng, etc.)
+- ✅ Tập trung vào typography và spacing thay vì màu sắc
+- ✅ Tối giản, chuyên nghiệp, dễ đọc
 
-**Lý do điều chỉnh Light Mode:**
-- **Secondary (#007bff):** Tươi sáng hơn, hiện đại hơn, tạo cảm giác click mạnh mẽ hơn
-- **Background (#fafafa):** Thay vì trắng hoàn toàn, dùng màu trắng ngà nhẹ giúp mắt thoải mái hơn khi đọc lâu
-- **Gradients:** Thêm gradient vào các phần tử để tạo chiều sâu và hiện đại hơn
+*Note: PaperMod theme đã có sẵn color scheme, có thể customize qua CSS variables để áp dụng palette minimalist này*
 
 ### 2.2. Typography
 
@@ -113,35 +117,45 @@
 #### 2.4.2. Hero Section (Home Page)
 - **Layout:** Full width, centered content
 - **Height:** `60vh` (viewport height)
+- **Background:**
+  - Light mode: Đen (`#1a1a1a`) với text trắng
+  - Dark mode: Xám đen (`#1a1a1a`) với text trắng
 - **Content:**
-  - Title: "Nguyễn Minh Long"
-  - Subtitle: "Sinh viên năm 4 HUTECH"
-  - Tagline: "Chia sẻ kiến thức về Lập trình mạng, Java & JavaScript"
-  - CTA: "Xem Blog" button
+  - Title: "Nguyễn Minh Long" (màu trắng, font lớn)
+  - Subtitle: "Sinh viên năm 4 HUTECH" (màu xám sáng)
+  - Tagline: "Chia sẻ kiến thức về Lập trình mạng, Java & JavaScript" (màu xám sáng)
+  - CTA: Button với border, hover đổi màu background
 
 #### 2.4.3. Blog Listing
 - **Layout:** Grid hoặc List
 - **Card style:**
-  - Image (optional): `16:9` ratio
-  - Title: H3
-  - Excerpt: 2-3 dòng
-  - Meta: Date, Reading time, Categories
-  - Hover effect: Slight shadow, scale
+  - Background: Trắng (light) / Đen (dark)
+  - Border: Xám nhạt (light) / Xám đậm (dark)
+  - Image (optional): `16:9` ratio, grayscale filter (nếu cần)
+  - Title: H3, màu primary (đen/trắng)
+  - Excerpt: 2-3 dòng, màu text secondary (xám)
+  - Meta: Date, Reading time, Categories - màu text secondary
+  - Hover effect: Border đổi màu secondary, slight scale
 
 #### 2.4.4. Post Content
 - **Max width:** `800px` (tối ưu đọc)
 - **Padding:** `2rem` left/right
+- **Background:** Trắng (light) / Đen (dark)
 - **Typography:** 
-  - Headings: Clear hierarchy
-  - Code blocks: Syntax highlighting
-  - Images: Responsive, centered
-  - Blockquotes: Left border, italic
+  - Headings: Màu primary (đen/trắng), clear hierarchy
+  - Body text: Màu text chính (đen/trắng)
+  - Links: Màu text chính với underline, hover đổi màu secondary
+  - Code blocks: Background xám nhạt (light) / xám đen (dark), syntax highlighting grayscale
+  - Images: Responsive, centered, có thể thêm border xám nhạt
+  - Blockquotes: Left border màu secondary (xám), italic, background xám rất nhạt
 
 #### 2.4.5. Footer
+- **Background:** Trắng (light) / Đen (dark)
+- **Border:** Top border màu border (xám nhạt/xám đậm)
 - **Content:**
-  - Copyright: "© 2025 Nguyễn Minh Long"
-  - Social links (optional)
-  - "Made with Hugo & PaperMod"
+  - Copyright: "© 2025 Nguyễn Minh Long" - màu text secondary (xám)
+  - Social links (optional) - màu text secondary, hover đổi màu secondary
+  - "Made with Hugo & PaperMod" - màu text secondary
 
 ---
 
@@ -189,32 +203,34 @@ About
 
 ## 5. Customization PaperMod
 
-### 5.1. CSS Overrides
+### 5.1. CSS Overrides - Minimalist Palette
 File: `assets/css/custom.css`
 
 ```css
 :root {
+  /* Light Mode - Minimalist: Trắng, Đen, Xám */
   --theme: rgb(255, 255, 255);
   --entry: rgb(255, 255, 255);
-  --primary: rgb(44, 62, 80);
-  --secondary: rgb(52, 152, 219);
-  --tertiary: rgb(236, 240, 241);
-  --content: rgb(44, 62, 80);
-  --hljs-bg: rgb(248, 248, 248);
-  --code-bg: rgb(248, 248, 248);
-  --border: rgb(236, 240, 241);
+  --primary: rgb(0, 0, 0);              /* Đen */
+  --secondary: rgb(51, 51, 51);         /* Xám đậm */
+  --tertiary: rgb(224, 224, 224);       /* Xám nhạt */
+  --content: rgb(0, 0, 0);              /* Đen - text chính */
+  --hljs-bg: rgb(245, 245, 245);        /* Xám rất nhạt - code background */
+  --code-bg: rgb(245, 245, 245);
+  --border: rgb(224, 224, 224);         /* Xám nhạt - borders */
 }
 
 [data-theme="dark"] {
-  --theme: rgb(26, 26, 26);
-  --entry: rgb(26, 26, 26);
-  --primary: rgb(228, 228, 228);
-  --secondary: rgb(93, 173, 226);
-  --tertiary: rgb(44, 44, 44);
-  --content: rgb(228, 228, 228);
-  --hljs-bg: rgb(44, 44, 44);
-  --code-bg: rgb(44, 44, 44);
-  --border: rgb(44, 44, 44);
+  /* Dark Mode - Minimalist: Đen, Trắng, Xám */
+  --theme: rgb(0, 0, 0);
+  --entry: rgb(0, 0, 0);
+  --primary: rgb(255, 255, 255);        /* Trắng */
+  --secondary: rgb(204, 204, 204);      /* Xám sáng */
+  --tertiary: rgb(51, 51, 51);          /* Xám đậm */
+  --content: rgb(255, 255, 255);        /* Trắng - text chính */
+  --hljs-bg: rgb(26, 26, 26);           /* Xám đen - code background */
+  --code-bg: rgb(26, 26, 26);
+  --border: rgb(51, 51, 51);            /* Xám đậm - borders */
 }
 ```
 
