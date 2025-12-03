@@ -41,13 +41,14 @@
 ### 2.1. Color Palette
 
 **Light Mode:**
-- Primary: `#2c3e50` (Dark blue-gray)
-- Secondary: `#3498db` (Blue)
+- Primary: `#2c3e50` (Dark blue-gray) - **GIỮ NGUYÊN**
+- Secondary: `#007bff` (Bootstrap Blue) - **ĐÃ ĐIỀU CHỈNH** từ #3498db
 - Accent: `#e74c3c` (Red - cho links, highlights)
-- Background: `#ffffff` (White)
+- Background: `#fafafa` (Trắng ngà nhẹ) - **ĐÃ ĐIỀU CHỈNH** từ #ffffff
 - Text: `#2c3e50` (Dark gray)
 - Text Secondary: `#7f8c8d` (Gray)
 - Border: `#ecf0f1` (Light gray)
+- **Gradients:** Đã thêm gradient cho header, buttons, cards, và background
 
 **Dark Mode:**
 - Primary: `#e4e4e4` (Light gray)
@@ -59,6 +60,11 @@
 - Border: `#2c2c2c` (Dark gray)
 
 *Note: PaperMod theme đã có sẵn color scheme, có thể customize qua CSS variables*
+
+**Lý do điều chỉnh Light Mode:**
+- **Secondary (#007bff):** Tươi sáng hơn, hiện đại hơn, tạo cảm giác click mạnh mẽ hơn
+- **Background (#fafafa):** Thay vì trắng hoàn toàn, dùng màu trắng ngà nhẹ giúp mắt thoải mái hơn khi đọc lâu
+- **Gradients:** Thêm gradient vào các phần tử để tạo chiều sâu và hiện đại hơn
 
 ### 2.2. Typography
 
