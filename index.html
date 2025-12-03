@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Blog cá nhân chia sẻ về Lập trình mạng, Java và JavaScript">
+    <title>Nguyễn Minh Long - Blog</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #ffffff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin-bottom: 3rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .status {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 1rem;
+            margin: 2rem 0;
+            border-radius: 4px;
+        }
+        
+        .status h2 {
+            color: #2e7d32;
+            margin-bottom: 0.5rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid #e0e0e0;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Nguyễn Minh Long</h1>
+        <p class="subtitle">Sinh viên - HUTECH</p>
+        <p class="subtitle">Chia sẻ kiến thức về Lập trình mạng, Java & JavaScript</p>
+    </header>
+    
+    <div class="container">
+        <div class="content">
+            <div class="status">
+                <h2>✅ Website đã được deploy thành công!</h2>
+                <p>GitHub Pages đang hoạt động bình thường.</p>
+                <p><strong>Thời gian:</strong> <span id="timestamp"></span></p>
+            </div>
+            
+            <h2>🚀 Sắp tới</h2>
+            <p>Website sẽ được phát triển với Hugo + PaperMod theme</p>
+            <p>Nội dung: Blog về Lập trình mạng, Java & JavaScript</p>
+        </div>
+    </div>
+    
+    <footer>
+        <p>© 2025 Nguyễn Minh Long</p>
+        <p>Made with ❤️ using GitHub Pages</p>
+    </footer>
+    
+    <script>
+        // Hiển thị thời gian deploy
+        document.getElementById('timestamp').textContent = new Date().toLocaleString('vi-VN');
+    </script>
+</body>
+</html>
+
