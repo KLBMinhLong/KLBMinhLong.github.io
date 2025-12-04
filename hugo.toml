@@ -13,7 +13,7 @@ enableGitInfo = true
 [params]
   description = "Blog cá nhân chia sẻ về Lập trình mạng, Java & JavaScript của Nguyễn Minh Long."
   author = "Nguyễn Minh Long"
-  defaultTheme = "auto"          # auto / light / dark
+  defaultTheme = "dark"          # auto / light / dark (ưu tiên Dark mode)
   disableThemeToggle = false
 
   ShowReadingTime = true

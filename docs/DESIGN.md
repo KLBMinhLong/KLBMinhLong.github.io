@@ -38,12 +38,12 @@
 
 ## 2. Design System
 
-### 2.1. Color Palette - Minimalist (Trắng, Đen, Xám)
+### 2.1. Color Palette - Minimalist (Trắng, Đen, Xám + Accent Xanh Nhẹ)
 
 **Light Mode:**
 - Primary: `#000000` (Đen - cho text chính, headings)
 - Secondary: `#333333` (Xám đậm - cho links, buttons, hover states)
-- Accent: `#666666` (Xám vừa - cho highlights, hover effects)
+- Accent: `#4c9aff` (Xanh nhẹ - dùng cho hover/link, tạo điểm nhấn nhỏ)
 - Background: `#ffffff` (Trắng - background chính)
 - Text: `#000000` (Đen - text chính)
 - Text Secondary: `#666666` (Xám - text phụ, metadata)
@@ -54,7 +54,7 @@
 **Dark Mode:**
 - Primary: `#ffffff` (Trắng - cho text chính, headings)
 - Secondary: `#cccccc` (Xám sáng - cho links, buttons, hover states)
-- Accent: `#999999` (Xám vừa - cho highlights, hover effects)
+- Accent: `#4c9aff` (Xanh nhẹ - dùng cho hover/link, tạo điểm nhấn nhỏ)
 - Background: `#000000` (Đen - background chính)
 - Text: `#ffffff` (Trắng - text chính)
 - Text Secondary: `#999999` (Xám - text phụ, metadata)
@@ -63,9 +63,9 @@
 - Status Background: `#0a0a0a` (Đen đậm - status boxes)
 
 **Nguyên tắc:**
-- ✅ Chỉ sử dụng trắng, đen, và các tông xám
-- ✅ Không sử dụng màu sắc rực rỡ (xanh, đỏ, vàng, etc.)
-- ✅ Tập trung vào typography và spacing thay vì màu sắc
+- ✅ Chủ đạo vẫn là trắng, đen, và các tông xám
+- ✅ Accent xanh chỉ dùng rất tiết chế (link, hover, border khi hover)
+- ✅ Tập trung vào typography, spacing và đổ bóng nhẹ để tạo chiều sâu
 - ✅ Tối giản, chuyên nghiệp, dễ đọc
 
 *Note: PaperMod theme đã có sẵn color scheme, có thể customize qua CSS variables để áp dụng palette minimalist này*
@@ -202,38 +202,46 @@ About
 ---
 
 ## 5. Customization PaperMod
-
+ 
 ### 5.1. CSS Overrides - Minimalist Palette
-File: `assets/css/custom.css`
-
+File: `assets/css/extended/custom.css`
+ 
 ```css
 :root {
-  /* Light Mode - Minimalist: Trắng, Đen, Xám */
-  --theme: rgb(255, 255, 255);
-  --entry: rgb(255, 255, 255);
-  --primary: rgb(0, 0, 0);              /* Đen */
-  --secondary: rgb(51, 51, 51);         /* Xám đậm */
-  --tertiary: rgb(224, 224, 224);       /* Xám nhạt */
-  --content: rgb(0, 0, 0);              /* Đen - text chính */
-  --hljs-bg: rgb(245, 245, 245);        /* Xám rất nhạt - code background */
-  --code-bg: rgb(245, 245, 245);
-  --border: rgb(224, 224, 224);         /* Xám nhạt - borders */
+  /* Light Mode - nền hơi kem + card trắng, accent xanh rất nhẹ */
+  --theme: #f5f5f2;
+  --entry: #ffffff;
+  --primary: #000000;
+  --secondary: #333333;
+  --tertiary: #e4e4de;
+  --content: #111111;
+  --hljs-bg: #f3f3f0;
+  --code-bg: #f3f3f0;
+  --border: #e0e0da;
+  --accent: #7ab8ff;
 }
-
+ 
 [data-theme="dark"] {
-  /* Dark Mode - Minimalist: Đen, Trắng, Xám */
-  --theme: rgb(0, 0, 0);
-  --entry: rgb(0, 0, 0);
-  --primary: rgb(255, 255, 255);        /* Trắng */
-  --secondary: rgb(204, 204, 204);      /* Xám sáng */
-  --tertiary: rgb(51, 51, 51);          /* Xám đậm */
-  --content: rgb(255, 255, 255);        /* Trắng - text chính */
-  --hljs-bg: rgb(26, 26, 26);           /* Xám đen - code background */
-  --code-bg: rgb(26, 26, 26);
-  --border: rgb(51, 51, 51);            /* Xám đậm - borders */
+  /* Dark Mode - nền rất tối + card có gradient màu nhẹ */
+  --theme: #050509;
+  --entry: #111119;
+  --primary: #ffffff;
+  --secondary: #dddddd;
+  --tertiary: #22222a;
+  --content: #f5f5f5;
+  --hljs-bg: #181820;
+  --code-bg: #181820;
+  --border: #2b2b33;
+  --accent: #8ac4ff;
 }
 ```
-
+ 
+Các class chính:
+- `.post-entry`: bo góc + đổ bóng nhẹ; hover nổi lên, border chuyển sang màu accent.
+- `[data-theme="dark"] .post-entry:nth-child(...)`: gradient màu nhẹ khác nhau giữa các card (xanh, xanh ngọc, cam nhạt).
+- `.header`, `.nav .nav-item a::after`: thêm bóng và underline animation cho menu.
+- `.single .post-content img`: bo góc + đổ bóng cho ảnh chân dung.
+ 
 ### 5.2. Layout Overrides
 - Custom `layouts/partials/header.html` (nếu cần)
 - Custom `layouts/_default/baseof.html` (nếu cần)

@@ -1,27 +1,29 @@
 :root {
-  /* Light Mode - Minimalist: Trắng, Đen, Xám */
-  --theme: rgb(255, 255, 255);
-  --entry: rgb(255, 255, 255);
-  --primary: rgb(0, 0, 0);              /* Đen */
-  --secondary: rgb(51, 51, 51);         /* Xám đậm */
-  --tertiary: rgb(224, 224, 224);       /* Xám nhạt */
-  --content: rgb(0, 0, 0);              /* Đen - text chính */
-  --hljs-bg: rgb(245, 245, 245);        /* Xám rất nhạt - code background */
-  --code-bg: rgb(245, 245, 245);
-  --border: rgb(224, 224, 224);         /* Xám nhạt - borders */
+  /* Light Mode - nền giống ảnh 1: hơi kem, card trắng, accent rất nhẹ */
+  --theme: #f5f5f2;                     /* nền tổng thể hơi kem, không trắng gắt */
+  --entry: #ffffff;                     /* nền card trắng */
+  --primary: #000000;                   /* Đen - heading */
+  --secondary: #333333;                 /* Xám đậm - link, text nổi bật */
+  --tertiary: #e4e4de;                  /* Xám-kem nhạt - vùng chia section */
+  --content: #111111;                   /* Text chính */
+  --hljs-bg: #f3f3f0;                   /* Nền code block nhạt */
+  --code-bg: #f3f3f0;
+  --border: #e0e0da;                    /* Border nhạt */
+  --accent: #7ab8ff;                    /* Xanh rất nhạt cho hover/link */
 }
 
 [data-theme="dark"] {
-  /* Dark Mode - Minimalist: Đen, Trắng, Xám */
-  --theme: rgb(0, 0, 0);
-  --entry: rgb(0, 0, 0);
-  --primary: rgb(255, 255, 255);        /* Trắng */
-  --secondary: rgb(204, 204, 204);      /* Xám sáng */
-  --tertiary: rgb(51, 51, 51);          /* Xám đậm */
-  --content: rgb(255, 255, 255);        /* Trắng - text chính */
-  --hljs-bg: rgb(26, 26, 26);           /* Xám đen - code background */
-  --code-bg: rgb(26, 26, 26);
-  --border: rgb(51, 51, 51);            /* Xám đậm - borders */
+  /* Dark Mode - giống ảnh 2: nền rất tối, card hơi sáng + accent mềm */
+  --theme: #050509;                     /* nền tổng thể gần đen */
+  --entry: #111119;                     /* nền card tối hơn chút */
+  --primary: #ffffff;                   /* Trắng - heading */
+  --secondary: #dddddd;                 /* Xám sáng - link/text chính */
+  --tertiary: #22222a;                  /* Xám đậm - block section */
+  --content: #f5f5f5;                   /* Text chính */
+  --hljs-bg: #181820;                   /* Nền code block */
+  --code-bg: #181820;
+  --border: #2b2b33;                    /* Border đậm hơn */
+  --accent: #8ac4ff;                    /* Xanh nhạt hơn so với light, không chói */
 }
 
 /* Tối ưu chiều rộng nội dung cho bài viết */
@@ -32,8 +34,84 @@
 }
 
 /* Avatar trên trang About */
-.post-content img {
-  border-radius: 6px;
+.single .post-content img {
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
 }
 
+/* Link & hover – thêm chút màu accent (nhẹ, không sặc sỡ) */
+a,
+.post-content a,
+.archive-entry a {
+  color: var(--secondary);
+  text-decoration-color: rgba(0, 0, 0, 0.1);
+  text-underline-offset: 3px;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+a:hover,
+.post-content a:hover,
+.archive-entry a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
+}
+
+/* Card bài viết ở trang Home/Blog – giống \"thumbnail\" trong ảnh 1 */
+.post-entry {
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.post-entry:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.16);
+}
+
+/* Dark mode: thêm màu nhấn nhẹ như các block Services ở ảnh 2 */
+[data-theme="dark"] .post-entry {
+  background: radial-gradient(circle at top left,
+              rgba(138, 196, 255, 0.16),
+              rgba(0, 0, 0, 0.9));
+}
+
+[data-theme="dark"] .post-entry:nth-child(2n) {
+  background: radial-gradient(circle at top left,
+              rgba(130, 255, 210, 0.14),
+              rgba(0, 0, 0, 0.9));
+}
+
+[data-theme="dark"] .post-entry:nth-child(3n) {
+  background: radial-gradient(circle at top left,
+              rgba(255, 214, 165, 0.14),
+              rgba(0, 0, 0, 0.9));
+}
+
+/* Header / Navigation */
+.header {
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.nav .nav-item a {
+  position: relative;
+}
+
+.nav .nav-item a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.2s ease;
+}
+
+.nav .nav-item a:hover::after,
+.nav .nav-item .active::after {
+  width: 100%;
+}
 

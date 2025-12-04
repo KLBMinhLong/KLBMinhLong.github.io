@@ -114,6 +114,7 @@ KLBMinhLong.github.io/
 - `theme`: `PaperMod`
 - `languageCode`: `vi-vn`
 - `defaultContentLanguage`: `vi`
+- `defaultTheme`: `dark` (ưu tiên dark mode khi load lần đầu)
 
 **PaperMod Parameters:**
 - `ShowReadingTime`: `true`
@@ -126,7 +127,7 @@ KLBMinhLong.github.io/
 - `DisableSpecial1stPost`: `false`
 - `DisableScrollToTop`: `false`
 - `comments`: `false` (có thể bật sau)
-- `assets`: Custom CSS/JS paths
+- `assets`: Custom CSS/JS paths (dùng `assets/css/extended/custom.css` để override màu sắc)
 
 **Menu Structure:**
 ```toml
