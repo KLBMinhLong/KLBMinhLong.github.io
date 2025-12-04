@@ -29,6 +29,16 @@ enableGitInfo = true
     disableHLJS = false
     favicon = "/favicon.ico"
 
+  # SEO & Social
+  [params.social]
+    GitHub = "KLBMinhLong"
+    Email = "nguyenminhlongcntt@gmail.com"
+    Facebook = "https://www.facebook.com/long.nguyen.601773/"
+    LinkedIn = "www.linkedin.com/in/minh-long-nguyễn-09984a333"
+
+  # Open Graph & Twitter Cards
+  images = ["/images/profile/GrayscaleVersion.png"]
+
 [menu]
   [[menu.main]]
     identifier = "home"

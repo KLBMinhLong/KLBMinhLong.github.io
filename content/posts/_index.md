@@ -8,6 +8,6 @@ type: "posts"
 
 Các bài viết về **Lập trình mạng**, **Java** và **JavaScript**.
 
-_(PaperMod sẽ tự động liệt kê các bài viết trong thư mục `posts/` bên dưới.)_
+Tổng hợp kiến thức từ các khóa học **JavaScript Essentials 1 & 2**, **Networking Basics** và kinh nghiệm thực tế.
 
 
