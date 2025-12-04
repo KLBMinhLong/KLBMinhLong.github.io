@@ -4,10 +4,10 @@
 
 ### 1.1. dangnghinhxuan.wixsite.com/portfolio
 **Đặc điểm nổi bật:**
-- ✅ Layout tối giản, tập trung vào nội dung
-- ✅ Typography rõ ràng, dễ đọc
-- ✅ Navigation đơn giản (Home, About, Résumé, Gallery, Portfolio, Contact)
-- ✅ Hero section với tagline ấn tượng: "WORK HARD IN SILENCE, LET SUCCESS MAKE NOISE"
+- ✅ Bố cục tối giản, tập trung vào nội dung
+- ✅ Kiểu chữ rõ ràng, dễ đọc
+- ✅ Thanh điều hướng đơn giản (Trang chủ, Giới thiệu, Hồ sơ, Thư viện ảnh, Danh mục dự án, Liên hệ)
+- ✅ Hero section với tagline ấn tượng: " Khám phá thế giới số - Kiến Thức Căn Bản, Hiệu Quả Tức Thì"
 - ✅ Màu sắc nhẹ nhàng, không quá chói
 - ✅ Responsive design
 
@@ -23,7 +23,7 @@
 - ✅ Sidebar với categories, recent posts, archives
 - ✅ Post listing với excerpt và date
 - ✅ Typography tối ưu cho đọc (serif cho body text)
-- ✅ Dark mode support (có thể)
+- ✅ Dark mode support 
 - ✅ Reading time, word count
 - ✅ Tags và categories rõ ràng
 

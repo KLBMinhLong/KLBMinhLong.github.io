@@ -8,7 +8,6 @@
   - JavaScript Essentials 1
   - JavaScript Essentials 2
   - Networking Basics
-  - I2CS (nếu có)
 - Tất cả bài viết bằng **tiếng Việt**
 - Chủ đề chính: **Lập trình mạng (Network Programming)**
 
@@ -46,20 +45,25 @@ type: "page"
 **Nội dung:**
 - Giới thiệu bản thân
 - Học vấn: HUTECH, năm 4
-- Sở thích/Đam mê: Lập trình mạng, Java, JavaScript
+- Sở thích/Đam mê: Lập trình mạng, Java, JavaScript, Lập trình phần mền, web, C++, react
 - Kỹ năng:
   - Java
   - JavaScript
   - Network Programming
-  - (có thể thêm HTML, CSS, Git, etc.)
+  - C++
+  - Git,github,gitlab
+  - Docker
 - Chứng chỉ:
   - JavaScript Essentials 1
   - JavaScript Essentials 2
   - Networking Basics
-  - (có thể thêm ảnh chứng chỉ sau)
 - Liên hệ:
   - GitHub: @KLBMinhLong
-  - Email: (nếu muốn công khai)
+  - Email: nguyenminhlongcntt@gmail.com
+  - Facebook: https://www.facebook.com/long.nguyen.601773/
+  - Linkedin :www.linkedin.com/in/minh-long-nguyễn-09984a333
+  - Zalo: 0377241808
+  - Số điện thoại:0377241808
 
 **Front Matter:**
 ```yaml
@@ -215,6 +219,14 @@ code: true
   - `java.net.ServerSocket`
   - Ví dụ: Echo server
   - Multi-threading cho server
+- **Hình ảnh minh họa:**
+  - Sử dụng 3 hình minh họa Feyman để giải thích trực quan:
+    - `static/images/posts/networking/UDPSocketFeyman.png` — Minh họa cơ chế gửi gói tin của UDP Socket
+    - `static/images/posts/networking/TCPSocketFeyman.png` — Minh họa bắt tay 3 bước & độ tin cậy của TCP Socket
+    - `static/images/posts/networking/SocketFeyman.png` — Minh họa khái niệm Socket = IP + Port (toà chung cư / căn hộ)
+  - Trong front matter có thể đặt:
+    - `featuredImage: "/images/posts/networking/TCPSocketFeyman.png"`
+    - `featuredImagePreview: "/images/posts/networking/TCPSocketFeyman.png"`
 
 #### Bài 9: "HTTP và RESTful API với Java"
 - **Tags:** Java, Networking, HTTP, REST
@@ -247,6 +259,50 @@ code: true
   - Same-origin policy
   - Cách xử lý CORS
   - Best practices
+
+### 4.3. Các Bài Viết Theo Sở Trường Khác
+
+Dựa trên phần kỹ năng ở About (`Java`, `JavaScript`, `Network Programming`, `C++`, `Git/GitHub/GitLab`, `Docker`, `Web`, `React`), đề xuất thêm một số bài:
+
+#### Bài 13: "Lập trình C++ Cơ Bản cho Sinh viên IT"
+- **Tags:** C++, Basics, Programming
+- **Nội dung:**
+  - Cấu trúc chương trình C++
+  - Biến, kiểu dữ liệu, toán tử
+  - Điều kiện, vòng lặp
+  - Hàm và chia nhỏ chương trình
+
+#### Bài 14: "Quy trình làm việc với Git, GitHub và GitLab"
+- **Tags:** Git, GitHub, GitLab, Workflow
+- **Nội dung:**
+  - Khái niệm repository, commit, branch
+  - Git workflow cơ bản (feature branch, pull request/merge request)
+  - Làm việc nhóm với GitHub/GitLab
+  - Một số lệnh Git hay dùng
+
+#### Bài 15: "Giới thiệu Docker cho Developer Backend/DevOps"
+- **Tags:** Docker, DevOps, Container
+- **Nội dung:**
+  - Docker là gì, khác gì so với VM
+  - Image, container, volume, network
+  - Viết Dockerfile đơn giản cho ứng dụng Java/Node.js
+  - Push image lên Docker Hub
+
+#### Bài 16: "React cho Người đã Biết JavaScript"
+- **Tags:** React, JavaScript, Frontend
+- **Nội dung:**
+  - Component, props, state
+  - JSX & render UI
+  - Event handling
+  - Fetch API & hiển thị dữ liệu
+
+#### Bài 17: "Xây dựng Ứng dụng Web Fullstack Nhỏ"
+- **Tags:** Web Development, JavaScript, Networking
+- **Nội dung:**
+  - Thiết kế API (REST) đơn giản
+  - Backend (Java hoặc Node.js) cung cấp API
+  - Frontend (React hoặc HTML/JS thuần) gọi API
+  - Triển khai local / demo
 
 ---
 
@@ -297,17 +353,22 @@ code: true
 static/
 ├── images/
 │   ├── profile/
-│   │   └── avatar.jpg
+│   │   ├── GrayscaleVersion.png      # Ảnh chân dung trắng đen (dùng cho About/Hero)
+│   │   └── BackgroundWhite.png      # Phiên bản background trắng
 │   ├── certificates/
-│   │   ├── javascript-essentials-1.jpg
-│   │   ├── javascript-essentials-2.jpg
-│   │   └── networking-basics.jpg
+│   │   ├── NetworkingBasicsUpdate20251118-32-7k75aj.pdf
+│   │   ├── JavaScriptEssentials1Update20251118-31-d62o4j.pdf
+│   │   └── JavaScriptEssentials2Update20251121-32-bxp5cb.pdf
 │   └── posts/
-│       ├── post-1-featured.jpg
-│       ├── post-1-preview.jpg
-│       └── ...
+│       └── networking/
+│           ├── UDPSocketFeyman.png
+│           ├── TCPSocketFeyman.png
+│           └── SocketFeyman.png
 └── favicon.ico
 ```
+
+> Lưu ý: Hiện tại các file ảnh/PDF đang nằm ở root của repository (`*.png`, `*.pdf`).  
+> Khi triển khai thực tế, hãy **di chuyển thủ công** các file này vào đúng thư mục trong `static/` như cấu trúc trên.
 
 ### 7.2. Image Guidelines
 - **Format:** JPG (cho photos), PNG (cho graphics), WebP (tối ưu)
