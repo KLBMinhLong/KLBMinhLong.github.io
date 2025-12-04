@@ -29,15 +29,6 @@ enableGitInfo = true
     disableHLJS = false
     favicon = "/favicon.ico"
 
-  [params.homeInfoParams]
-    Title = "Nguyễn Minh Long"
-    Content = """
-Sinh viên năm 4 HUTECH.  
-Chia sẻ kiến thức về **Lập trình mạng**, **Java** và **JavaScript**.
-
-Blog này được xây dựng với Hugo + PaperMod, theo phong cách **tối giản trắng/đen/xám**.
-"""
-
 [menu]
   [[menu.main]]
     identifier = "home"
