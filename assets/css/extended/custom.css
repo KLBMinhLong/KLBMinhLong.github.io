@@ -1,0 +1,39 @@
+:root {
+  /* Light Mode - Minimalist: Trắng, Đen, Xám */
+  --theme: rgb(255, 255, 255);
+  --entry: rgb(255, 255, 255);
+  --primary: rgb(0, 0, 0);              /* Đen */
+  --secondary: rgb(51, 51, 51);         /* Xám đậm */
+  --tertiary: rgb(224, 224, 224);       /* Xám nhạt */
+  --content: rgb(0, 0, 0);              /* Đen - text chính */
+  --hljs-bg: rgb(245, 245, 245);        /* Xám rất nhạt - code background */
+  --code-bg: rgb(245, 245, 245);
+  --border: rgb(224, 224, 224);         /* Xám nhạt - borders */
+}
+
+[data-theme="dark"] {
+  /* Dark Mode - Minimalist: Đen, Trắng, Xám */
+  --theme: rgb(0, 0, 0);
+  --entry: rgb(0, 0, 0);
+  --primary: rgb(255, 255, 255);        /* Trắng */
+  --secondary: rgb(204, 204, 204);      /* Xám sáng */
+  --tertiary: rgb(51, 51, 51);          /* Xám đậm */
+  --content: rgb(255, 255, 255);        /* Trắng - text chính */
+  --hljs-bg: rgb(26, 26, 26);           /* Xám đen - code background */
+  --code-bg: rgb(26, 26, 26);
+  --border: rgb(51, 51, 51);            /* Xám đậm - borders */
+}
+
+/* Tối ưu chiều rộng nội dung cho bài viết */
+.post-content,
+.single .post-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Avatar trên trang About */
+.post-content img {
+  border-radius: 6px;
+}
+
+
