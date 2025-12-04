@@ -40,11 +40,7 @@ _(Ảnh chứng chỉ chi tiết được liên kết ở trang Home.)_
 
 ### Liên hệ
 
-- GitHub: [@KLBMinhLong](https://github.com/KLBMinhLong)  
-- Email: `nguyenminhlongcntt@gmail.com`  
-- Facebook: `https://www.facebook.com/long.nguyen.601773/`  
-- LinkedIn: `www.linkedin.com/in/minh-long-nguyễn-09984a333`  
-- Zalo / Số điện thoại: 0377241808  
+Để xem đầy đủ thông tin liên hệ (Email, GitHub, Facebook, LinkedIn, Zalo), bạn có thể truy cập trang **[Liên hệ](/contact/)**.
 
   </div>
 </div>

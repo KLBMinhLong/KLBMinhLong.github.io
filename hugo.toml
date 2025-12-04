@@ -32,21 +32,37 @@ enableGitInfo = true
 [menu]
   [[menu.main]]
     identifier = "home"
-    name = "Home"
+    name = "Trang chủ"
     url = "/"
     weight = 10
 
   [[menu.main]]
     identifier = "blog"
-    name = "Blog"
+    name = "Bài viết"
     url = "/posts/"
     weight = 20
 
   [[menu.main]]
     identifier = "about"
-    name = "About"
+    name = "Về tôi"
     url = "/about/"
     weight = 30
+
+  [[menu.main]]
+    identifier = "categories"
+    name = "Danh mục"
+    url = "/categories/"
+    weight = 40
+
+  [[menu.main]]
+    identifier = "contact"
+    name = "Liên hệ"
+    url = "/contact/"
+    weight = 50
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
 
 [markup]
   [markup.goldmark.renderer]

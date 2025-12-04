@@ -13,8 +13,9 @@
 
 **Áp dụng cho dự án:**
 - Hero section với tagline ngắn gọn về Network Programming
-- Navigation menu tối giản: Home, Blog, About
+- Navigation menu tối giản: Trang chủ, Bài viết, Về tôi, Danh mục, Liên hệ
 - Typography: Font sans-serif, dễ đọc
+- Hero section với tagline ấn tượng: " Khám phá thế giới số - Kiến Thức Căn Bản, Hiệu Quả Tức Thì"
 - Spacing rộng rãi, không chật chội
 
 ### 1.2. kysubrse.com
@@ -241,6 +242,7 @@ Các class chính:
 - `[data-theme="dark"] .post-entry:nth-child(...)`: gradient màu nhẹ khác nhau giữa các card (xanh, xanh ngọc, cam nhạt).
 - `.header`, `.nav .nav-item a::after`: thêm bóng và underline animation cho menu.
 - `.single .post-content img`: bo góc + đổ bóng cho ảnh chân dung.
+- `.anchor` trong heading: `display: none; pointer-events: none` để ẩn icon `#` và tránh URL bị thêm hash khi click.
  
 ### 5.2. Layout Overrides
 - Custom `layouts/partials/header.html` (nếu cần)

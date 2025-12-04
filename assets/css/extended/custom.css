@@ -199,7 +199,9 @@ a:hover,
 
 /* Ẩn biểu tượng # anchor trên heading cho giao diện \"sạch\" hơn */
 .post-content .anchor,
-.single .post-title .anchor {
+.single .post-title .anchor,
+.main .anchor {
   display: none;
+  pointer-events: none; /* tránh click vào tạo # trong URL */
 }
 
