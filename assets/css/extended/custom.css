@@ -225,6 +225,37 @@ a:hover,
   }
 }
 
+/* Home hero 2-column layout */
+.home-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: center;
+  padding: 2.5rem 0 1.5rem;
+}
+
+.home-hero-left img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+.home-hero-right h1 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.home-hero-right p {
+  margin-bottom: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .home-hero {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* 404 Page styling */
 .single .post-content h1 {
   font-size: 3rem;

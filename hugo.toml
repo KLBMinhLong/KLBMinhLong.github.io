@@ -29,6 +29,11 @@ enableGitInfo = true
     disableHLJS = false
     favicon = "/favicon.ico"
 
+  [params.label]
+    text = "Nguyễn Minh Long - Network Programming Blog"
+    icon = "/images/icon.jpg"      # đặt file tại static/images/icon.jpg
+    iconHeight = 32
+
   # SEO & Social
   [params.social]
     GitHub = "KLBMinhLong"

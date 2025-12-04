@@ -4,10 +4,17 @@ date: 2025-01-01
 type: "page"
 ---
 
+<section class="home-hero">
+  <div class="home-hero-left">
+
+![Ảnh chân dung](/images/profile/BackgroundWhite.png)
+
+  </div>
+  <div class="home-hero-right">
+
 # Xin chào, mình là Nguyễn Minh Long
 
-Sinh viên năm 4 ngành Công nghệ Thông tin tại HUTECH.  
-Mình yêu thích **Lập trình mạng**, **Java** và **JavaScript**, cùng các công nghệ web hiện đại.
+Mình là sinh viên năm 4 ngành Công nghệ Thông tin tại HUTECH, yêu thích **Lập trình mạng**, **Java** và **JavaScript**, cùng các công nghệ web hiện đại.
 
 Trang web này được xây dựng như một **Portfolio & Tech Blog** để:
 
@@ -15,7 +22,8 @@ Trang web này được xây dựng như một **Portfolio & Tech Blog** để:
 - Ghi lại quá trình học **JavaScript Essentials 1 & 2**, **Networking Basics**
 - Lưu trữ các ghi chú, demo code và kinh nghiệm cá nhân
 
----
+  </div>
+</section>
 
 ## Chứng chỉ nổi bật
 
@@ -41,8 +49,6 @@ Trang web này được xây dựng như một **Portfolio & Tech Blog** để:
     </a>
   </div>
 </section>
-
----
 
 ## Bài viết mới
 
