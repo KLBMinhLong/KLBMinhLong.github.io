@@ -13,10 +13,25 @@ Trước khi bắt đầu code, vui lòng xem các tài liệu kiến trúc sau:
 
 ## 🚀 Tech Stack
 
-- **Static Site Generator:** Hugo
-- **Theme:** PaperMod
-- **Hosting:** GitHub Pages
-- **CI/CD:** GitHub Actions
+- **Static Site Generator:** Hugo  
+- **Theme:** PaperMod  
+- **Hosting:** GitHub Pages  
+- **CI/CD:** GitHub Actions  
+
+### Cài theme PaperMod (local)
+
+```bash
+git submodule add https://github.com/adityatelange/hugo-PaperMod themes/PaperMod
+git submodule update --init --recursive
+```
+
+Sau đó có thể chạy:
+
+```bash
+hugo server -D
+```
+
+Để xem site local tại `http://localhost:1313/`.
 
 ## 📝 Nội Dung
 
