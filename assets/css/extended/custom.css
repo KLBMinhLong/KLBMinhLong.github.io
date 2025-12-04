@@ -26,7 +26,13 @@
   --accent: #8ac4ff;                    /* Xanh nhạt hơn so với light, không chói */
 }
 
-/* Tối ưu chiều rộng nội dung cho bài viết */
+/* Tối ưu chiều rộng nội dung cho bài viết & layout tổng thể */
+.main {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding-inline: 1.5rem;
+}
+
 .post-content,
 .single .post-content {
   max-width: 800px;
@@ -189,5 +195,11 @@ a:hover,
 .about-col-left img {
   width: 100%;
   height: auto;
+}
+
+/* Ẩn biểu tượng # anchor trên heading cho giao diện \"sạch\" hơn */
+.post-content .anchor,
+.single .post-title .anchor {
+  display: none;
 }
 
