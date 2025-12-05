@@ -18,9 +18,6 @@ ShowToc: true
 math: false
 code: true
 ---
-
-# Functions và Scope trong JavaScript
-
 ## Giới thiệu
 
 Sau khi đã nắm vững biến, kiểu dữ liệu và toán tử, bài viết này sẽ giới thiệu về **Functions (Hàm)** - một trong những khái niệm quan trọng nhất trong JavaScript.
