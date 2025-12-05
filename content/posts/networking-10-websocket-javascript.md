@@ -1,7 +1,7 @@
 ---
 title: "WebSocket trong JavaScript: Real-time Communication"
-date: 2025-01-13
-lastmod: 2025-01-13
+date: 2025-01-14
+lastmod: 2025-01-14
 draft: false
 author: "Nguyễn Minh Long"
 description: "Tìm hiểu WebSocket trong JavaScript: So sánh với HTTP, WebSocket API, cách xây dựng ứng dụng real-time như chat, và giới thiệu Socket.io."

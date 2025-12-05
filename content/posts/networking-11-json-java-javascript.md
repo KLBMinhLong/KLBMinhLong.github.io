@@ -1,7 +1,7 @@
 ---
 title: "Xử lý JSON trong Java và JavaScript"
-date: 2025-01-14
-lastmod: 2025-01-14
+date: 2025-01-15
+lastmod: 2025-01-15
 draft: false
 author: "Nguyễn Minh Long"
 description: "Tìm hiểu cách xử lý JSON trong Java và JavaScript: JSON format, parse và stringify trong JavaScript, sử dụng Jackson và Gson trong Java với ví dụ thực tế."
