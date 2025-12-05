@@ -19,7 +19,6 @@ math: false
 code: true
 ---
 
-
 ## Giới thiệu
 
 Sau khi đã hiểu JavaScript là gì và cách chạy JavaScript, bài viết này sẽ đi sâu vào **nền tảng cốt lõi** của ngôn ngữ: **biến, kiểu dữ liệu và toán tử**.

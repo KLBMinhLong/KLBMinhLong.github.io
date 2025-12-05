@@ -20,7 +20,6 @@ math: false
 code: true
 ---
 
-
 ## Giới thiệu
 
 Trong series **JavaScript Essentials 1**, mình sẽ ghi lại các kiến thức quan trọng nhất khi bắt đầu với JavaScript: cú pháp, kiểu dữ liệu, hàm, cách suy nghĩ thuật toán, v.v.
