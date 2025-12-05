@@ -1,5 +1,6 @@
 <header class="header">
     <nav class="nav">
+        <div class="nav-top">
         <div class="logo">
             {{- $label_text := (site.Params.label.text | default site.Title) }}
             {{- if site.Title }}
@@ -80,8 +81,10 @@
                 {{- end }}
             </div>
         </div>
-        {{- $currentPage := . }}
         {{- partial "search.html" . }}
+        </div>
+        {{- $currentPage := . }}
+        <div class="nav-menu">
         <ul id="menu">
             {{- range site.Menus.main }}
             {{- $menu_item_url := (cond (strings.HasSuffix .URL "/") .URL (printf "%s/" .URL) ) | absLangURL }}
@@ -107,6 +110,7 @@
             </li>
             {{- end }}
         </ul>
+        </div>
     </nav>
 </header>
 

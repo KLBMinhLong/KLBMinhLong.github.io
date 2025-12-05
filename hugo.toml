@@ -79,6 +79,15 @@ enableGitInfo = true
   category = "categories"
   tag = "tags"
 
+[outputFormats.JSON]
+  baseName = "index"
+  mediaType = "application/json"
+  isPlainText = true
+
+[outputs]
+  home = ["HTML", "RSS"]
+  page = ["HTML"]
+
 [markup]
   [markup.goldmark.renderer]
     unsafe = true

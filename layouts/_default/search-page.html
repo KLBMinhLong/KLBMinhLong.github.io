@@ -1,0 +1,182 @@
+{{ define "main" }}
+<section class="search-page">
+  <header class="page-header">
+    <h1>Tìm kiếm</h1>
+    <form class="search-page-form" action="/search/" method="get" role="search">
+      <input type="text" name="q" id="search-page-input" placeholder="Nhập từ khóa và nhấn Enter" value="{{ .Site.Params.q }}" />
+      <button type="submit">Tìm</button>
+    </form>
+  </header>
+
+  <div id="search-page-results" class="search-page-results"></div>
+</section>
+
+<script>
+  (function() {
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get('q') || '';
+    const input = document.getElementById('search-page-input');
+    const resultsContainer = document.getElementById('search-page-results');
+
+    if (input) {
+      input.value = q;
+    }
+
+    function renderResults(data, query) {
+      if (!resultsContainer) return;
+
+      if (!query || !data || (data.categories.length === 0 && data.posts.length === 0)) {
+        resultsContainer.innerHTML = '<div class="search-no-results">Không tìm thấy kết quả nào</div>';
+        return;
+      }
+
+      let html = '';
+      if (data.categories.length > 0) {
+        html += '<div class="search-results-section">';
+        html += '<h2>Chủ đề</h2>';
+        data.categories.forEach(item => {
+          html += `
+            <a class="search-result-item" href="${item.url}">
+              <div class="search-result-item-title">${item.title}</div>
+              <div class="search-result-item-meta">${item.count || 0} bài viết</div>
+            </a>
+          `;
+        });
+        html += '</div>';
+      }
+
+      if (data.posts.length > 0) {
+        html += '<div class="search-results-section">';
+        html += '<h2>Bài viết</h2>';
+        data.posts.forEach(item => {
+          const desc = item.description || item.content?.substring(0, 120) || '';
+          html += `
+            <a class="search-result-item" href="${item.url}">
+              <div class="search-result-item-title">${item.title}</div>
+              ${item.categories ? `<div class="search-result-item-meta">${item.categories.join(', ')}</div>` : ''}
+              ${desc ? `<div class="search-result-item-description">${desc}...</div>` : ''}
+            </a>
+          `;
+        });
+        html += '</div>';
+      }
+
+      resultsContainer.innerHTML = html;
+    }
+
+    async function loadIndexAndSearch(query) {
+      if (!query) {
+        renderResults({ categories: [], posts: [] }, '');
+        return;
+      }
+      try {
+        const res = await fetch('/search-index.json');
+        if (!res.ok) throw new Error('fetch failed');
+        const data = await res.json();
+
+        const result = { categories: [], posts: [] };
+        const lq = query.toLowerCase();
+
+        data.forEach(item => {
+          const title = (item.title || '').toLowerCase();
+          const content = (item.content || '').toLowerCase();
+          const categories = Array.isArray(item.categories) ? item.categories : [];
+          const tags = Array.isArray(item.tags) ? item.tags : [];
+
+          const matched =
+            title.includes(lq) ||
+            content.includes(lq) ||
+            categories.some(c => String(c).toLowerCase().includes(lq)) ||
+            tags.some(t => String(t).toLowerCase().includes(lq));
+
+          if (matched) {
+            if (item.type === 'category') {
+              result.categories.push(item);
+            } else {
+              result.posts.push(item);
+            }
+          }
+        });
+
+        renderResults(result, query);
+      } catch (e) {
+        console.error('Search page error:', e);
+        if (resultsContainer) resultsContainer.innerHTML = '<div class="search-no-results">Lỗi tải dữ liệu tìm kiếm</div>';
+      }
+    }
+
+    loadIndexAndSearch(q);
+  })();
+</script>
+
+<style>
+  .search-page {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 1rem 0 2rem 0;
+  }
+  .search-page-form {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  .search-page-form input {
+    flex: 1;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--entry);
+    color: var(--primary);
+  }
+  .search-page-form button {
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--accent);
+    color: var(--theme);
+    cursor: pointer;
+  }
+  .search-page-results {
+    margin-top: 1rem;
+    display: grid;
+    gap: 1rem;
+  }
+  .search-results-section h2 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+  }
+  .search-result-item {
+    display: block;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--primary);
+    background: var(--entry);
+    transition: all 0.2s ease;
+  }
+  .search-result-item:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  }
+  .search-result-item-title {
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+  }
+  .search-result-item-meta {
+    font-size: 0.9rem;
+    color: var(--secondary);
+  }
+  .search-result-item-description {
+    font-size: 0.9rem;
+    color: var(--secondary);
+    margin-top: 0.3rem;
+  }
+  .search-no-results {
+    padding: 1rem;
+    text-align: center;
+    color: var(--secondary);
+  }
+</style>
+{{ end }}
+

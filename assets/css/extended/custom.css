@@ -179,15 +179,41 @@ a:hover,
 .header {
   border-bottom: 1px solid var(--border);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-  min-height: 80px; /* Tăng từ 60px lên 80px (tăng 1/3) */
   display: flex;
   align-items: center;
+  background: var(--theme);
+  position: relative;
 }
 
 .nav {
-  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  width: 100%;
+  padding: 0.4rem 0 0.6rem 0;
+}
+
+.nav-top {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.25rem 0;
+  position: relative;
+}
+
+.nav-top::after { display: none; }
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.15rem 0;
+  margin-top: 0.25rem;
+  background: transparent;
+  border-radius: 0;
+  position: relative;
 }
 
 /* Logo với icon */
@@ -218,26 +244,101 @@ a:hover,
 .logo-text {
   font-weight: 600;
   font-size: 1.15rem;
-}
-
-.nav .nav-item a {
   position: relative;
 }
 
-.nav .nav-item a::after {
-  content: "";
+.logo-text::after {
+  content: '';
   position: absolute;
+  bottom: -2px;
   left: 0;
-  bottom: -4px;
   width: 0;
   height: 2px;
   background: var(--accent);
-  transition: width 0.2s ease;
+  transition: width 0.3s ease;
 }
 
-.nav .nav-item a:hover::after,
-.nav .nav-item .active::after {
+.logo-link:hover .logo-text::after {
   width: 100%;
+}
+
+.nav-menu #menu {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: relative;
+}
+
+.nav-menu #menu li {
+  position: relative;
+}
+
+.nav-menu #menu li a {
+  display: block;
+  padding: 0.25rem 0.85rem;
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  line-height: 1.4;
+}
+
+.nav-menu #menu li a::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(var(--accent-rgb, 76, 154, 255), 0.1), 
+    transparent);
+  transition: left 0.5s ease;
+}
+
+.nav-menu #menu li a:hover::before {
+  left: 100%;
+}
+
+.nav-menu #menu li a span {
+  position: relative;
+  z-index: 1;
+}
+
+.nav-menu #menu li a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0.25rem;
+  transform: translateX(-50%) scaleX(0);
+  width: 60%;
+  height: 2px;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: transform 0.3s ease;
+}
+
+.nav-menu #menu li a:hover::after,
+.nav-menu #menu li a span.active::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.nav-menu #menu li a span.active {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.nav-menu #menu li a:hover {
+  color: var(--accent);
+  background: rgba(var(--accent-rgb, 76, 154, 255), 0.05);
 }
 
 /* About intro - 2-column layout (ảnh + giới thiệu) */
@@ -1131,39 +1232,76 @@ button:focus-visible {
   }
 }
 
-/* Search Box in Header */
-.nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 1rem;
+/* Logo switches spacing */
+.nav .logo-switches {
+  margin-left: 0.75rem;
 }
 
-.nav #menu {
+/* Search container in nav-top */
+.nav-top .search-container {
+  flex: 0 0 280px;
+  max-width: 320px;
+  margin-left: auto;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  flex-wrap: wrap;
+  position: relative;
+}
+
+.nav-top .search-container::before { display: none; }
+
+@media (max-width: 1200px) {
+  .nav-top {
+    flex-wrap: wrap;
+  }
+
+  .nav-top .search-container {
+    order: 3;
+    width: 100%;
+    max-width: none;
+    margin: 0.5rem 0 0 0;
+  }
+
+  .nav-top .search-container::before {
+    display: none;
+  }
 }
 
 @media (max-width: 768px) {
   .nav {
-    flex-direction: column;
-    align-items: stretch;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
   }
 
-  .nav #menu {
-    justify-content: center;
+  .nav-top {
+    padding: 0.25rem 0;
   }
-  
-  .search-container {
-    order: -1;
+
+  .nav-top::after {
+    display: none;
+  }
+
+  .nav-menu {
+    margin-top: 0.15rem;
+    padding: 0.2rem 0;
+  }
+
+  .nav-menu::before {
+    display: none;
+  }
+
+  .nav-top .search-container {
     width: 100%;
-    margin-left: 0 !important;
+    margin: 0.5rem 0 0 0;
+  }
+
+  .nav-menu #menu {
+    gap: 0.5rem;
+    padding: 0;
+  }
+
+  .nav-menu #menu li a {
+    padding: 0.2rem 0.65rem;
+    font-size: 0.9rem;
   }
 }
 

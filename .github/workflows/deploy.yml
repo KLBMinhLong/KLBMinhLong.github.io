@@ -49,6 +49,14 @@ jobs:
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: Generate search index
+        run: node scripts/generate-search-index.js
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
