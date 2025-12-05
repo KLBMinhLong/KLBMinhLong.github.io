@@ -33,6 +33,13 @@
   padding-inline: 1.5rem;
 }
 
+/* Hero section full-width */
+.hero-section {
+  width: 100%;
+  margin: 0;
+  padding-inline: 0;
+}
+
 .post-content,
 .single .post-content {
   max-width: 800px;
@@ -158,6 +165,30 @@ a:hover,
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
 }
 
+/* Logo với icon */
+.logo-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: var(--primary);
+  transition: opacity 0.2s ease;
+}
+
+.logo-link:hover {
+  opacity: 0.8;
+}
+
+.logo-icon {
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.logo-text {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
 .nav .nav-item a {
   position: relative;
 }
@@ -225,7 +256,120 @@ a:hover,
   }
 }
 
-/* Home hero 2-column layout */
+/* Hero Section - Full width với background tối */
+.hero-section {
+  width: 100%;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--tertiary);
+  margin: 0;
+  padding: 4rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-content {
+  max-width: 1080px;
+  width: 100%;
+  text-align: center;
+  z-index: 1;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0 0 0.5rem 0;
+  line-height: 1.2;
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: var(--secondary);
+  margin: 0 0 1rem 0;
+  font-weight: 400;
+}
+
+.hero-tagline {
+  font-size: 1.5rem;
+  color: var(--accent);
+  margin: 0 0 1.5rem 0;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.hero-description {
+  font-size: 1.1rem;
+  color: var(--content);
+  margin: 0 0 2rem 0;
+  line-height: 1.6;
+}
+
+.hero-description strong {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.hero-cta {
+  margin-top: 2rem;
+}
+
+.hero-button {
+  display: inline-block;
+  padding: 0.875rem 2rem;
+  background: transparent;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.hero-button:hover {
+  background: var(--accent);
+  color: var(--theme);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(122, 184, 255, 0.3);
+}
+
+[data-theme="dark"] .hero-button:hover {
+  color: var(--primary);
+  box-shadow: 0 8px 20px rgba(138, 196, 255, 0.4);
+}
+
+/* Dark mode hero section */
+[data-theme="dark"] .hero-section {
+  background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: 50vh;
+    padding: 3rem 1rem;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .hero-tagline {
+    font-size: 1.25rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+}
+
+/* Home hero 2-column layout (cho phần content sau hero) */
 .home-hero {
   display: grid;
   grid-template-columns: minmax(0, 320px) minmax(0, 1fr);

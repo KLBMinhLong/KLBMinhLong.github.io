@@ -20,7 +20,7 @@ code: true
 
 ## Giới thiệu
 
-Trong lập trình mạng với Java, **socket** là “cửa” để chương trình của bạn nói chuyện với chương trình khác qua mạng.  
+Trong lập trình mạng với Java, **socket** là "cửa" để chương trình của bạn nói chuyện với chương trình khác qua mạng.  
 Trong bài này, mình sẽ dùng **phương pháp Feyman** (giải thích bằng hình ảnh và ví dụ đời thường) để giúp bạn hiểu rõ:
 
 - Socket là gì và hoạt động như thế nào
@@ -47,13 +47,15 @@ Trong Java, socket được biểu diễn bởi hai lớp chính:
 - `ServerSocket` – phía **server**, lắng nghe kết nối đến trên một port
 - `Socket` – đại diện cho **kết nối 2 chiều** giữa client và server
 
-> Hình `SocketFeyman.png` minh hoạ: Một tòa chung cư = địa chỉ IP, mỗi căn hộ = một port, socket = “cánh cửa cụ thể” mà hai bên dùng để giao tiếp.
+> Hình `SocketFeyman.png` minh hoạ: Một tòa chung cư = địa chỉ IP, mỗi căn hộ = một port, socket = "cánh cửa cụ thể" mà hai bên dùng để giao tiếp.
+
+![Socket là gì? - Minh họa bằng phương pháp Feynman](/images/posts/networking/SocketFeyman.png)
 
 ---
 
 ## 2. UDP vs TCP qua hình Feyman
 
-### 2.1. UDP Socket – “Hét qua loa” (`UDPSocketFeyman.png`)
+### 2.1. UDP Socket – "Hét qua loa" (`UDPSocketFeyman.png`)
 
 Với UDP, bạn có thể tưởng tượng:
 
@@ -69,7 +71,9 @@ Với UDP, bạn có thể tưởng tượng:
 
 > Hình `UDPSocketFeyman.png` minh họa: người gửi cầm loa nói, không quan tâm người nghe ở đâu, có nghe đủ hay không.
 
-### 2.2. TCP Socket – “Gửi hàng có ký nhận” (`TCPSocketFeyman.png`)
+![UDP Socket - "Hét qua loa" - Minh họa bằng phương pháp Feynman](/images/posts/networking/UDPSocketFeyman.png)
+
+### 2.2. TCP Socket – "Gửi hàng có ký nhận" (`TCPSocketFeyman.png`)
 
 Với TCP, hãy tưởng tượng:
 
@@ -86,6 +90,8 @@ Với TCP, hãy tưởng tượng:
 - Phù hợp: HTTP, REST API, hầu hết ứng dụng web, chat, file transfer
 
 > Hình `TCPSocketFeyman.png` minh họa: dòng chảy dữ liệu có kiểm soát giữa client và server với cơ chế bắt tay, xác nhận, gửi lại.
+
+![TCP Socket - "Gửi hàng có ký nhận" - Minh họa bằng phương pháp Feynman](/images/posts/networking/TCPSocketFeyman.png)
 
 ---
 
@@ -110,8 +116,7 @@ Trong bài này, ta sẽ làm **Echo Server**: client gửi gì, server trả l�
 ## 4. Ví dụ: TCP Echo Server trong Java
 
 ### 4.1. TCP Server (single-thread)
-
-```java
+va
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -148,19 +153,15 @@ public class EchoServer {
             e.printStackTrace();
         }
     }
-}
-```
+}Giải thích nhanh:
 
-Giải thích nhanh:
-
-- `ServerSocket serverSocket = new ServerSocket(port)` – mở “cửa” lắng nghe trên port 5000.
+- `ServerSocket serverSocket = new ServerSocket(port)` – mở "cửa" lắng nghe trên port 5000.
 - `accept()` – block cho đến khi có client kết nối.
 - `BufferedReader` + `PrintWriter` – đọc/ghi text line-by-line.
 - Vòng `while ((line = in.readLine()) != null)` – đọc liên tục cho đến khi client đóng kết nối.
 
 ### 4.2. TCP Client
-
-```java
+va
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -201,9 +202,7 @@ public class EchoClient {
         }
     }
 }
-```
-
-Chạy thử:
+}Chạy thử:
 
 1. Run `EchoServer` trước (server lắng nghe).
 2. Run `EchoClient`, gõ vài dòng text → server in log và client nhận lại `"Echo: ..."`.
@@ -219,17 +218,16 @@ Trong thực tế, ta muốn **nhiều client có thể kết nối cùng lúc**
 
 Ví dụ rút gọn:
 
-```java
 public class MultiThreadedEchoServer {
     public static void main(String[] args) {
         int port = 5000;
 
         try (ServerSocket serverSocket = new ServerSocket(port)) {
-            System.out.println(\"Multi-threaded Echo server đang chạy trên port \" + port);
+            System.out.println("Multi-threaded Echo server đang chạy trên port " + port);
 
             while (true) {
                 Socket clientSocket = serverSocket.accept();
-                System.out.println(\"Client mới: \" + clientSocket.getInetAddress());
+                System.out.println("Client mới: " + clientSocket.getInetAddress());
 
                 // Tạo thread mới để xử lý client
                 new Thread(new ClientHandler(clientSocket)).start();
@@ -255,8 +253,8 @@ class ClientHandler implements Runnable {
 
             String line;
             while ((line = in.readLine()) != null) {
-                System.out.println(\"[\" + clientSocket.getInetAddress() + \"] \" + line);
-                out.println(\"Echo: \" + line);
+                System.out.println("[" + clientSocket.getInetAddress() + "] " + line);
+                out.println("Echo: " + line);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -267,8 +265,6 @@ class ClientHandler implements Runnable {
         }
     }
 }
-```
-
 Ý tưởng:
 
 - **Main thread** chỉ lo `accept()` và tạo `ClientHandler`.
@@ -280,7 +276,7 @@ class ClientHandler implements Runnable {
 
 1. **Socket là gì?**  
    - Giống như **cửa của một căn hộ** trong một toà nhà (IP + port).  
-   - Client và server nói chuyện qua “cánh cửa” này.
+   - Client và server nói chuyện qua "cánh cửa" này.
 
 2. **UDP vs TCP?**  
    - UDP: **hét qua loa** – nhanh, không đảm bảo, phù hợp streaming.  
@@ -304,4 +300,4 @@ Từ ví dụ socket đơn giản này, bạn có thể:
 - Kết hợp với **JavaFX** hoặc **ứng dụng web** để có giao diện đẹp hơn.  
 - Tìm hiểu thêm về **NIO (java.nio)** để xử lý nhiều kết nối hiệu quả hơn (non-blocking IO).
 
-Trong bài tiếp theo, mình sẽ chuyển sang chủ đề **HTTP và RESTful API với Java**, nơi TCP/socket được “đóng gói” bên dưới giao thức HTTP quen thuộc.
+Trong bài tiếp theo, mình sẽ chuyển sang chủ đề **HTTP và RESTful API với Java**, nơi TCP/socket được "đóng gói" bên dưới giao thức HTTP quen thuộc.
