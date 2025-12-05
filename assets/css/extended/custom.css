@@ -40,10 +40,21 @@
   padding-inline: 0;
 }
 
-.post-content,
+/* Post content cho trang single (bài viết chi tiết) */
 .single .post-content {
   max-width: 800px;
   margin: 0 auto;
+}
+
+/* Post content cho trang home - không giới hạn width, không center */
+.main .post-content {
+  max-width: 100%;
+  margin: 0;
+}
+
+/* Đảm bảo headings trong home page align left */
+.main .post-content h2 {
+  text-align: left;
 }
 
 /* Avatar trên trang About */
@@ -75,6 +86,8 @@ a:hover,
   border: 1px solid var(--border);
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
   transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  width: 100%;
+  max-width: 100%;
 }
 
 .post-entry:hover {
@@ -105,12 +118,14 @@ a:hover,
 /* Section Certificates ở Home */
 .home-certificates {
   padding: 3rem 0 1rem;
+  text-align: left;
 }
 
 .home-certificates .cert-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1.5rem;
+  justify-items: start;
 }
 
 .home-certificates .cert-card {
@@ -231,9 +246,22 @@ a:hover,
 /* Ẩn biểu tượng # anchor trên heading cho giao diện \"sạch\" hơn */
 .post-content .anchor,
 .single .post-title .anchor,
-.main .anchor {
-  display: none;
-  pointer-events: none; /* tránh click vào tạo # trong URL */
+.main .anchor,
+.anchor,
+a.anchor {
+  display: none !important;
+  pointer-events: none !important; /* tránh click vào tạo # trong URL */
+  visibility: hidden !important;
+}
+
+/* Ẩn breadcrumbs */
+.breadcrumbs {
+  display: none !important;
+}
+
+/* Ẩn post meta (date, reading time, word count, author) */
+.post-meta {
+  display: none !important;
 }
 
 /* Responsive improvements */
