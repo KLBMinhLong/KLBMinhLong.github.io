@@ -74,12 +74,11 @@
         if (!res.ok) throw new Error('fetch failed');
         const data = await res.json();
 
-    const result = { categories: [], posts: [] };
+        const result = { categories: [], posts: [] };
         const lq = query.toLowerCase();
 
         data.forEach(item => {
-          if (item.type !== 'post') return; // only search posts
-
+          // match categories and posts
           const title = (item.title || '').toLowerCase();
           const content = (item.content || '').toLowerCase();
           const categories = Array.isArray(item.categories) ? item.categories : [];
@@ -91,7 +90,11 @@
             categories.some(c => String(c).toLowerCase().includes(lq)) ||
             tags.some(t => String(t).toLowerCase().includes(lq));
 
-          if (matched) {
+          if (!matched) return;
+
+          if (item.type === 'category') {
+            result.categories.push(item);
+          } else if (item.type === 'post') {
             result.posts.push(item);
           }
         });

@@ -9,9 +9,10 @@ console.log('Generating search index...');
 
 const items = [];
 
-// Read all markdown files
+// Read all markdown files (exclude _index)
+let categoryCounter = {};
 if (fs.existsSync(contentDir)) {
-  const files = fs.readdirSync(contentDir).filter(f => f.endsWith('.md'));
+  const files = fs.readdirSync(contentDir).filter(f => f.endsWith('.md') && !f.startsWith('_'));
   
   files.forEach(file => {
     const filePath = path.join(contentDir, file);
@@ -55,6 +56,8 @@ if (fs.existsSync(contentDir)) {
           .filter(c => c);
       }
     }
+    // Normalize category names
+    categories = categories.map(c => c.replace(/^[-\s]+/, '').trim());
     
     let tags = [];
     if (tagsMatch) {
@@ -101,9 +104,27 @@ if (fs.existsSync(contentDir)) {
       date: date
     };
     items.push(postItem);
+
+    // Count categories
+    categories.forEach(cat => {
+      if (!cat) return;
+      categoryCounter[cat] = (categoryCounter[cat] || 0) + 1;
+    });
   });
-  console.log(`Added ${files.length} posts, total items so far: ${items.length}`);
+console.log(`Added ${files.length} posts, total items so far: ${items.length}`);
 }
+
+// Add categories aggregated from posts
+Object.entries(categoryCounter).forEach(([cat, count]) => {
+  const catSlug = cat.toLowerCase().replace(/\s+/g, '-');
+  items.push({
+    type: 'category',
+    title: cat,
+    url: `/categories/${catSlug}/`,
+    count: count,
+    categories: [cat]
+  });
+});
 
 // Write JSON
 const json = JSON.stringify(items, null, 2);
