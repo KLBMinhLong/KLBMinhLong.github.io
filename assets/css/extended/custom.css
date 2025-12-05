@@ -256,7 +256,7 @@ a:hover,
   }
 }
 
-/* Hero Section - Full width với background tối */
+/* Hero Section - Full width với background tối, layout 2 cột */
 .hero-section {
   width: 100%;
   min-height: 60vh;
@@ -273,23 +273,39 @@ a:hover,
 .hero-content {
   max-width: 1080px;
   width: 100%;
-  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 400px);
+  gap: 3rem;
+  align-items: center;
   z-index: 1;
+}
+
+.hero-left {
+  text-align: left;
+}
+
+.hero-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-image {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  object-fit: cover;
 }
 
 .hero-title {
   font-size: 3rem;
   font-weight: 700;
   color: var(--primary);
-  margin: 0 0 0.5rem 0;
-  line-height: 1.2;
-}
-
-.hero-subtitle {
-  font-size: 1.25rem;
-  color: var(--secondary);
   margin: 0 0 1rem 0;
-  font-weight: 400;
+  line-height: 1.2;
+  text-align: left;
 }
 
 .hero-tagline {
@@ -298,6 +314,7 @@ a:hover,
   margin: 0 0 1.5rem 0;
   font-weight: 500;
   line-height: 1.4;
+  text-align: left;
 }
 
 .hero-description {
@@ -305,6 +322,7 @@ a:hover,
   color: var(--content);
   margin: 0 0 2rem 0;
   line-height: 1.6;
+  text-align: left;
 }
 
 .hero-description strong {
@@ -314,6 +332,7 @@ a:hover,
 
 .hero-cta {
   margin-top: 2rem;
+  text-align: left;
 }
 
 .hero-button {
@@ -348,24 +367,40 @@ a:hover,
 
 @media (max-width: 768px) {
   .hero-section {
-    min-height: 50vh;
+    min-height: auto;
     padding: 3rem 1rem;
+  }
+
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .hero-right {
+    order: -1;
+  }
+
+  .hero-image {
+    max-width: 250px;
   }
 
   .hero-title {
     font-size: 2rem;
-  }
-
-  .hero-subtitle {
-    font-size: 1.1rem;
+    text-align: center;
   }
 
   .hero-tagline {
     font-size: 1.25rem;
+    text-align: center;
   }
 
   .hero-description {
     font-size: 1rem;
+    text-align: center;
+  }
+
+  .hero-cta {
+    text-align: center;
   }
 }
 
