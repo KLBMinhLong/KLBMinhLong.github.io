@@ -12,14 +12,29 @@ tags:
 categories:
   - "JavaScript"
   - "Lập trình mạng"
-featuredImage: "/images/profile/BackgroundWhite.png"
-featuredImagePreview: "/images/profile/BackgroundWhite.png"
+featuredImage: "/images/posts/javascript/javascript-intro.jpg"
+featuredImagePreview: "/images/posts/javascript/javascript-intro-preview.jpg"
 toc: true
+ShowToc: true
 math: false
 code: true
 ---
 
 # Giới thiệu về JavaScript và Môi trường Chạy
+
+## Mục lục
+
+1. [Giới thiệu](#giới-thiệu)
+2. [JavaScript là gì?](#javascript-là-gì)
+3. [Môi trường chạy JavaScript](#môi-trường-chạy-javascript)
+   - [JavaScript trong trình duyệt (Browser)](#1-javascript-trong-trình-duyệt-browser)
+   - [JavaScript với Node.js](#2-javascript-với-nodejs)
+   - [So sánh nhanh: Browser vs Node.js](#3-so-sánh-nhanh-browser-vs-nodejs)
+4. [Chuẩn bị môi trường học JavaScript](#chuẩn-bị-môi-trường-học-javascript)
+5. [Cách chạy nhanh JavaScript khi học](#cách-chạy-nhanh-javascript-khi-học)
+6. [Kết luận](#kết-luận)
+
+---
 
 ## Giới thiệu
 
@@ -32,6 +47,10 @@ Bài viết đầu tiên tập trung vào:
 - Cách chuẩn bị môi trường lập trình để học hiệu quả
 
 ## JavaScript là gì?
+
+![JavaScript Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Unofficial_JavaScript_logo_2.svg/240px-Unofficial_JavaScript_logo_2.svg.png)
+
+*Logo JavaScript - Ngôn ngữ lập trình phổ biến nhất thế giới*
 
 JavaScript là **ngôn ngữ lập trình chạy chủ yếu trên trình duyệt web**, dùng để:
 
@@ -48,6 +67,10 @@ JavaScript là **ngôn ngữ lập trình chạy chủ yếu trên trình duyệ
 ## Môi trường chạy JavaScript
 
 ### 1. JavaScript trong trình duyệt (Browser)
+
+![Browser JavaScript](https://images.unsplash.com/photo-1551650975-87deedd944c3?w=800&h=400&fit=crop)
+
+*JavaScript chạy trong trình duyệt web*
 
 Khi mở một trang web, trình duyệt sẽ:
 
@@ -81,6 +104,10 @@ Ví dụ đơn giản – hiển thị thông báo khi nhấn nút:
 Chỉ cần mở file này trong trình duyệt là chạy được, không cần cài gì thêm.
 
 ### 2. JavaScript với Node.js
+
+![Node.js Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Node.js_logo.svg/240px-Node.js_logo.svg.png)
+
+*Node.js - Chạy JavaScript trên server*
 
 **Node.js** giúp chạy JavaScript **ngoài trình duyệt**, thường dùng cho:
 
@@ -122,6 +149,10 @@ Khi học **JavaScript Essentials 1**, phần lớn ví dụ sẽ thiên về **
 
 ### Bước 1: Cài VS Code (hoặc editor bạn thích)
 
+![VS Code](https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=400&fit=crop)
+
+*Visual Studio Code - Editor phổ biến cho JavaScript*
+
 - Truy cập `https://code.visualstudio.com/`
 - Cài đặt VS Code cho Windows
 - Cài thêm extensions gợi ý:
@@ -154,6 +185,10 @@ Tạo file `index.html` để test trong browser và file `main.js` để test v
 ## Cách chạy nhanh JavaScript khi học
 
 ### 1. Dùng Console trong trình duyệt
+
+![Browser Console](https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop)
+
+*Developer Console trong trình duyệt - Công cụ mạnh mẽ để test JavaScript*
 
 1. Mở bất kỳ trang web nào (hoặc file `index.html` của bạn).
 2. Nhấn `F12` → tab **Console**.

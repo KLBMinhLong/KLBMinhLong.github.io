@@ -16,6 +16,14 @@
 - Developers mới bắt đầu
 - Người quan tâm đến Network Programming
 
+### 1.3. Yêu Cầu Bắt Buộc Cho Mỗi Bài Viết
+- ✅ **Mục lục** với anchor links ở đầu bài
+- ✅ **Table of Contents (TOC)** tự động (sidebar) - bật trong front matter
+- ✅ **Ảnh minh họa** (ít nhất 2-3 ảnh/bài)
+- ✅ **Featured image** cho social sharing
+- ✅ **Code examples** với comment tiếng Việt
+- ✅ **Alt text** cho tất cả ảnh
+
 ---
 
 ## 2. Cấu Trúc Trang
@@ -113,40 +121,88 @@ categories:
   - "JavaScript"
 featuredImage: "/images/posts/ten-anh.jpg"
 featuredImagePreview: "/images/posts/ten-anh-preview.jpg"
-toc: true
+toc: true              # Bật Table of Contents tự động (sidebar)
+ShowToc: true          # Hiển thị TOC
 math: false
 code: true
 ---
 ```
 
+**Lưu ý quan trọng:**
+- `toc: true` và `ShowToc: true`: Bật mục lục tự động (Hugo PaperMod sẽ tạo TOC sidebar)
+- `featuredImage`: Ảnh đại diện cho bài viết (1200x630px cho social sharing)
+- `featuredImagePreview`: Ảnh preview nhỏ hơn (800x450px)
+
 ### 3.2. Cấu Trúc Nội Dung Bài Viết
 
-**Template chuẩn:**
+**Template chuẩn với Mục lục:**
 ```markdown
 # Tiêu đề bài viết
 
+## Mục lục
+
+1. [Giới thiệu](#giới-thiệu)
+2. [Nội dung chính](#nội-dung-chính)
+   - [Phần 1: ...](#phần-1-)
+   - [Phần 2: ...](#phần-2-)
+3. [Ví dụ thực tế](#ví-dụ-thực-tế)
+4. [Kết luận](#kết-luận)
+
+---
+
 ## Giới thiệu
+
+![Ảnh minh họa](/images/posts/ten-thu-muc/ten-anh.jpg)
+
+*Caption cho ảnh - Mô tả ngắn gọn*
+
 - Vấn đề/Chủ đề bài viết
 - Mục tiêu bài viết
 
 ## Nội dung chính
+
 ### Phần 1: ...
+
+![Ảnh minh họa phần 1](/images/posts/ten-thu-muc/anh-1.jpg)
+
+*Mô tả ảnh*
+
+Nội dung phần 1...
+
 ### Phần 2: ...
-### Phần 3: ...
+
+Nội dung phần 2...
 
 ## Ví dụ thực tế
+
 - Code examples
 - Screenshots (nếu có)
 
 ## Kết luận
+
 - Tóm tắt
 - Bài học rút ra
 - Tài liệu tham khảo
-
----
-**Tác giả:** Nguyễn Minh Long  
-**Ngày đăng:** DD/MM/YYYY
 ```
+
+**Quy tắc về Mục lục:**
+- **Bắt buộc**: Mỗi bài viết phải có section "Mục lục" ở đầu với các anchor links
+- Anchor links dùng format: `[Tên mục](#tên-mục-chuyển-thành-kebab-case)`
+- Hugo sẽ tự động tạo TOC sidebar nếu `toc: true` và `ShowToc: true`
+- Mục lục trong nội dung giúp người đọc dễ điều hướng
+
+**Cách tạo anchor links:**
+1. Lấy tiêu đề section (ví dụ: "JavaScript là gì?")
+2. Chuyển thành lowercase và thay khoảng trắng bằng dấu gạch ngang
+3. Bỏ dấu tiếng Việt (ă→a, â→a, đ→d, ê→e, ô→o, ơ→o, ư→u)
+4. Ví dụ: "JavaScript là gì?" → `#javascript-la-gi`
+
+**Ví dụ anchor links:**
+- `## JavaScript là gì?` → `[JavaScript là gì?](#javascript-la-gi)`
+- `### 1. JavaScript trong trình duyệt` → `[1. JavaScript trong trình duyệt](#1-javascript-trong-trinh-duyet)`
+- `## Chuẩn bị môi trường học JavaScript` → `[Chuẩn bị môi trường học JavaScript](#chuẩn-bị-môi-trường-học-javascript)`
+
+**Lưu ý:** Hugo tự động tạo anchor cho headings, nhưng có thể cần điều chỉnh cho tiếng Việt. Test trên local để đảm bảo links hoạt động đúng.
 
 ---
 
@@ -371,13 +427,63 @@ static/
 > Khi triển khai thực tế, hãy **di chuyển thủ công** các file này vào đúng thư mục trong `static/` như cấu trúc trên.
 
 ### 7.2. Image Guidelines
-- **Format:** JPG (cho photos), PNG (cho graphics), WebP (tối ưu)
-- **Size:** 
-  - Featured image: `1200x630px` (Facebook/Twitter)
-  - Preview: `800x450px`
-  - Inline: Max width `800px`
-- **Optimization:** Compress trước khi upload
-- **Alt text:** Luôn có mô tả cho accessibility
+
+**Format:**
+- JPG (cho photos)
+- PNG (cho graphics, logos)
+- WebP (tối ưu nhất, nhưng cần hỗ trợ browser)
+
+**Kích thước:**
+- Featured image: `1200x630px` (Facebook/Twitter)
+- Preview: `800x450px`
+- Inline images: Max width `800px`, height tự động
+- Logo/Icon: `240px` width hoặc nhỏ hơn
+
+**Tối ưu hóa:**
+- Compress trước khi upload (dùng TinyPNG, ImageOptim, hoặc Squoosh)
+- Đặt tên file rõ ràng: `javascript-logo.png`, `browser-console.jpg`
+- Alt text: Luôn có mô tả cho accessibility
+
+**Cách thêm ảnh vào bài viết:**
+
+1. **Lưu ảnh vào thư mục phù hợp:**
+   ```
+   static/images/posts/
+   ├── javascript/
+   │   ├── javascript-logo.png
+   │   ├── browser-console.jpg
+   │   └── nodejs-logo.png
+   ├── networking/
+   │   ├── socket-diagram.png
+   │   └── tcp-handshake.jpg
+   └── java/
+       └── java-logo.png
+   ```
+
+2. **Sử dụng trong Markdown:**
+   ```markdown
+   ![Mô tả ảnh](/images/posts/javascript/javascript-logo.png)
+   
+   *Caption cho ảnh - Giải thích thêm về ảnh*
+   ```
+
+3. **Với HTML để tùy chỉnh kích thước:**
+   ```html
+   <img src="/images/posts/javascript/javascript-logo.png" 
+        alt="JavaScript Logo" 
+        style="max-width: 400px; height: auto; display: block; margin: 1rem auto;" />
+   ```
+
+4. **Tìm ảnh miễn phí:**
+   - **Unsplash**: https://unsplash.com (ảnh chất lượng cao, free)
+   - **Pexels**: https://pexels.com (ảnh free)
+   - **Wikimedia Commons**: https://commons.wikimedia.org (logos, diagrams)
+   - **Flaticon**: https://flaticon.com (icons, cần credit)
+
+**Lưu ý:**
+- Nên tải ảnh về local thay vì dùng URL bên ngoài (tránh broken links)
+- Luôn có alt text và caption để dễ hiểu
+- Kiểm tra kích thước file (nên < 500KB cho mỗi ảnh)
 
 ---
 
@@ -416,27 +522,100 @@ static/
 - Tables cho so sánh (nếu cần)
 
 ### 9.3. Code Examples
+
+**Format chuẩn:**
+- Luôn có comment tiếng Việt giải thích
+- Syntax highlighting đúng ngôn ngữ
+- Code blocks với 3 backticks và tên ngôn ngữ
+
+**Ví dụ JavaScript:**
+````markdown
 ```javascript
-// Ví dụ code JavaScript
+// Hàm chào hỏi
 function greet(name) {
   return `Xin chào, ${name}!`;
 }
 
+// Sử dụng hàm
 console.log(greet("Minh Long"));
 ```
+````
 
+**Ví dụ Java:**
+````markdown
 ```java
-// Ví dụ code Java
+// Class HelloWorld
 public class HelloWorld {
     public static void main(String[] args) {
         System.out.println("Xin chào, Minh Long!");
     }
 }
 ```
+````
+
+### 9.4. Checklist Trước Khi Publish
+
+**Mỗi bài viết cần có:**
+- [ ] Mục lục với anchor links ở đầu bài
+- [ ] `toc: true` và `ShowToc: true` trong front matter
+- [ ] Featured image và preview image
+- [ ] Ít nhất 2-3 ảnh minh họa trong nội dung
+- [ ] Alt text cho tất cả ảnh
+- [ ] Caption cho ảnh quan trọng
+- [ ] Code examples có comment tiếng Việt
+- [ ] Description trong front matter (150-160 ký tự)
+- [ ] Tags và categories phù hợp
+- [ ] Kiểm tra lỗi chính tả
+- [ ] Test trên local server trước khi push
+
+---
+
+## 10. Quy Trình Viết Bài Viết
+
+### 10.1. Bước 1: Chuẩn bị
+1. Tạo file markdown: `hugo new posts/ten-bai-viet.md`
+2. Tạo thư mục ảnh: `static/images/posts/ten-thu-muc/`
+3. Tìm và tải ảnh minh họa (2-3 ảnh) từ:
+   - Unsplash: https://unsplash.com
+   - Pexels: https://pexels.com
+   - Wikimedia Commons: https://commons.wikimedia.org
+4. Tạo featured image (1200x630px) hoặc tìm ảnh phù hợp
+
+### 10.2. Bước 2: Viết nội dung
+1. Điền front matter đầy đủ (xem 3.1)
+2. Viết mục lục với anchor links (xem 3.2)
+3. Viết nội dung theo template
+4. Thêm ảnh minh họa vào các phần quan trọng
+5. Thêm code examples với comment tiếng Việt
+
+### 10.3. Bước 3: Review
+1. Kiểm tra checklist (xem 9.4)
+2. Test trên local: `hugo server -D`
+3. Kiểm tra TOC hiển thị đúng (sidebar bên phải)
+4. Kiểm tra ảnh load đúng
+5. Kiểm tra code examples format đúng
+6. Kiểm tra anchor links trong mục lục hoạt động
+
+### 10.4. Bước 4: Publish
+1. Commit: `git add .`
+2. Commit message: `feat: thêm bài viết [tên bài]`
+3. Push: `git push origin main`
+4. GitHub Actions tự động deploy
+5. Kiểm tra trên production: `https://klbminhlong.github.io/posts/ten-bai-viet/`
+
+---
+
+## 11. Ví Dụ Bài Viết Hoàn Chỉnh
+
+Xem file `content/posts/javascript-essentials-1-gioi-thieu.md` để tham khảo:
+- Cấu trúc mục lục
+- Cách thêm ảnh minh họa
+- Format code examples
+- Front matter đầy đủ
 
 ---
 
 **Ngày tạo:** 2025-01-XX  
 **Người tạo:** Nguyễn Minh Long  
-**Phiên bản:** 1.0
+**Phiên bản:** 2.0 (Cập nhật: Thêm mục lục, ảnh minh họa, checklist, quy trình viết bài)
 

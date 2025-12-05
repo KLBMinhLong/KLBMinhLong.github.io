@@ -53,12 +53,35 @@ Mình đặc biệt quan tâm đến **Lập trình mạng (Network Programming)
 
 <div class="about-section about-section-certs">
   <h3>🏆 Chứng chỉ</h3>
-  <ul>
-    <li><strong>Networking Basics</strong> – Cisco Networking Academy</li>
-    <li><strong>JavaScript Essentials 1</strong> – Cisco Networking Academy x OpenEDG</li>
-    <li><strong>JavaScript Essentials 2</strong> – Cisco Networking Academy x OpenEDG</li>
-  </ul>
-  <p class="about-note">_(Ảnh chứng chỉ chi tiết được liên kết ở trang Home.)_</p>
+  <div class="about-certs-list">
+    <div class="about-cert-item">
+      <a href="/images/certificates/NetworkingBasicsUpdate20251118-32-7k75aj.pdf" target="_blank" rel="noopener" class="about-cert-link">
+        <img src="/images/certificates/networking-basics.png" alt="Chứng chỉ Networking Basics" class="about-cert-image" />
+        <div class="about-cert-info">
+          <strong>Networking Basics</strong>
+          <span>Cisco Networking Academy</span>
+        </div>
+      </a>
+    </div>
+    <div class="about-cert-item">
+      <a href="/images/certificates/JavaScriptEssentials1Update20251118-31-d62o4j.pdf" target="_blank" rel="noopener" class="about-cert-link">
+        <img src="/images/certificates/javascript-essentials-1.png" alt="Chứng chỉ JavaScript Essentials 1" class="about-cert-image" />
+        <div class="about-cert-info">
+          <strong>JavaScript Essentials 1</strong>
+          <span>Cisco Networking Academy x OpenEDG</span>
+        </div>
+      </a>
+    </div>
+    <div class="about-cert-item">
+      <a href="/images/certificates/JavaScriptEssentials2Update20251121-32-bxp5cb.pdf" target="_blank" rel="noopener" class="about-cert-link">
+        <img src="/images/certificates/javascript-essentials-2.png" alt="Chứng chỉ JavaScript Essentials 2" class="about-cert-image" />
+        <div class="about-cert-info">
+          <strong>JavaScript Essentials 2</strong>
+          <span>Cisco Networking Academy x OpenEDG</span>
+        </div>
+      </a>
+    </div>
+  </div>
 </div>
 
 <div class="about-section about-section-contact">

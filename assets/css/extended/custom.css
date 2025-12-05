@@ -384,6 +384,80 @@ a:hover,
   font-size: 0.9rem;
 }
 
+/* About certificates list */
+.about-certs-list {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.about-cert-item {
+  display: flex;
+  align-items: center;
+}
+
+.about-cert-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  color: inherit;
+  padding: 1rem;
+  background: var(--theme);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  width: 100%;
+}
+
+.about-cert-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: var(--accent);
+}
+
+.about-cert-image {
+  width: 120px;
+  height: auto;
+  border-radius: 6px;
+  object-fit: cover;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.about-cert-link:hover .about-cert-image {
+  transform: scale(1.05);
+}
+
+.about-cert-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.about-cert-info strong {
+  color: var(--primary);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.about-cert-info span {
+  color: var(--secondary);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .about-cert-link {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .about-cert-image {
+    width: 100px;
+  }
+}
+
 .about-section-contact p {
   margin: 0;
   line-height: 1.8;

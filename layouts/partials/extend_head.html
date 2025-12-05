@@ -1,0 +1,43 @@
+{{- /* Custom CSS để đảm bảo tiêu đề được center trên production */ -}}
+<style>
+/* Center tiêu đề trang - inline CSS để đảm bảo luôn được load */
+.page-header h1,
+.post-header h1,
+.post-title,
+article.post-single .post-header h1,
+article.post-single .post-title,
+.post-single .post-header h1.post-title,
+.post-single .post-header .post-title,
+.post-single header.post-header h1,
+.post-single header.post-header .post-title,
+h1.post-title.entry-hint-parent {
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.page-header,
+.post-header,
+.post-single .post-header,
+article.post-single header.post-header {
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+}
+
+/* Đảm bảo tiêu đề contact và about được center */
+.type-contact .post-title,
+.type-page .post-title,
+.type-contact .post-header h1,
+.type-page .post-header h1,
+.type-contact article.post-single .post-header h1,
+.type-page article.post-single .post-header h1,
+.type-contact .post-single .post-title,
+.type-page .post-single .post-title {
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+</style>
+
