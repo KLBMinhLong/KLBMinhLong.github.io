@@ -78,7 +78,8 @@
   
   {{- /* Hiển thị parent categories không có children */ -}}
   {{- range $parent, $count := $standaloneParents }}
-    {{- if not (hasKey $parentGroups $parent) }}
+    {{- $parentInGroups := index $parentGroups $parent }}
+    {{- if not $parentInGroups }}
       {{- $parentPage := site.GetPage (printf "/%s/%s" $type $parent) }}
       {{- if $parentPage }}
       <div class="category-group">
