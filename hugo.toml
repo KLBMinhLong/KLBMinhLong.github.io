@@ -32,7 +32,7 @@ enableGitInfo = true
   [params.label]
     text = "Nguyễn Minh Long - Network Programming Blog"
     icon = "/images/icon.jpg"      # đặt file tại static/images/icon.jpg
-    iconHeight = 32
+    iconHeight = 48
 
   # SEO & Social
   [params.social]
