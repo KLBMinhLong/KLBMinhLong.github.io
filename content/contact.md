@@ -1,12 +1,12 @@
 ---
 title: "Liên hệ"
 date: 2025-01-01
-type: "page"
+type: "contact"
 showToc: false
 ---
 
 <div class="contact-intro">
-  <p>Nếu bạn quan tâm đến nội dung trên blog hoặc muốn kết nối, có thể liên hệ với mình qua các kênh sau. Mình luôn sẵn sàng trao đổi về **Lập trình mạng**, **Java**, **JavaScript** và các chủ đề liên quan đến phát triển web.</p>
+<p>Nếu bạn quan tâm đến nội dung trên blog hoặc muốn kết nối, có thể liên hệ với mình qua các kênh sau. Mình luôn sẵn sàng trao đổi về <strong>Lập trình mạng</strong>, <strong>Java</strong>, <strong>JavaScript</strong> và các chủ đề liên quan đến phát triển web.</p>
 </div>
 
 <div class="contact-sections">
