@@ -19,33 +19,12 @@ math: false
 code: true
 ---
 
-# Biến, Kiểu Dữ Liệu và Toán Tử trong JavaScript
-
-## Mục lục
-
-1. [Giới thiệu](#giới-thiệu)
-2. [Biến trong JavaScript](#biến-trong-javascript)
-   - [Khai báo biến với var, let, const](#khai-báo-biến-với-var-let-const)
-   - [So sánh var, let và const](#so-sánh-var-let-và-const)
-   - [Hoisting và Scope](#hoisting-và-scope)
-3. [Kiểu Dữ Liệu (Data Types)](#kiểu-dữ-liệu-data-types)
-   - [Primitive Types](#primitive-types)
-   - [Type Checking và Type Coercion](#type-checking-và-type-coercion)
-4. [Toán Tử (Operators)](#toán-tử-operators)
-   - [Toán tử số học](#toán-tử-số-học)
-   - [Toán tử so sánh](#toán-tử-so-sánh)
-   - [Toán tử logic](#toán-tử-logic)
-   - [Toán tử gán](#toán-tử-gán)
-5. [Ví dụ thực tế](#ví-dụ-thực-tế)
-6. [Kết luận](#kết-luận)
-
----
 
 ## Giới thiệu
 
 Sau khi đã hiểu JavaScript là gì và cách chạy JavaScript, bài viết này sẽ đi sâu vào **nền tảng cốt lõi** của ngôn ngữ: **biến, kiểu dữ liệu và toán tử**.
 
-![JavaScript Variables](https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=400&fit=crop)
+![JavaScript Variables](/images/posts/javascript/javascript-variables.jpg)
 
 *Biến là nền tảng của mọi chương trình JavaScript*
 
@@ -117,7 +96,7 @@ PI = 3.14; // ❌ Lỗi: Assignment to constant variable
 - Có block scope
 - Khuyến nghị dùng cho giá trị không đổi
 
-![Variable Declaration](https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop)
+![Variable Declaration](/images/posts/javascript/browser-console.jpg)
 
 *So sánh var, let và const trong JavaScript*
 
@@ -265,7 +244,7 @@ let soLonKhac = BigInt("9007199254740991");
 console.log(typeof soLon); // "bigint"
 ```
 
-![JavaScript Data Types](https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&h=400&fit=crop)
+![JavaScript Data Types](/images/posts/javascript/javascript-datatypes.jpg)
 
 *Các kiểu dữ liệu trong JavaScript*
 
