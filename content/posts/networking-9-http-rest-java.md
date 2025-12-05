@@ -20,8 +20,6 @@ math: false
 code: true
 ---
 
-# HTTP và RESTful API với Java
-
 ## Giới thiệu
 
 Sau khi đã hiểu về **Socket** và **TCP** ở bài trước, bài này sẽ giúp bạn nắm vững **HTTP** - giao thức nền tảng của web hiện đại, và cách sử dụng **Java HTTP Client** để gọi **RESTful API**.

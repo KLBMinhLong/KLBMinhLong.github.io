@@ -20,8 +20,6 @@ math: false
 code: true
 ---
 
-# Xử lý JSON trong Java và JavaScript
-
 ## Giới thiệu
 
 **JSON (JavaScript Object Notation)** là định dạng dữ liệu phổ biến nhất trong web hiện đại, được dùng để trao đổi dữ liệu giữa client và server.

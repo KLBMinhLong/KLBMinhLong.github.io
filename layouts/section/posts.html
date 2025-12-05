@@ -1,0 +1,202 @@
+{{- define "main" }}
+
+{{- if not .IsHome | and .Title }}
+<header class="page-header">
+  {{- partial "breadcrumbs.html" . }}
+  <h1>
+    {{ .Title }}
+    {{- if and (or (eq .Kind `term`) (eq .Kind `section`)) (.Param "ShowRssButtonInSectionTermList") }}
+    {{- with .OutputFormats.Get "rss" }}
+    <a href="{{ .RelPermalink }}" title="RSS" aria-label="RSS">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" height="23">
+        <path d="M4 11a9 9 0 0 1 9 9" />
+        <path d="M4 4a16 16 0 0 1 16 16" />
+        <circle cx="5" cy="19" r="1" />
+      </svg>
+    </a>
+    {{- end }}
+    {{- end }}
+  </h1>
+  {{- if .Description }}
+  <div class="post-description">
+    {{ .Description | markdownify }}
+  </div>
+  {{- end }}
+</header>
+{{- end }}
+
+{{- if .Content }}
+<div class="post-content">
+  {{- if not (.Param "disableAnchoredHeadings") }}
+  {{- partial "anchored_headings.html" .Content -}}
+  {{- else }}{{ .Content }}{{ end }}
+</div>
+{{- end }}
+
+{{- $pages := union .RegularPages .Sections }}
+
+{{- $paginator := .Paginate $pages }}
+
+{{- if and .IsHome site.Params.homeInfoParams (eq $paginator.PageNumber 1) }}
+{{- partial "home_info.html" . }}
+{{- end }}
+
+{{- $term := .Data.Term }}
+
+{{- /* Thêm nút sắp xếp */ -}}
+<div class="posts-sort-controls" style="margin: 1.5rem 0; text-align: center;">
+  <button id="sort-toggle" class="sort-button" onclick="toggleSortOrder()" style="
+    background: var(--theme);
+    border: 1px solid var(--border);
+    color: var(--primary);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+  ">
+    <span id="sort-text">Mới nhất → Cũ nhất</span>
+    <svg id="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; margin-left: 0.5rem; vertical-align: middle;">
+      <path d="M3 6h18M7 12h10M11 18h2"/>
+    </svg>
+  </button>
+</div>
+
+<div id="posts-container">
+  {{- range $index, $page := $paginator.Pages }}
+
+  {{- $class := "post-entry" }}
+
+  {{- $user_preferred := or site.Params.disableSpecial1stPost site.Params.homeInfoParams }}
+  {{- if (and $.IsHome (eq $paginator.PageNumber 1) (eq $index 0) (not $user_preferred)) }}
+  {{- $class = "first-entry" }}
+  {{- else if $term }}
+  {{- $class = "post-entry tag-entry" }}
+  {{- end }}
+
+  <article class="{{ $class }}" data-date="{{ $page.Date.Format "2006-01-02" }}">
+    {{- $isHidden := (.Param "cover.hiddenInList") | default (.Param "cover.hidden") | default false }}
+    {{- partial "cover.html" (dict "cxt" . "IsSingle" false "isHidden" $isHidden) }}
+    <header class="entry-header">
+      <h2 class="entry-hint-parent">
+        {{- .Title }}
+        {{- if .Draft }}
+        <span class="entry-hint" title="Draft">
+          <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" fill="currentColor">
+            <path
+              d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+          </svg>
+        </span>
+        {{- end }}
+      </h2>
+    </header>
+    {{- if (ne (.Param "hideSummary") true) }}
+    <div class="entry-content">
+      <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
+    </div>
+    {{- end }}
+    {{- if not (.Param "hideMeta") }}
+    <footer class="entry-footer">
+      {{- partial "post_meta.html" . -}}
+    </footer>
+    {{- end }}
+    <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
+  </article>
+  {{- end }}
+</div>
+
+{{- if gt $paginator.TotalPages 1 }}
+<footer class="page-footer">
+  <nav class="pagination">
+    {{- if $paginator.HasPrev }}
+    <a class="prev" href="{{ $paginator.Prev.URL | absURL }}">
+      «&nbsp;{{ i18n "prev_page" }}&nbsp;
+      {{- if (.Param "ShowPageNums") }}
+      {{- sub $paginator.PageNumber 1 }}/{{ $paginator.TotalPages }}
+      {{- end }}
+    </a>
+    {{- end }}
+    {{- if $paginator.HasNext }}
+    <a class="next" href="{{ $paginator.Next.URL | absURL }}">
+      {{- i18n "next_page" }}&nbsp;
+      {{- if (.Param "ShowPageNums") }}
+      {{- add 1 $paginator.PageNumber }}/{{ $paginator.TotalPages }}
+      {{- end }}&nbsp;»
+    </a>
+    {{- end }}
+  </nav>
+</footer>
+{{- end }}
+
+<script>
+  let sortOrder = 'desc'; // Mặc định: mới nhất trước (desc)
+
+  function toggleSortOrder() {
+    const container = document.getElementById('posts-container');
+    const articles = Array.from(container.querySelectorAll('article[data-date]'));
+    const sortButton = document.getElementById('sort-toggle');
+    const sortText = document.getElementById('sort-text');
+    const sortIcon = document.getElementById('sort-icon');
+
+    // Đảo ngược thứ tự
+    sortOrder = sortOrder === 'desc' ? 'asc' : 'desc';
+
+    // Sắp xếp articles
+    articles.sort((a, b) => {
+      const dateA = new Date(a.getAttribute('data-date'));
+      const dateB = new Date(b.getAttribute('data-date'));
+      
+      if (sortOrder === 'desc') {
+        return dateB - dateA; // Mới nhất trước
+      } else {
+        return dateA - dateB; // Cũ nhất trước
+      }
+    });
+
+    // Cập nhật DOM
+    articles.forEach(article => container.appendChild(article));
+
+    // Cập nhật text và icon
+    if (sortOrder === 'desc') {
+      sortText.textContent = 'Mới nhất → Cũ nhất';
+      sortIcon.innerHTML = '<path d="M3 6h18M7 12h10M11 18h2"/>';
+    } else {
+      sortText.textContent = 'Cũ nhất → Mới nhất';
+      sortIcon.innerHTML = '<path d="M3 18h18M7 12h10M11 6h2"/>';
+    }
+
+    // Lưu preference vào localStorage
+    localStorage.setItem('postsSortOrder', sortOrder);
+  }
+
+  // Khôi phục sort order từ localStorage khi load trang
+  document.addEventListener('DOMContentLoaded', function() {
+    const savedSortOrder = localStorage.getItem('postsSortOrder');
+    if (savedSortOrder && savedSortOrder !== 'desc') {
+      sortOrder = savedSortOrder;
+      toggleSortOrder();
+    }
+  });
+</script>
+
+<style>
+  .sort-button:hover {
+    background: var(--hljs-bg) !important;
+    border-color: var(--accent) !important;
+  }
+
+  @media (max-width: 768px) {
+    .posts-sort-controls {
+      margin: 1rem 0 !important;
+    }
+    
+    .sort-button {
+      font-size: 0.85rem !important;
+      padding: 0.4rem 0.8rem !important;
+    }
+  }
+</style>
+
+{{- end }}{{- /* end main */ -}}
+

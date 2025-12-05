@@ -20,8 +20,6 @@ math: false
 code: true
 ---
 
-# CORS và Các Vấn đề Bảo Mật trong Web Development
-
 ## Giới thiệu
 
 Khi phát triển web application, bạn sẽ gặp phải lỗi **CORS (Cross-Origin Resource Sharing)** khi frontend cố gắng gọi API từ domain khác. Đây là một cơ chế bảo mật quan trọng của trình duyệt.

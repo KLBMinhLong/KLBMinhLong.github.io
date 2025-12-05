@@ -20,8 +20,6 @@ math: false
 code: true
 ---
 
-# WebSocket trong JavaScript: Real-time Communication
-
 ## Giới thiệu
 
 Sau khi đã hiểu về **HTTP** (request-response), bài này sẽ giới thiệu **WebSocket** - giao thức cho phép giao tiếp **real-time, hai chiều** giữa client và server.

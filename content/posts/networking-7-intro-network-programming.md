@@ -19,8 +19,6 @@ math: false
 code: true
 ---
 
-# Giới thiệu về Lập trình Mạng (Network Programming)
-
 ## Giới thiệu
 
 Trong thời đại kết nối toàn cầu, **Lập trình Mạng (Network Programming)** là kỹ năng quan trọng cho mọi lập trình viên. Bài viết này sẽ giới thiệu những khái niệm cơ bản nhất về lập trình mạng.
