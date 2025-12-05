@@ -14,6 +14,7 @@ categories:
 featuredImage: "/images/posts/networking/TCPSocketFeyman.png"
 featuredImagePreview: "/images/posts/networking/TCPSocketFeyman.png"
 toc: true
+ShowToc: true
 math: false
 code: true
 ---
@@ -21,14 +22,12 @@ code: true
 ## Giới thiệu
 
 Trong lập trình mạng với Java, **socket** là "cửa" để chương trình của bạn nói chuyện với chương trình khác qua mạng.  
-Trong bài này, mình sẽ dùng **phương pháp Feyman** (giải thích bằng hình ảnh và ví dụ đời thường) để giúp bạn hiểu rõ:
+Trong bài này, mình sẽ dùng **phương pháp Feynman** (giải thích bằng hình ảnh và ví dụ đời thường) để giúp bạn hiểu rõ:
 
 - Socket là gì và hoạt động như thế nào
 - Sự khác nhau giữa **UDP socket** và **TCP socket**
 - Cách dùng `java.net.ServerSocket` và `java.net.Socket` để tạo **TCP Echo Server** đơn giản
 - Cách mở rộng server thành **đa luồng (multi-threading)** để phục vụ nhiều client
-
----
 
 ## 1. Socket là gì? (Hình Feyman: `SocketFeyman.png`)
 
@@ -116,7 +115,8 @@ Trong bài này, ta sẽ làm **Echo Server**: client gửi gì, server trả l�
 ## 4. Ví dụ: TCP Echo Server trong Java
 
 ### 4.1. TCP Server (single-thread)
-va
+
+```java
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -153,7 +153,10 @@ public class EchoServer {
             e.printStackTrace();
         }
     }
-}Giải thích nhanh:
+}
+```
+
+**Giải thích nhanh:**
 
 - `ServerSocket serverSocket = new ServerSocket(port)` – mở "cửa" lắng nghe trên port 5000.
 - `accept()` – block cho đến khi có client kết nối.
@@ -161,7 +164,8 @@ public class EchoServer {
 - Vòng `while ((line = in.readLine()) != null)` – đọc liên tục cho đến khi client đóng kết nối.
 
 ### 4.2. TCP Client
-va
+
+```java
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -200,9 +204,12 @@ public class EchoClient {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        }
     }
 }
-}Chạy thử:
+```
+
+**Chạy thử:**
 
 1. Run `EchoServer` trước (server lắng nghe).
 2. Run `EchoClient`, gõ vài dòng text → server in log và client nhận lại `"Echo: ..."`.
@@ -216,7 +223,14 @@ Trong thực tế, ta muốn **nhiều client có thể kết nối cùng lúc**
 
 - Mỗi khi `accept()` trả về một `Socket` mới, ta tạo một **Thread** hoặc **Runnable** để xử lý client đó.
 
-Ví dụ rút gọn:
+**Ví dụ đầy đủ:**
+
+```java
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 public class MultiThreadedEchoServer {
     public static void main(String[] args) {
@@ -265,14 +279,78 @@ class ClientHandler implements Runnable {
         }
     }
 }
-Ý tưởng:
+```
+
+**Ý tưởng:**
 
 - **Main thread** chỉ lo `accept()` và tạo `ClientHandler`.
 - Mỗi `ClientHandler` chạy trên một thread riêng, đọc/ghi với client tương ứng.
 
 ---
 
-## 6. Tóm tắt theo phương pháp Feyman
+## 6. UDP Socket (Tham khảo)
+
+Ngoài TCP, Java cũng hỗ trợ UDP Socket với `DatagramSocket` và `DatagramPacket`:
+
+```java
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+
+// UDP Server
+public class UDPServer {
+    public static void main(String[] args) throws Exception {
+        DatagramSocket socket = new DatagramSocket(5000);
+        byte[] buffer = new byte[1024];
+        
+        while (true) {
+            DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+            socket.receive(packet);
+            
+            String message = new String(packet.getData(), 0, packet.getLength());
+            System.out.println("Nhận: " + message);
+            
+            // Gửi lại
+            InetAddress clientAddress = packet.getAddress();
+            int clientPort = packet.getPort();
+            byte[] response = ("Echo: " + message).getBytes();
+            DatagramPacket responsePacket = new DatagramPacket(
+                response, response.length, clientAddress, clientPort
+            );
+            socket.send(responsePacket);
+        }
+    }
+}
+
+// UDP Client
+public class UDPClient {
+    public static void main(String[] args) throws Exception {
+        DatagramSocket socket = new DatagramSocket();
+        InetAddress serverAddress = InetAddress.getByName("localhost");
+        
+        String message = "Xin chào từ UDP Client!";
+        byte[] data = message.getBytes();
+        DatagramPacket packet = new DatagramPacket(
+            data, data.length, serverAddress, 5000
+        );
+        socket.send(packet);
+        
+        // Nhận phản hồi
+        byte[] buffer = new byte[1024];
+        DatagramPacket response = new DatagramPacket(buffer, buffer.length);
+        socket.receive(response);
+        
+        String responseMessage = new String(
+            response.getData(), 0, response.getLength()
+        );
+        System.out.println("Nhận từ server: " + responseMessage);
+        
+        socket.close();
+    }
+}
+```
+
+## 7. Tóm tắt theo phương pháp Feynman
 
 1. **Socket là gì?**  
    - Giống như **cửa của một căn hộ** trong một toà nhà (IP + port).  
@@ -292,12 +370,77 @@ class ClientHandler implements Runnable {
 
 ---
 
-## 7. Hướng phát triển tiếp theo
+## 8. Best Practices
 
-Từ ví dụ socket đơn giản này, bạn có thể:
+### 1. Luôn đóng Socket và Streams
 
-- Xây dựng **chat room** mini dùng TCP (nhiều client, broadcast message).  
-- Kết hợp với **JavaFX** hoặc **ứng dụng web** để có giao diện đẹp hơn.  
-- Tìm hiểu thêm về **NIO (java.nio)** để xử lý nhiều kết nối hiệu quả hơn (non-blocking IO).
+```java
+// ✅ Tốt - Dùng try-with-resources
+try (Socket socket = new Socket("localhost", 5000);
+     BufferedReader in = new BufferedReader(...);
+     PrintWriter out = new PrintWriter(...)) {
+    // Sử dụng socket
+} // Tự động đóng
 
-Trong bài tiếp theo, mình sẽ chuyển sang chủ đề **HTTP và RESTful API với Java**, nơi TCP/socket được "đóng gói" bên dưới giao thức HTTP quen thuộc.
+// ❌ Không tốt - Quên đóng
+Socket socket = new Socket("localhost", 5000);
+// socket.close(); // Quên đóng!
+```
+
+### 2. Xử lý Exception đầy đủ
+
+```java
+try {
+    Socket socket = new Socket("localhost", 5000);
+    // ...
+} catch (IOException e) {
+    System.err.println("Lỗi kết nối: " + e.getMessage());
+    e.printStackTrace();
+}
+```
+
+### 3. Set Timeout cho Socket
+
+```java
+Socket socket = new Socket();
+socket.connect(new InetSocketAddress("localhost", 5000), 5000); // 5 giây timeout
+```
+
+### 4. Dùng Thread Pool cho Multi-threaded Server
+
+```java
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+ExecutorService threadPool = Executors.newFixedThreadPool(10);
+
+while (true) {
+    Socket clientSocket = serverSocket.accept();
+    threadPool.execute(new ClientHandler(clientSocket));
+}
+```
+
+## 9. Kết luận
+
+Trong bài 8, bạn đã học được:
+
+- ✅ **Socket là gì**: IP + Port, "cửa" để giao tiếp mạng
+- ✅ **TCP vs UDP**: TCP đảm bảo, UDP nhanh
+- ✅ **java.net.Socket & ServerSocket**: Cách tạo TCP connection
+- ✅ **Echo Server**: Ví dụ cơ bản về TCP Server/Client
+- ✅ **Multi-threading**: Xử lý nhiều client cùng lúc
+- ✅ **UDP Socket**: Cách sử dụng DatagramSocket
+
+**Best Practices:**
+- ✅ Luôn đóng socket và streams
+- ✅ Xử lý exception đầy đủ
+- ✅ Set timeout cho kết nối
+- ✅ Dùng thread pool cho multi-threaded server
+
+**Lưu ý quan trọng:**
+- TCP đảm bảo độ tin cậy, UDP nhanh nhưng không đảm bảo
+- ServerSocket.accept() block cho đến khi có client kết nối
+- Cần multi-threading để xử lý nhiều client
+- Luôn đóng socket sau khi sử dụng
+
+Trong bài tiếp theo, chúng ta sẽ tìm hiểu về **HTTP và RESTful API với Java** - cách sử dụng HTTP Client để gọi API và xây dựng RESTful services.

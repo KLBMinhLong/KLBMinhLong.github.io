@@ -12,16 +12,23 @@ tags:
   - REST
 categories:
   - "Lập trình mạng"
-featuredImage: "/images/profile/BackgroundWhite.png"
-featuredImagePreview: "/images/profile/BackgroundWhite.png"
+featuredImage: "/images/posts/networking/http-rest-api.jpg"
+featuredImagePreview: "/images/posts/networking/http-rest-api-preview.jpg"
 toc: true
+ShowToc: true
 math: false
 code: true
 ---
 
+# HTTP và RESTful API với Java
+
 ## Giới thiệu
 
 Sau khi đã hiểu về **Socket** và **TCP** ở bài trước, bài này sẽ giúp bạn nắm vững **HTTP** - giao thức nền tảng của web hiện đại, và cách sử dụng **Java HTTP Client** để gọi **RESTful API**.
+
+![HTTP và RESTful API](/images/posts/networking/http-rest-api.jpg)
+
+*HTTP và RESTful API - Giao thức nền tảng của web hiện đại*
 
 Nội dung bài viết:
 
@@ -30,11 +37,13 @@ Nội dung bài viết:
 - Java HTTP Client (Java 11+) - cách sử dụng
 - Ví dụ thực tế: Gọi API lấy dữ liệu JSON
 
----
-
-## 1. HTTP Protocol là gì?
+## HTTP Protocol là gì?
 
 **HTTP (HyperText Transfer Protocol)** là giao thức truyền tải siêu văn bản, được sử dụng để giao tiếp giữa **client** (trình duyệt, ứng dụng) và **server** (web server).
+
+![HTTP Protocol](/images/posts/networking/http-protocol.jpg)
+
+*HTTP Protocol - Giao thức truyền tải dữ liệu trên web*
 
 ### 1.1. Đặc điểm của HTTP
 
@@ -81,9 +90,7 @@ Content-Length: 123
 | **PATCH** | Cập nhật một phần | `PATCH /api/users/1` - Cập nhật tên user |
 | **DELETE** | Xóa | `DELETE /api/users/1` - Xóa user id=1 |
 
----
-
-## 2. REST và RESTful API
+## REST và RESTful API
 
 ### 2.1. REST là gì?
 
@@ -117,9 +124,11 @@ DELETE /api/users/1        → Xóa user id=1
 }
 ```
 
----
+![RESTful API](/images/posts/networking/restful-api.jpg)
 
-## 3. Java HTTP Client (Java 11+)
+*RESTful API - Kiến trúc API phổ biến nhất*
+
+## Java HTTP Client (Java 11+)
 
 Từ **Java 11**, Java cung cấp `java.net.http.HttpClient` - API hiện đại, dễ sử dụng hơn so với `HttpURLConnection` cũ.
 
@@ -131,6 +140,8 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.net.URI;
 import java.time.Duration;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 // Tạo HttpClient instance
 HttpClient client = HttpClient.newBuilder()
@@ -192,19 +203,125 @@ System.out.println("Status: " + response.statusCode());
 System.out.println("Response: " + response.body());
 ```
 
-### 3.4. Async Request (Non-blocking)
+### 3.4. PUT Request - Cập nhật dữ liệu
 
 ```java
-// Gửi request bất đồng bộ (không chặn thread)
-client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
-    .thenApply(HttpResponse::body)
-    .thenAccept(System.out::println)
-    .join(); // Đợi kết quả
+// Dữ liệu JSON cần cập nhật
+String jsonData = """
+    {
+        "name": "Nguyễn Minh Long",
+        "email": "newemail@example.com"
+    }
+    """;
+
+// Tạo PUT request
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("https://api.example.com/users/1"))
+    .PUT(HttpRequest.BodyPublishers.ofString(jsonData))
+    .header("Content-Type", "application/json")
+    .header("Accept", "application/json")
+    .build();
+
+HttpResponse<String> response = client.send(
+    request,
+    HttpResponse.BodyHandlers.ofString()
+);
+
+System.out.println("Status: " + response.statusCode());
+System.out.println("Response: " + response.body());
 ```
 
----
+### 3.5. DELETE Request - Xóa dữ liệu
 
-## 4. Ví dụ thực tế: Gọi GitHub API
+```java
+// Tạo DELETE request
+HttpRequest request = HttpRequest.newBuilder()
+    .uri(URI.create("https://api.example.com/users/1"))
+    .DELETE()
+    .header("Accept", "application/json")
+    .build();
+
+HttpResponse<String> response = client.send(
+    request,
+    HttpResponse.BodyHandlers.ofString()
+);
+
+if (response.statusCode() == 200 || response.statusCode() == 204) {
+    System.out.println("Xóa thành công!");
+} else {
+    System.out.println("Lỗi: " + response.statusCode());
+}
+```
+
+### 3.6. Async Request (Non-blocking)
+
+```java
+import java.util.concurrent.CompletableFuture;
+
+// Gửi request bất đồng bộ (không chặn thread)
+CompletableFuture<HttpResponse<String>> future = client.sendAsync(
+    request, 
+    HttpResponse.BodyHandlers.ofString()
+);
+
+future.thenApply(HttpResponse::body)
+    .thenAccept(body -> {
+        System.out.println("Response: " + body);
+    })
+    .exceptionally(e -> {
+        System.err.println("Error: " + e.getMessage());
+        return null;
+    });
+
+// Đợi kết quả (nếu cần)
+future.join();
+```
+
+### 3.7. Gửi nhiều request đồng thời
+
+```java
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
+List<HttpRequest> requests = List.of(
+    HttpRequest.newBuilder()
+        .uri(URI.create("https://api.example.com/users/1"))
+        .GET()
+        .build(),
+    HttpRequest.newBuilder()
+        .uri(URI.create("https://api.example.com/users/2"))
+        .GET()
+        .build(),
+    HttpRequest.newBuilder()
+        .uri(URI.create("https://api.example.com/users/3"))
+        .GET()
+        .build()
+);
+
+// Gửi tất cả request đồng thời
+List<CompletableFuture<HttpResponse<String>>> futures = requests.stream()
+    .map(request -> client.sendAsync(
+        request, 
+        HttpResponse.BodyHandlers.ofString()
+    ))
+    .toList();
+
+// Đợi tất cả hoàn thành
+CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
+    .thenRun(() -> {
+        futures.forEach(future -> {
+            try {
+                HttpResponse<String> response = future.get();
+                System.out.println("Response: " + response.body());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    })
+    .join();
+```
+
+## Ví dụ thực tế: Gọi GitHub API
 
 Ví dụ đầy đủ: Lấy thông tin user từ GitHub API và parse JSON.
 
@@ -318,9 +435,116 @@ System.out.println("Name: " + name);
 System.out.println("Repos: " + repos);
 ```
 
----
+### 4.4. Ví dụ: Tạo User mới (POST)
 
-## 5. Xử lý lỗi và Best Practices
+```java
+public class CreateUserExample {
+    public static void main(String[] args) throws Exception {
+        HttpClient client = HttpClient.newHttpClient();
+        
+        // Dữ liệu user mới
+        String jsonData = """
+            {
+                "name": "Nguyễn Minh Long",
+                "email": "nguyenminhlongcntt@gmail.com",
+                "age": 22
+            }
+            """;
+        
+        // Tạo POST request
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create("https://api.example.com/users"))
+            .POST(HttpRequest.BodyPublishers.ofString(jsonData))
+            .header("Content-Type", "application/json")
+            .header("Accept", "application/json")
+            .build();
+        
+        // Gửi request
+        HttpResponse<String> response = client.send(
+            request,
+            HttpResponse.BodyHandlers.ofString()
+        );
+        
+        if (response.statusCode() == 201) {
+            System.out.println("Tạo user thành công!");
+            System.out.println("Response: " + response.body());
+        } else {
+            System.out.println("Lỗi: " + response.statusCode());
+            System.out.println("Message: " + response.body());
+        }
+    }
+}
+```
+
+### 4.5. Ví dụ: Cập nhật User (PUT)
+
+```java
+public class UpdateUserExample {
+    public static void main(String[] args) throws Exception {
+        HttpClient client = HttpClient.newHttpClient();
+        
+        // Dữ liệu cập nhật
+        String jsonData = """
+            {
+                "name": "Nguyễn Minh Long",
+                "email": "newemail@example.com",
+                "age": 23
+            }
+            """;
+        
+        // Tạo PUT request
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create("https://api.example.com/users/1"))
+            .PUT(HttpRequest.BodyPublishers.ofString(jsonData))
+            .header("Content-Type", "application/json")
+            .header("Accept", "application/json")
+            .build();
+        
+        HttpResponse<String> response = client.send(
+            request,
+            HttpResponse.BodyHandlers.ofString()
+        );
+        
+        if (response.statusCode() == 200) {
+            System.out.println("Cập nhật thành công!");
+        } else {
+            System.out.println("Lỗi: " + response.statusCode());
+        }
+    }
+}
+```
+
+### 4.6. Ví dụ: Xóa User (DELETE)
+
+```java
+public class DeleteUserExample {
+    public static void main(String[] args) throws Exception {
+        HttpClient client = HttpClient.newHttpClient();
+        
+        // Tạo DELETE request
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create("https://api.example.com/users/1"))
+            .DELETE()
+            .header("Accept", "application/json")
+            .build();
+        
+        HttpResponse<String> response = client.send(
+            request,
+            HttpResponse.BodyHandlers.ofString()
+        );
+        
+        if (response.statusCode() == 200 || response.statusCode() == 204) {
+            System.out.println("Xóa user thành công!");
+        } else if (response.statusCode() == 404) {
+            System.out.println("User không tồn tại!");
+        } else {
+            System.out.println("Lỗi: " + response.statusCode());
+        }
+    }
+}
+```
+
+## Xử lý lỗi và Best Practices
 
 ### 5.1. Xử lý lỗi HTTP
 
@@ -376,9 +600,7 @@ for (int i = 0; i < maxRetries; i++) {
 5. **Dùng async** cho nhiều request đồng thời
 6. **Parse JSON an toàn** - kiểm tra null, validate data
 
----
-
-## 6. So sánh với Socket (Bài 8)
+## So sánh với Socket (Bài 8)
 
 | Đặc điểm | Socket (TCP) | HTTP |
 |----------|--------------|------|
@@ -394,31 +616,30 @@ for (int i = 0; i < maxRetries; i++) {
 3. Nhận HTTP response qua TCP
 4. Đóng connection (hoặc giữ lại cho keep-alive)
 
----
+## Kết luận
 
-## 7. Kết luận
+Trong bài 9, bạn đã học được:
 
-Trong bài này, bạn đã học:
-
-- ✅ **HTTP protocol**: Request-Response, Methods, Status Codes
-- ✅ **REST principles**: Resource-based, Stateless, Uniform Interface
-- ✅ **Java HTTP Client**: Cách tạo request, gửi GET/POST, xử lý response
+- ✅ **HTTP Protocol**: Request-Response, Methods, Status Codes, Headers
+- ✅ **REST Principles**: Resource-based, Stateless, Uniform Interface
+- ✅ **RESTful API Design**: URL patterns, HTTP methods, JSON format
+- ✅ **Java HTTP Client**: Cách tạo request, gửi GET/POST/PUT/DELETE, xử lý response
+- ✅ **Async Requests**: Non-blocking với sendAsync()
 - ✅ **Parse JSON**: Sử dụng Jackson hoặc Gson
-- ✅ **Best practices**: Error handling, timeout, retry
+- ✅ **Error Handling**: Xử lý status codes, timeout, retry logic
+- ✅ **Best Practices**: Reuse HttpClient, xử lý exception, validate data
 
-**Bài tiếp theo** sẽ giới thiệu **WebSocket** - giao thức cho real-time communication, khác với HTTP request-response truyền thống.
+**Best Practices:**
+- ✅ Luôn kiểm tra status code trước khi parse response
+- ✅ Sử dụng timeout để tránh chờ đợi vô hạn
+- ✅ Reuse HttpClient instance
+- ✅ Dùng async cho nhiều request đồng thời
+- ✅ Parse JSON an toàn với validation
 
----
+**Lưu ý quan trọng:**
+- HTTP được xây dựng trên TCP
+- HTTP là stateless, mỗi request độc lập
+- RESTful API sử dụng HTTP methods chuẩn
+- Java HTTP Client chỉ có từ Java 11+
 
-## Tài liệu tham khảo
-
-- [Java HTTP Client Documentation](https://docs.oracle.com/en/java/javase/11/docs/api/java.net.http/java/net/http/HttpClient.html)
-- [REST API Tutorial](https://restfulapi.net/)
-- [HTTP Methods - MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods)
-- [Jackson JSON Library](https://github.com/FasterXML/jackson)
-- [Gson Library](https://github.com/google/gson)
-
----
-
-**Tác giả:** Nguyễn Minh Long  
-**Ngày đăng:** 12/01/2025
+Với kiến thức về HTTP và RESTful API, bạn đã sẵn sàng xây dựng và sử dụng các web services hiện đại!
