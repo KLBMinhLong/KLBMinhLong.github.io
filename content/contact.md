@@ -63,7 +63,7 @@ showToc: false
 
   <div class="contact-section contact-form-section">
     <h3>✉️ Gửi tin nhắn</h3>
-    <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+    <form class="contact-form" id="contact-form" onsubmit="handleFormSubmit(event)">
       <div class="form-group">
         <label for="name">Tên *</label>
         <input type="text" id="name" name="name" required placeholder="Nhập tên của bạn">
@@ -80,8 +80,37 @@ showToc: false
         <label for="message">Tin nhắn *</label>
         <textarea id="message" name="message" rows="5" required placeholder="Nhập tin nhắn của bạn"></textarea>
       </div>
+      <div id="form-message" class="form-message" style="display: none;"></div>
       <button type="submit" class="submit-btn">Gửi tin nhắn</button>
     </form>
+    <script>
+      function handleFormSubmit(event) {
+        event.preventDefault();
+        const form = event.target;
+        const name = form.querySelector('#name').value;
+        const email = form.querySelector('#email').value;
+        const subject = form.querySelector('#subject').value || 'Không có chủ đề';
+        const message = form.querySelector('#message').value;
+        const formMessage = form.querySelector('#form-message');
+        
+        // Tạo mailto link
+        const mailtoLink = `mailto:nguyenminhlongcntt@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Tên: ${name}\nEmail: ${email}\n\nTin nhắn:\n${message}`)}`;
+        
+        // Mở email client
+        window.location.href = mailtoLink;
+        
+        // Hiển thị thông báo
+        formMessage.style.display = 'block';
+        formMessage.textContent = 'Đang mở ứng dụng email của bạn...';
+        formMessage.style.color = 'var(--accent)';
+        
+        // Reset form sau 2 giây
+        setTimeout(() => {
+          form.reset();
+          formMessage.style.display = 'none';
+        }, 2000);
+      }
+    </script>
   </div>
 </div>
 

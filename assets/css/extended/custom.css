@@ -642,6 +642,16 @@ a:hover,
   transform: translateY(0);
 }
 
+.form-message {
+  padding: 1rem;
+  border-radius: 8px;
+  background: var(--entry);
+  border: 1px solid var(--border);
+  text-align: center;
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+}
+
 @media (max-width: 768px) {
   .contact-intro {
     padding: 1.5rem;
@@ -705,13 +715,23 @@ a.anchor {
 /* Center tiêu đề trang */
 .page-header h1,
 .post-header h1,
-.post-title {
-  text-align: center;
+.post-title,
+article.post-single .post-header h1,
+article.post-single .post-title {
+  text-align: center !important;
 }
 
 .page-header,
 .post-header {
-  text-align: center;
+  text-align: center !important;
+}
+
+/* Đảm bảo tiêu đề contact và about được center */
+.type-contact .post-title,
+.type-page .post-title,
+.type-contact .post-header h1,
+.type-page .post-header h1 {
+  text-align: center !important;
 }
 
 /* Responsive improvements */
