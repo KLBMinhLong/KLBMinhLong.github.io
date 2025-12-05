@@ -38,6 +38,56 @@
 
 {{- $paginator := .Paginate $pages }}
 
+{{- /* Featured Learning Paths Section */ -}}
+{{- $jsIntro := site.GetPage "posts/javascript-essentials-1-gioi-thieu.md" }}
+{{- $networkingIntro := site.GetPage "posts/networking-7-intro-network-programming.md" }}
+{{- $gitIntro := site.GetPage "posts/git-13-git-co-ban.md" }}
+
+{{- if and (eq $paginator.PageNumber 1) (or $jsIntro $networkingIntro $gitIntro) }}
+<div class="featured-learning-paths">
+  <h2 class="featured-title">🚀 Bắt đầu học ngay</h2>
+  <p class="featured-subtitle">Chọn một lộ trình học tập phù hợp với bạn</p>
+  
+  <div class="learning-paths-grid">
+    {{- if $jsIntro }}
+    <a href="{{ $jsIntro.Permalink }}" class="learning-path-card js-card">
+      <div class="card-icon">📘</div>
+      <h3 class="card-title">JavaScript Essentials</h3>
+      <p class="card-description">Học JavaScript từ cơ bản đến nâng cao: biến, hàm, objects, async/await, ES6+</p>
+      <div class="card-meta">
+        <span class="card-count">6 bài viết</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+    {{- end }}
+    
+    {{- if $networkingIntro }}
+    <a href="{{ $networkingIntro.Permalink }}" class="learning-path-card networking-card">
+      <div class="card-icon">🌐</div>
+      <h3 class="card-title">Lập trình Mạng</h3>
+      <p class="card-description">Tìm hiểu Network Programming với Java: Sockets, HTTP, REST API, WebSocket, JSON</p>
+      <div class="card-meta">
+        <span class="card-count">6 bài viết</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+    {{- end }}
+    
+    {{- if $gitIntro }}
+    <a href="{{ $gitIntro.Permalink }}" class="learning-path-card tools-card">
+      <div class="card-icon">🛠️</div>
+      <h3 class="card-title">Công cụ Developer</h3>
+      <p class="card-description">Học Git, GitHub/GitLab và Docker - những công cụ không thể thiếu cho developer</p>
+      <div class="card-meta">
+        <span class="card-count">3 bài viết</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+    {{- end }}
+  </div>
+</div>
+{{- end }}
+
 {{- if and .IsHome site.Params.homeInfoParams (eq $paginator.PageNumber 1) }}
 {{- partial "home_info.html" . }}
 {{- end }}
@@ -194,6 +244,176 @@
     .sort-button {
       font-size: 0.85rem !important;
       padding: 0.4rem 0.8rem !important;
+    }
+  }
+
+  /* Featured Learning Paths Styles */
+  .featured-learning-paths {
+    margin: 2.5rem 0;
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--hljs-bg) 0%, var(--theme) 100%);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  }
+
+  .featured-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+    color: var(--primary);
+    text-align: center;
+  }
+
+  .featured-subtitle {
+    text-align: center;
+    color: var(--secondary);
+    margin: 0 0 2rem 0;
+    font-size: 1rem;
+  }
+
+  .learning-paths-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .learning-path-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    background: var(--theme);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .learning-path-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  .learning-path-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    border-color: var(--accent);
+  }
+
+  .learning-path-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .js-card:hover {
+    border-color: #f7df1e;
+  }
+
+  .js-card::before {
+    background: #f7df1e;
+  }
+
+  .networking-card:hover {
+    border-color: #4c9aff;
+  }
+
+  .networking-card::before {
+    background: #4c9aff;
+  }
+
+  .tools-card:hover {
+    border-color: #f05032;
+  }
+
+  .tools-card::before {
+    background: #f05032;
+  }
+
+  .card-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    line-height: 1;
+  }
+
+  .card-title {
+    font-size: 1.35rem;
+    font-weight: 600;
+    margin: 0 0 0.75rem 0;
+    color: var(--primary);
+  }
+
+  .card-description {
+    font-size: 0.95rem;
+    color: var(--secondary);
+    margin: 0 0 1.25rem 0;
+    line-height: 1.6;
+    flex-grow: 1;
+  }
+
+  .card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .card-count {
+    font-size: 0.9rem;
+    color: var(--secondary);
+    font-weight: 500;
+  }
+
+  .card-arrow {
+    font-size: 1.25rem;
+    color: var(--accent);
+    transition: transform 0.3s ease;
+  }
+
+  .learning-path-card:hover .card-arrow {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 768px) {
+    .featured-learning-paths {
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .featured-title {
+      font-size: 1.5rem;
+    }
+
+    .featured-subtitle {
+      font-size: 0.9rem;
+    }
+
+    .learning-paths-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .learning-path-card {
+      padding: 1.25rem;
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+    }
+
+    .card-title {
+      font-size: 1.2rem;
     }
   }
 </style>

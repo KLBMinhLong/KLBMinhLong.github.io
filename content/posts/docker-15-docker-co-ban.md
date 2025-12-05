@@ -11,7 +11,7 @@ tags:
   - Container
   - Backend
 categories:
-  - "DevOps"
+  - "Khác/Docker"
 featuredImage: "/images/posts/docker/docker-intro.jpg"
 featuredImagePreview: "/images/posts/docker/docker-intro-preview.jpg"
 toc: true

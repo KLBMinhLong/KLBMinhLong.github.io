@@ -11,7 +11,7 @@ tags:
   - DevOps
   - Basics
 categories:
-  - "DevOps"
+  - "Khác/Git"
 featuredImage: "/images/posts/git/git-intro.jpg"
 featuredImagePreview: "/images/posts/git/git-intro-preview.jpg"
 toc: true

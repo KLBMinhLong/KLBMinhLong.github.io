@@ -11,7 +11,6 @@ tags:
   - Tutorial
 categories:
   - "JavaScript"
-  - "Lập trình mạng"
 featuredImage: "/images/posts/javascript/javascript-intro.jpg"
 featuredImagePreview: "/images/posts/javascript/javascript-intro-preview.jpg"
 toc: true

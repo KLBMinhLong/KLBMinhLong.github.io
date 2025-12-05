@@ -13,7 +13,7 @@ tags:
   - DevOps
   - Workflow
 categories:
-  - "DevOps"
+  - "Khác/Git"
 featuredImage: "/images/posts/github/github-gitlab-intro.jpg"
 featuredImagePreview: "/images/posts/github/github-gitlab-intro-preview.jpg"
 toc: true
