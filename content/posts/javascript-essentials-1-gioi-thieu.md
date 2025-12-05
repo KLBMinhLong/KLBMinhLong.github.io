@@ -1,7 +1,7 @@
 ---
 title: "Giới thiệu về JavaScript và Môi trường Chạy"
-date: 2025-01-05
-lastmod: 2025-01-05
+date: 2025-01-01
+lastmod: 2025-01-01
 draft: false
 author: "Nguyễn Minh Long"
 description: "Tổng quan về JavaScript, môi trường chạy (browser, Node.js) và cách chuẩn bị môi trường để bắt đầu học JavaScript Essentials 1."

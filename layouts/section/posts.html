@@ -106,9 +106,9 @@
     font-size: 0.9rem;
     transition: all 0.2s ease;
   ">
-    <span id="sort-text">Mới nhất → Cũ nhất</span>
+    <span id="sort-text">Cũ nhất → Mới nhất</span>
     <svg id="sort-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; margin-left: 0.5rem; vertical-align: middle;">
-      <path d="M3 6h18M7 12h10M11 18h2"/>
+      <path d="M3 18h18M7 12h10M11 6h2"/>
     </svg>
   </button>
 </div>
@@ -180,34 +180,25 @@
 {{- end }}
 
 <script>
-  let sortOrder = 'desc'; // Mặc định: mới nhất trước (desc)
+  let sortOrder = 'asc'; // Mặc định: Cũ nhất trước
 
-  function toggleSortOrder() {
+  function applySort(order) {
     const container = document.getElementById('posts-container');
+    if (!container) return;
     const articles = Array.from(container.querySelectorAll('article[data-date]'));
-    const sortButton = document.getElementById('sort-toggle');
     const sortText = document.getElementById('sort-text');
     const sortIcon = document.getElementById('sort-icon');
 
-    // Đảo ngược thứ tự
-    sortOrder = sortOrder === 'desc' ? 'asc' : 'desc';
+    sortOrder = order;
 
-    // Sắp xếp articles
     articles.sort((a, b) => {
       const dateA = new Date(a.getAttribute('data-date'));
       const dateB = new Date(b.getAttribute('data-date'));
-      
-      if (sortOrder === 'desc') {
-        return dateB - dateA; // Mới nhất trước
-      } else {
-        return dateA - dateB; // Cũ nhất trước
-      }
+      return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
     });
 
-    // Cập nhật DOM
     articles.forEach(article => container.appendChild(article));
 
-    // Cập nhật text và icon
     if (sortOrder === 'desc') {
       sortText.textContent = 'Mới nhất → Cũ nhất';
       sortIcon.innerHTML = '<path d="M3 6h18M7 12h10M11 18h2"/>';
@@ -215,17 +206,20 @@
       sortText.textContent = 'Cũ nhất → Mới nhất';
       sortIcon.innerHTML = '<path d="M3 18h18M7 12h10M11 6h2"/>';
     }
-
-    // Lưu preference vào localStorage
     localStorage.setItem('postsSortOrder', sortOrder);
   }
 
-  // Khôi phục sort order từ localStorage khi load trang
+  function toggleSortOrder() {
+    const newOrder = sortOrder === 'desc' ? 'asc' : 'desc';
+    applySort(newOrder);
+  }
+
   document.addEventListener('DOMContentLoaded', function() {
     const savedSortOrder = localStorage.getItem('postsSortOrder');
-    if (savedSortOrder && savedSortOrder !== 'desc') {
-      sortOrder = savedSortOrder;
-      toggleSortOrder();
+    if (savedSortOrder === 'desc' || savedSortOrder === 'asc') {
+      applySort(savedSortOrder);
+    } else {
+      applySort('asc'); // default oldest -> newest
     }
   });
 </script>
@@ -419,4 +413,5 @@
 </style>
 
 {{- end }}{{- /* end main */ -}}
+
 
