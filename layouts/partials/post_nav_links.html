@@ -1,0 +1,29 @@
+{{- /* Override PaperMod nav links: mặc định Next = bài cũ hơn, Prev = bài mới hơn.
+     Ở blog này cần hiển thị "Bài trước" (mới hơn) ở bên trái và "Bài tiếp" (cũ hơn) ở bên phải.
+     Vì danh sách được sắp mới → cũ, nên:
+     - $pages.Prev . : bài mới hơn (nếu có)
+     - $pages.Next . : bài cũ hơn (nếu có)
+*/ -}}
+{{- $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{- if and (gt (len $pages) 1) (in $pages . ) }}
+<nav class="paginav">
+  {{- /* Bài trước (mới hơn) */ -}}
+  {{- with $pages.Prev . }}
+  <a class="prev" href="{{ .Permalink }}">
+    <span class="title">« Bài trước</span>
+    <br>
+    <span>{{- .Name -}}</span>
+  </a>
+  {{- end }}
+
+  {{- /* Bài tiếp (cũ hơn) */ -}}
+  {{- with $pages.Next . }}
+  <a class="next" href="{{ .Permalink }}">
+    <span class="title">Bài tiếp »</span>
+    <br>
+    <span>{{- .Name -}}</span>
+  </a>
+  {{- end }}
+</nav>
+{{- end }}
+

@@ -310,18 +310,31 @@ Nội dung phần 2...
 
 #### Bài 12: "CORS và Các Vấn đề Bảo Mật trong Web Development"
 - **Tags:** JavaScript, Networking, Security
+- **Categories:** "Lập trình mạng"
 - **Nội dung:**
   - CORS là gì?
   - Same-origin policy
   - Cách xử lý CORS
   - Best practices
 
+---
+
+> **Lưu ý quan trọng:** Từ **Bài 13 trở đi**, các bài viết sẽ **KHÔNG liên quan đến Lập trình mạng** nữa. Thay vào đó, các bài sẽ tập trung vào:
+> - **Git, GitHub, GitLab** (Version Control)
+> - **Docker** (Containerization)
+> - **C++** (Programming Language)
+> 
+> Các bài này sẽ có **category/tag khác** (ví dụ: "DevOps", "C++", "Version Control") thay vì "Lập trình mạng".
+
 ### 4.3. Các Bài Viết Theo Sở Trường Khác
 
 Dựa trên phần kỹ năng ở About (`Java`, `JavaScript`, `Network Programming`, `C++`, `Git/GitHub/GitLab`, `Docker`, `Web`, `React`), đề xuất thêm một số bài:
 
+**⚠️ Lưu ý:** Các bài từ 13 trở đi sẽ có **category/tag khác**, không phải "Lập trình mạng".
+
 #### Bài 13: "Lập trình C++ Cơ Bản cho Sinh viên IT"
 - **Tags:** C++, Basics, Programming
+- **Categories:** "C++" (KHÔNG phải "Lập trình mạng")
 - **Nội dung:**
   - Cấu trúc chương trình C++
   - Biến, kiểu dữ liệu, toán tử
@@ -329,7 +342,8 @@ Dựa trên phần kỹ năng ở About (`Java`, `JavaScript`, `Network Programm
   - Hàm và chia nhỏ chương trình
 
 #### Bài 14: "Quy trình làm việc với Git, GitHub và GitLab"
-- **Tags:** Git, GitHub, GitLab, Workflow
+- **Tags:** Git, GitHub, GitLab, Workflow, Version Control
+- **Categories:** "DevOps" hoặc "Version Control" (KHÔNG phải "Lập trình mạng")
 - **Nội dung:**
   - Khái niệm repository, commit, branch
   - Git workflow cơ bản (feature branch, pull request/merge request)
@@ -338,6 +352,7 @@ Dựa trên phần kỹ năng ở About (`Java`, `JavaScript`, `Network Programm
 
 #### Bài 15: "Giới thiệu Docker cho Developer Backend/DevOps"
 - **Tags:** Docker, DevOps, Container
+- **Categories:** "DevOps" (KHÔNG phải "Lập trình mạng")
 - **Nội dung:**
   - Docker là gì, khác gì so với VM
   - Image, container, volume, network
