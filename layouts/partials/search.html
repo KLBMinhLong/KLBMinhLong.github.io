@@ -14,7 +14,7 @@
       <circle cx="11" cy="11" r="8"></circle>
       <path d="m21 21-4.35-4.35"></path>
     </svg>
-    <button class="search-clear" id="search-clear" aria-label="Xóa tìm kiếm" style="display: none;">
+    <button class="search-clear" id="search-clear" aria-label="Xóa tìm kiếm" style="display: none;" type="button">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <line x1="18" y1="6" x2="6" y2="18"></line>
         <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -76,6 +76,8 @@
   .search-clear {
     position: absolute;
     right: 0.45rem;
+    top: 50%;
+    transform: translateY(-50%);
     background: none;
     border: none;
     color: var(--secondary);
@@ -94,18 +96,7 @@
   }
 
   .search-results {
-    position: absolute;
-    top: calc(100% + 0.5rem);
-    left: 0;
-    right: 0;
-    max-height: 500px;
-    overflow-y: auto;
-    background: var(--theme);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-    z-index: 1000;
-    margin-top: 0.25rem;
+    display: none !important;
   }
 
   .search-results-section {
@@ -454,23 +445,14 @@
       // Load search data
       loadSearchData();
 
-      // Search on input
-      let searchTimeout;
+      // Search on input: only show clear button, no dropdown suggestions
       searchInput.addEventListener('input', (e) => {
-        clearTimeout(searchTimeout);
         const query = e.target.value.trim();
-        
         if (query) {
           searchClear.style.display = 'block';
         } else {
           searchClear.style.display = 'none';
-          searchResults.style.display = 'none';
-          return;
         }
-
-        searchTimeout = setTimeout(() => {
-          performSearch(query);
-        }, 300);
       });
 
       // Clear search
@@ -487,12 +469,11 @@
       const form = searchInput.closest('form');
       if (form) {
         form.addEventListener('submit', (e) => {
+          e.preventDefault();
           const q = searchInput.value.trim();
-          if (!q) {
-            e.preventDefault();
-            return;
-          }
-          // allow normal navigation to /search/?q=...
+          if (!q) return;
+          const target = `/search/?q=${encodeURIComponent(q)}`;
+          window.location.href = target;
         });
       }
 

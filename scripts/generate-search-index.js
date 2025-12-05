@@ -105,44 +105,6 @@ if (fs.existsSync(contentDir)) {
   console.log(`Added ${files.length} posts, total items so far: ${items.length}`);
 }
 
-// Add categories
-const categoriesDir = path.join(__dirname, '../public/categories');
-if (fs.existsSync(categoriesDir)) {
-  const categoryDirs = fs.readdirSync(categoriesDir).filter(f => {
-    const fullPath = path.join(categoriesDir, f);
-    return fs.statSync(fullPath).isDirectory();
-  });
-  
-  categoryDirs.forEach(catName => {
-    const catPath = path.join(categoriesDir, catName);
-    const htmlFiles = [];
-    
-    function countFiles(dir) {
-      const files = fs.readdirSync(dir);
-      files.forEach(file => {
-        const filePath = path.join(dir, file);
-        if (fs.statSync(filePath).isDirectory()) {
-          countFiles(filePath);
-        } else if (file === 'index.html') {
-          htmlFiles.push(filePath);
-        }
-      });
-    }
-    
-    countFiles(catPath);
-    
-    const catItem = {
-      type: 'category',
-      title: catName,
-      url: `/categories/${catName}/`,
-      count: htmlFiles.length,
-      categories: [catName]
-    };
-    items.push(catItem);
-  });
-  console.log(`Added ${categoryDirs.length} categories, total items: ${items.length}`);
-}
-
 // Write JSON
 const json = JSON.stringify(items, null, 2);
 fs.writeFileSync(outputFile, json, 'utf8');
