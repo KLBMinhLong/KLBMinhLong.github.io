@@ -35,6 +35,15 @@
 {{- end }}
 
 {{- $pages := union .RegularPages .Sections }}
+{{- /* Sắp xếp từ cũ đến mới (asc) - mặc định */ -}}
+{{- $sortedPages := slice }}
+{{- range $pages }}
+  {{- $sortedPages = $sortedPages | append . }}
+{{- end }}
+{{- $pages = sort $sortedPages "Date" "asc" }}
+
+{{- /* Lưu tất cả pages để JavaScript sort và phân trang */ -}}
+{{- $allPages := $pages }}
 
 {{- $paginator := .Paginate $pages }}
 
@@ -113,6 +122,29 @@
   </button>
 </div>
 
+{{- /* Hidden container chứa tất cả articles để JavaScript sort và phân trang */ -}}
+<div id="all-posts-data" style="display: none;">
+  {{- range $index, $page := $allPages }}
+  <div class="post-data" 
+       data-date="{{ $page.Date.Format "2006-01-02T15:04:05Z07:00" }}"
+       data-title="{{ $page.Title | htmlEscape }}"
+       data-url="{{ $page.Permalink }}"
+       data-summary="{{ $page.Summary | plainify | htmlEscape }}"
+       data-draft="{{ $page.Draft }}"
+       data-cover-hidden="{{ (.Param "cover.hiddenInList") | default (.Param "cover.hidden") | default false }}"
+       data-hide-summary="{{ (.Param "hideSummary") | default false }}"
+       data-hide-meta="{{ (.Param "hideMeta") | default false }}">
+    {{- /* Render cover HTML */ -}}
+    {{- $isHidden := (.Param "cover.hiddenInList") | default (.Param "cover.hidden") | default false }}
+    {{- $coverHTML := partial "cover.html" (dict "cxt" . "IsSingle" false "isHidden" $isHidden) }}
+    <div class="cover-html">{{ $coverHTML }}</div>
+    {{- /* Render meta HTML */ -}}
+    {{- $metaHTML := partial "post_meta.html" . }}
+    <div class="meta-html">{{ $metaHTML }}</div>
+  </div>
+  {{- end }}
+</div>
+
 <div id="posts-container">
   {{- range $index, $page := $paginator.Pages }}
 
@@ -125,7 +157,7 @@
   {{- $class = "post-entry tag-entry" }}
   {{- end }}
 
-  <article class="{{ $class }}" data-date="{{ $page.Date.Format "2006-01-02" }}">
+  <article class="{{ $class }}" data-date="{{ $page.Date.Format "2006-01-02T15:04:05Z07:00" }}">
     {{- $isHidden := (.Param "cover.hiddenInList") | default (.Param "cover.hidden") | default false }}
     {{- partial "cover.html" (dict "cxt" . "IsSingle" false "isHidden" $isHidden) }}
     <header class="entry-header">
@@ -160,7 +192,7 @@
 <footer class="page-footer">
   <nav class="pagination">
     {{- if $paginator.HasPrev }}
-    <a class="prev" href="{{ $paginator.Prev.URL | absURL }}">
+    <a class="prev pagination-link" href="{{ $paginator.Prev.URL | absURL }}">
       «&nbsp;{{ i18n "prev_page" }}&nbsp;
       {{- if (.Param "ShowPageNums") }}
       {{- sub $paginator.PageNumber 1 }}/{{ $paginator.TotalPages }}
@@ -168,7 +200,7 @@
     </a>
     {{- end }}
     {{- if $paginator.HasNext }}
-    <a class="next" href="{{ $paginator.Next.URL | absURL }}">
+    <a class="next pagination-link" href="{{ $paginator.Next.URL | absURL }}">
       {{- i18n "next_page" }}&nbsp;
       {{- if (.Param "ShowPageNums") }}
       {{- add 1 $paginator.PageNumber }}/{{ $paginator.TotalPages }}
@@ -180,48 +212,133 @@
 {{- end }}
 
 <script>
-  let sortOrder = 'asc'; // Mặc định: Cũ nhất trước
-
-  function applySort(order) {
-    const container = document.getElementById('posts-container');
-    if (!container) return;
-    const articles = Array.from(container.querySelectorAll('article[data-date]'));
+  (function() {
+    const params = new URLSearchParams(window.location.search);
+    const currentSort = params.get('sort') || 'asc';
+    const currentPage = parseInt(params.get('page') || '1', 10);
+    const postsPerPage = 10; // Số bài viết mỗi trang
+    
     const sortText = document.getElementById('sort-text');
     const sortIcon = document.getElementById('sort-icon');
-
-    sortOrder = order;
-
-    articles.sort((a, b) => {
-      const dateA = new Date(a.getAttribute('data-date'));
-      const dateB = new Date(b.getAttribute('data-date'));
-      return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
-    });
-
-    articles.forEach(article => container.appendChild(article));
-
-    if (sortOrder === 'desc') {
-      sortText.textContent = 'Mới nhất → Cũ nhất';
-      sortIcon.innerHTML = '<path d="M3 6h18M7 12h10M11 18h2"/>';
+    const allPostsData = document.getElementById('all-posts-data');
+    const container = document.getElementById('posts-container');
+    
+    // Update button text based on current sort
+    if (currentSort === 'desc') {
+      if (sortText) sortText.textContent = 'Mới nhất → Cũ nhất';
+      if (sortIcon) sortIcon.innerHTML = '<path d="M3 6h18M7 12h10M11 18h2"/>';
     } else {
-      sortText.textContent = 'Cũ nhất → Mới nhất';
-      sortIcon.innerHTML = '<path d="M3 18h18M7 12h10M11 6h2"/>';
+      if (sortText) sortText.textContent = 'Cũ nhất → Mới nhất';
+      if (sortIcon) sortIcon.innerHTML = '<path d="M3 18h18M7 12h10M11 6h2"/>';
     }
-    localStorage.setItem('postsSortOrder', sortOrder);
-  }
-
-  function toggleSortOrder() {
-    const newOrder = sortOrder === 'desc' ? 'asc' : 'desc';
-    applySort(newOrder);
-  }
-
-  document.addEventListener('DOMContentLoaded', function() {
-    const savedSortOrder = localStorage.getItem('postsSortOrder');
-    if (savedSortOrder === 'desc' || savedSortOrder === 'asc') {
-      applySort(savedSortOrder);
-    } else {
-      applySort('asc'); // default oldest -> newest
+    
+    // Nếu có ?sort=desc, sort và render lại toàn bộ
+    if (allPostsData && container && currentSort === 'desc') {
+      const postDataElements = Array.from(allPostsData.querySelectorAll('.post-data'));
+      
+      // Sort theo date (desc: newest first)
+      postDataElements.sort((a, b) => {
+        const dateA = new Date(a.getAttribute('data-date'));
+        const dateB = new Date(b.getAttribute('data-date'));
+        return dateB - dateA;
+      });
+      
+      // Tính toán pagination
+      const totalPosts = postDataElements.length;
+      const totalPages = Math.ceil(totalPosts / postsPerPage);
+      const startIndex = (currentPage - 1) * postsPerPage;
+      const endIndex = startIndex + postsPerPage;
+      const postsToShow = postDataElements.slice(startIndex, endIndex);
+      
+      // Xóa articles hiện tại
+      container.innerHTML = '';
+      
+      // Render articles mới
+      postsToShow.forEach((postData, index) => {
+        const date = postData.getAttribute('data-date');
+        const title = postData.getAttribute('data-title');
+        const url = postData.getAttribute('data-url');
+        const summary = postData.getAttribute('data-summary');
+        const draft = postData.getAttribute('data-draft') === 'true';
+        const coverHidden = postData.getAttribute('data-cover-hidden') === 'true';
+        const hideSummary = postData.getAttribute('data-hide-summary') === 'true';
+        const hideMeta = postData.getAttribute('data-hide-meta') === 'true';
+        const coverHTML = postData.querySelector('.cover-html').innerHTML;
+        const metaHTML = postData.querySelector('.meta-html').innerHTML;
+        
+        const article = document.createElement('article');
+        article.className = 'post-entry';
+        article.setAttribute('data-date', date);
+        
+        if (!coverHidden) {
+          article.innerHTML += coverHTML;
+        }
+        
+        article.innerHTML += `
+          <header class="entry-header">
+            <h2 class="entry-hint-parent">
+              ${title}
+              ${draft ? '<span class="entry-hint" title="Draft"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" fill="currentColor"><path d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" /></svg></span>' : ''}
+            </h2>
+          </header>
+          ${!hideSummary ? `<div class="entry-content"><p>${summary}...</p></div>` : ''}
+          ${!hideMeta ? `<footer class="entry-footer">${metaHTML}</footer>` : ''}
+          <a class="entry-link" aria-label="post link to ${title}" href="${url}"></a>
+        `;
+        
+        container.appendChild(article);
+      });
+      
+      // Cập nhật pagination
+      const pagination = document.querySelector('.pagination');
+      if (pagination) {
+        const prevLink = pagination.querySelector('.prev');
+        const nextLink = pagination.querySelector('.next');
+        
+        if (prevLink && currentPage > 1) {
+          const prevUrl = new URL(prevLink.href);
+          prevUrl.searchParams.set('sort', 'desc');
+          prevUrl.searchParams.set('page', (currentPage - 1).toString());
+          prevLink.href = prevUrl.toString();
+        } else if (prevLink) {
+          prevLink.style.display = 'none';
+        }
+        
+        if (nextLink && currentPage < totalPages) {
+          const nextUrl = new URL(nextLink.href);
+          nextUrl.searchParams.set('sort', 'desc');
+          nextUrl.searchParams.set('page', (currentPage + 1).toString());
+          nextLink.href = nextUrl.toString();
+        } else if (nextLink) {
+          nextLink.style.display = 'none';
+        }
+      }
     }
-  });
+    
+    // Toggle function - redirect with query parameter to reload and re-paginate
+    window.toggleSortOrder = function() {
+      const newSort = currentSort === 'desc' ? 'asc' : 'desc';
+      const url = new URL(window.location);
+      url.searchParams.set('sort', newSort);
+      // Reset to page 1 when changing sort
+      url.searchParams.delete('page');
+      window.location.href = url.toString();
+    };
+    
+    // Update pagination links to preserve sort parameter
+    if (currentSort && currentSort !== 'desc') {
+      document.addEventListener('DOMContentLoaded', function() {
+        const paginationLinks = document.querySelectorAll('.pagination-link');
+        paginationLinks.forEach(link => {
+          const url = new URL(link.href);
+          if (currentSort && currentSort !== 'asc') {
+            url.searchParams.set('sort', currentSort);
+          }
+          link.href = url.toString();
+        });
+      });
+    }
+  })();
 </script>
 
 <style>
