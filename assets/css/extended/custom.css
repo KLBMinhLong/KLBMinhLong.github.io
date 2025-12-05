@@ -224,7 +224,36 @@ a:hover,
   width: 100%;
 }
 
-/* About 2-column layout */
+/* About intro - 2-column layout (ảnh + giới thiệu) */
+.about-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 280px) minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: start;
+  margin-bottom: 3rem;
+}
+
+@media (max-width: 768px) {
+  .about-intro {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.about-intro-left img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+/* About content - full width dưới phần intro */
+.about-content {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Giữ backward compatibility với class cũ */
 .about-layout {
   display: grid;
   grid-template-columns: minmax(0, 280px) minmax(0, 1fr);
@@ -262,6 +291,18 @@ a.anchor {
 /* Ẩn post meta (date, reading time, word count, author) */
 .post-meta {
   display: none !important;
+}
+
+/* Center tiêu đề trang */
+.page-header h1,
+.post-header h1,
+.post-title {
+  text-align: center;
+}
+
+.page-header,
+.post-header {
+  text-align: center;
 }
 
 /* Responsive improvements */

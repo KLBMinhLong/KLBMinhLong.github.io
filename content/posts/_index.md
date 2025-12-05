@@ -1,10 +1,8 @@
 ---
-title: "Blog"
+title: "Bài viết"
 date: 2025-01-01
 type: "posts"
 ---
-
-# Blog
 
 Các bài viết về **Lập trình mạng**, **Java** và **JavaScript**.
 

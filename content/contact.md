@@ -5,8 +5,6 @@ type: "page"
 showToc: false
 ---
 
-# Liên hệ
-
 Nếu bạn quan tâm đến nội dung trên blog hoặc muốn kết nối, có thể liên hệ với mình qua các kênh sau:
 
 ## Thông tin liên hệ
