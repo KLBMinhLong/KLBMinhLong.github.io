@@ -1131,3 +1131,39 @@ button:focus-visible {
   }
 }
 
+/* Search Box in Header */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.nav #menu {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .nav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .nav #menu {
+    justify-content: center;
+  }
+  
+  .search-container {
+    order: -1;
+    width: 100%;
+    margin-left: 0 !important;
+  }
+}
+

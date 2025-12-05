@@ -1,0 +1,423 @@
+{{- /* Search Box Component */ -}}
+<div class="search-container">
+  <div class="search-box-wrapper">
+    <input 
+      type="text" 
+      id="search-input" 
+      class="search-input" 
+      placeholder="Tìm kiếm chủ đề, bài viết..." 
+      autocomplete="off"
+      aria-label="Tìm kiếm"
+    />
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="m21 21-4.35-4.35"></path>
+    </svg>
+    <button class="search-clear" id="search-clear" aria-label="Xóa tìm kiếm" style="display: none;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+  <div id="search-results" class="search-results" style="display: none;"></div>
+</div>
+
+<style>
+  .search-container {
+    position: relative;
+    margin-left: 1rem;
+    flex: 0 0 auto;
+  }
+
+  .search-box-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .search-input {
+    width: 250px;
+    padding: 0.5rem 2.5rem 0.5rem 2.5rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--theme);
+    color: var(--primary);
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    outline: none;
+  }
+
+  .search-input:focus {
+    width: 300px;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(76, 154, 255, 0.1);
+  }
+
+  .search-input::placeholder {
+    color: var(--secondary);
+    opacity: 0.6;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 0.75rem;
+    color: var(--secondary);
+    pointer-events: none;
+  }
+
+  .search-clear {
+    position: absolute;
+    right: 0.5rem;
+    background: none;
+    border: none;
+    color: var(--secondary);
+    cursor: pointer;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+  }
+
+  .search-clear:hover {
+    color: var(--primary);
+  }
+
+  .search-results {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    right: 0;
+    max-height: 500px;
+    overflow-y: auto;
+    background: var(--theme);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    margin-top: 0.25rem;
+  }
+
+  .search-results-section {
+    padding: 0.75rem 0;
+  }
+
+  .search-results-section-title {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0.5rem;
+  }
+
+  .search-result-item {
+    display: block;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+    color: var(--primary);
+    transition: background 0.2s ease;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .search-result-item:last-child {
+    border-bottom: none;
+  }
+
+  .search-result-item:hover {
+    background: var(--hljs-bg);
+  }
+
+  .search-result-item-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
+    color: var(--primary);
+  }
+
+  .search-result-item-meta {
+    font-size: 0.85rem;
+    color: var(--secondary);
+  }
+
+  .search-result-item-description {
+    font-size: 0.85rem;
+    color: var(--secondary);
+    margin-top: 0.25rem;
+    line-height: 1.4;
+  }
+
+  .search-no-results {
+    padding: 1.5rem;
+    text-align: center;
+    color: var(--secondary);
+    font-size: 0.9rem;
+  }
+
+  .search-highlight {
+    background: var(--accent);
+    color: var(--theme);
+    padding: 0.1rem 0.2rem;
+    border-radius: 3px;
+    font-weight: 600;
+  }
+
+  @media (max-width: 768px) {
+    .search-container {
+      margin-left: 0.5rem;
+      order: -1;
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+
+    .search-input {
+      width: 100%;
+    }
+
+    .search-input:focus {
+      width: 100%;
+    }
+
+    .search-results {
+      left: 0;
+      right: 0;
+      max-height: 400px;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    // Search data sẽ được load từ JSON
+    let searchData = [];
+    let fuse = null;
+
+    // Load search data
+    async function loadSearchData() {
+      try {
+        const response = await fetch('/search-index.json');
+        if (response.ok) {
+          searchData = await response.json();
+          // Initialize Fuse.js if available (optional)
+          if (typeof Fuse !== 'undefined') {
+            fuse = new Fuse(searchData, {
+              keys: [
+                { name: 'title', weight: 0.7 },
+                { name: 'content', weight: 0.3 },
+                { name: 'categories', weight: 0.5 },
+                { name: 'tags', weight: 0.4 }
+              ],
+              threshold: 0.3,
+              includeScore: true,
+              minMatchCharLength: 2
+            });
+          } else {
+            // Load Fuse.js from CDN if not available
+            const script = document.createElement('script');
+            script.src = 'https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js';
+            script.onload = function() {
+              fuse = new Fuse(searchData, {
+                keys: [
+                  { name: 'title', weight: 0.7 },
+                  { name: 'content', weight: 0.3 },
+                  { name: 'categories', weight: 0.5 },
+                  { name: 'tags', weight: 0.4 }
+                ],
+                threshold: 0.3,
+                includeScore: true,
+                minMatchCharLength: 2
+              });
+            };
+            document.head.appendChild(script);
+          }
+        }
+      } catch (error) {
+        console.error('Error loading search data:', error);
+      }
+    }
+
+    // Simple search function (fallback if Fuse.js not available)
+    function simpleSearch(query) {
+      const lowerQuery = query.toLowerCase();
+      const results = {
+        categories: [],
+        posts: []
+      };
+
+      searchData.forEach(item => {
+        const titleMatch = item.title.toLowerCase().includes(lowerQuery);
+        const contentMatch = item.content && item.content.toLowerCase().includes(lowerQuery);
+        const categoryMatch = item.categories && item.categories.some(cat => cat.toLowerCase().includes(lowerQuery));
+        const tagMatch = item.tags && item.tags.some(tag => tag.toLowerCase().includes(lowerQuery));
+
+        if (titleMatch || contentMatch || categoryMatch || tagMatch) {
+          const score = (titleMatch ? 10 : 0) + (categoryMatch ? 5 : 0) + (tagMatch ? 3 : 0) + (contentMatch ? 1 : 0);
+          
+          if (item.type === 'category') {
+            results.categories.push({ ...item, score });
+          } else {
+            results.posts.push({ ...item, score });
+          }
+        }
+      });
+
+      // Sort by score
+      results.categories.sort((a, b) => b.score - a.score);
+      results.posts.sort((a, b) => b.score - a.score);
+
+      return results;
+    }
+
+    // Highlight search term
+    function highlightText(text, query) {
+      if (!query) return text;
+      const regex = new RegExp(`(${query})`, 'gi');
+      return text.replace(regex, '<mark class="search-highlight">$1</mark>');
+    }
+
+    // Render search results
+    function renderResults(results) {
+      const resultsContainer = document.getElementById('search-results');
+      if (!resultsContainer) return;
+
+      if (results.categories.length === 0 && results.posts.length === 0) {
+        resultsContainer.innerHTML = '<div class="search-no-results">Không tìm thấy kết quả nào</div>';
+        resultsContainer.style.display = 'block';
+        return;
+      }
+
+      let html = '';
+
+      // Categories section
+      if (results.categories.length > 0) {
+        html += '<div class="search-results-section">';
+        html += '<div class="search-results-section-title">📁 Chủ đề</div>';
+        results.categories.slice(0, 5).forEach(item => {
+          html += `
+            <a href="${item.url}" class="search-result-item">
+              <div class="search-result-item-title">${highlightText(item.title, results.query)}</div>
+              <div class="search-result-item-meta">${item.count || 0} bài viết</div>
+            </a>
+          `;
+        });
+        html += '</div>';
+      }
+
+      // Posts section
+      if (results.posts.length > 0) {
+        html += '<div class="search-results-section">';
+        html += '<div class="search-results-section-title">📝 Bài viết</div>';
+        results.posts.slice(0, 8).forEach(item => {
+          const description = item.description || item.content?.substring(0, 100) || '';
+          html += `
+            <a href="${item.url}" class="search-result-item">
+              <div class="search-result-item-title">${highlightText(item.title, results.query)}</div>
+              ${item.categories ? `<div class="search-result-item-meta">${item.categories.join(', ')}</div>` : ''}
+              ${description ? `<div class="search-result-item-description">${highlightText(description, results.query)}...</div>` : ''}
+            </a>
+          `;
+        });
+        html += '</div>';
+      }
+
+      resultsContainer.innerHTML = html;
+      resultsContainer.style.display = 'block';
+    }
+
+    // Perform search
+    function performSearch(query) {
+      if (!query || query.length < 2) {
+        document.getElementById('search-results').style.display = 'none';
+        return;
+      }
+
+      let results = { categories: [], posts: [], query };
+
+      if (fuse) {
+        // Use Fuse.js for fuzzy search
+        const fuseResults = fuse.search(query);
+        fuseResults.forEach(result => {
+          const item = result.item;
+          if (item.type === 'category') {
+            results.categories.push(item);
+          } else {
+            results.posts.push(item);
+          }
+        });
+      } else {
+        // Use simple search
+        results = simpleSearch(query);
+        results.query = query;
+      }
+
+      renderResults(results);
+    }
+
+    // Initialize search
+    function initSearch() {
+      const searchInput = document.getElementById('search-input');
+      const searchClear = document.getElementById('search-clear');
+      const searchResults = document.getElementById('search-results');
+
+      if (!searchInput) return;
+
+      // Load search data
+      loadSearchData();
+
+      // Search on input
+      let searchTimeout;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(searchTimeout);
+        const query = e.target.value.trim();
+        
+        if (query) {
+          searchClear.style.display = 'block';
+        } else {
+          searchClear.style.display = 'none';
+          searchResults.style.display = 'none';
+          return;
+        }
+
+        searchTimeout = setTimeout(() => {
+          performSearch(query);
+        }, 300);
+      });
+
+      // Clear search
+      if (searchClear) {
+        searchClear.addEventListener('click', () => {
+          searchInput.value = '';
+          searchClear.style.display = 'none';
+          searchResults.style.display = 'none';
+          searchInput.focus();
+        });
+      }
+
+      // Close results when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.search-container')) {
+          searchResults.style.display = 'none';
+        }
+      });
+
+      // Keyboard shortcuts
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          searchResults.style.display = 'none';
+          searchInput.blur();
+        }
+      });
+    }
+
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSearch);
+    } else {
+      initSearch();
+    }
+  })();
+</script>
+

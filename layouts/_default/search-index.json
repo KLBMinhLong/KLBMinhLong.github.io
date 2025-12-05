@@ -1,0 +1,30 @@
+[
+  {{- $first := true -}}
+  {{- /* Categories */ -}}
+  {{- range $name, $taxonomy := site.Taxonomies.categories -}}
+    {{- if not $first }},{{- end -}}
+    {{- $first = false -}}
+    {
+      "type": "category",
+      "title": {{ $name | jsonify }},
+      "url": {{ (site.GetPage (printf "/categories/%s" $name)).Permalink | jsonify }},
+      "count": {{ len $taxonomy }},
+      "categories": [{{ $name | jsonify }}]
+    }
+  {{- end -}}
+  {{- /* Posts */ -}}
+  {{- range site.RegularPages -}}
+    {{- if not $first }},{{- end -}}
+    {{- $first = false -}}
+    {
+      "type": "post",
+      "title": {{ .Title | jsonify }},
+      "url": {{ .Permalink | jsonify }},
+      "description": {{ (.Description | default (.Summary | plainify | truncate 150)) | jsonify }},
+      "content": {{ (.Content | plainify | truncate 500) | jsonify }},
+      "categories": {{ .Params.categories | default (slice) | jsonify }},
+      "tags": {{ .Params.tags | default (slice) | jsonify }},
+      "date": {{ .Date.Format "2006-01-02" | jsonify }}
+    }
+  {{- end -}}
+]
