@@ -57,6 +57,18 @@ jobs:
       - name: Generate search index
         run: node scripts/generate-search-index.js
 
+      - name: Inject EmailJS Config (from secrets)
+        run: |
+          mkdir -p public/js
+          cat > public/js/emailjs-config.js << EOF
+          // EmailJS Configuration (injected from GitHub Secrets)
+          window.EMAILJS_CONFIG = {
+            serviceId: '${{ secrets.EMAILJS_SERVICE_ID }}',
+            templateId: '${{ secrets.EMAILJS_TEMPLATE_ID }}',
+            publicKey: '${{ secrets.EMAILJS_PUBLIC_KEY }}'
+          };
+          EOF
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

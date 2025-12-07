@@ -41,3 +41,11 @@ article.post-single header.post-header {
 }
 </style>
 
+{{- /* Load EmailJS SDK và Contact Form Script cho trang contact */ -}}
+{{- if eq .Type "contact" }}
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+{{- /* Load EmailJS config (file này không commit, sẽ được inject hoặc tạo manual) */ -}}
+<script src="/js/emailjs-config.js"></script>
+<script src="/js/contact-form.js" defer></script>
+{{- end }}
+

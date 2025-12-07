@@ -22,8 +22,19 @@ showToc: false
         </div>
         <div class="contact-details">
           <strong>Email</strong>
-          <a href="mailto:nguyenminhlongcntt@gmail.com">nguyenminhlongcntt@gmail.com</a>
+          <a href="#" id="email-link" onclick="this.href='mailto:'+atob('bmd1eWVubWluaGxvbmdjbnR0QGdtYWlsLmNvbQ=='); return false;"></a>
         </div>
+        <script>
+          // Ẩn email khỏi spam bằng JavaScript
+          (function() {
+            const emailLink = document.getElementById('email-link');
+            if (emailLink) {
+              const email = atob('bmd1eWVubWluaGxvbmdjbnR0QGdtYWlsLmNvbQ==');
+              emailLink.href = 'mailto:' + email;
+              emailLink.textContent = email;
+            }
+          })();
+        </script>
       </div>
       
       <div class="contact-item">
@@ -63,7 +74,7 @@ showToc: false
 
   <div class="contact-section contact-form-section">
     <h3>✉️ Gửi tin nhắn</h3>
-    <form class="contact-form" id="contact-form" onsubmit="handleFormSubmit(event)">
+    <form class="contact-form" id="contact-form">
       <div class="form-group">
         <label for="name">Tên *</label>
         <input type="text" id="name" name="name" required placeholder="Nhập tên của bạn">
@@ -81,36 +92,11 @@ showToc: false
         <textarea id="message" name="message" rows="5" required placeholder="Nhập tin nhắn của bạn"></textarea>
       </div>
       <div id="form-message" class="form-message" style="display: none;"></div>
-      <button type="submit" class="submit-btn">Gửi tin nhắn</button>
+      <button type="submit" class="submit-btn" id="submit-btn">
+        <span class="btn-text">Gửi tin nhắn</span>
+        <span class="btn-loader" style="display: none;">Đang gửi...</span>
+      </button>
     </form>
-    <script>
-      function handleFormSubmit(event) {
-        event.preventDefault();
-        const form = event.target;
-        const name = form.querySelector('#name').value;
-        const email = form.querySelector('#email').value;
-        const subject = form.querySelector('#subject').value || 'Không có chủ đề';
-        const message = form.querySelector('#message').value;
-        const formMessage = form.querySelector('#form-message');
-        
-        // Tạo mailto link
-        const mailtoLink = `mailto:nguyenminhlongcntt@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Tên: ${name}\nEmail: ${email}\n\nTin nhắn:\n${message}`)}`;
-        
-        // Mở email client
-        window.location.href = mailtoLink;
-        
-        // Hiển thị thông báo
-        formMessage.style.display = 'block';
-        formMessage.textContent = 'Đang mở ứng dụng email của bạn...';
-        formMessage.style.color = 'var(--accent)';
-        
-        // Reset form sau 2 giây
-        setTimeout(() => {
-          form.reset();
-          formMessage.style.display = 'none';
-        }, 2000);
-      }
-    </script>
   </div>
 </div>
 
