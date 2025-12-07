@@ -96,6 +96,18 @@ enableGitInfo = true
     noClasses = false
     style = "monokai"
 
+  # Image processing configuration
+  [markup.goldmark.extensions]
+    [markup.goldmark.extensions.typographer]
+      disable = false
+      quotemark = true
+
+# Image processing settings
+[imaging]
+  resampleFilter = "lanczos"
+  quality = 85
+  anchor = "smart"
+
 [sitemap]
   changefreq = "monthly"
   priority = 0.5

@@ -1,0 +1,117 @@
+{{- $u := urls.Parse .Destination -}}
+{{- $src := $u.String -}}
+{{- $imageResource := false -}}
+{{- $webpSrc := "" -}}
+{{- $avifSrc := "" -}}
+
+{{- if not $u.IsAbs -}}
+  {{- $path := strings.TrimPrefix "./" $u.Path -}}
+  {{- $path = strings.TrimPrefix "/" $path -}}
+  
+  {{- /* Try to find image as resource (from page bundle or global resources) */ -}}
+  {{- with or (.PageInner.Resources.Get $path) (resources.Get $path) -}}
+    {{- $imageResource = . -}}
+    {{- $src = .RelPermalink -}}
+    
+    {{- /* Generate WebP and AVIF formats for better performance */ -}}
+    {{- if and (ne .MediaType.SubType "svg") (ne .MediaType.SubType "gif") -}}
+      {{- $webpOptions := dict "method" "webp" "quality" 85 -}}
+      {{- if ge .Width 1200 -}}
+        {{- $webpOptions = merge $webpOptions (dict "width" 1200) -}}
+      {{- end -}}
+      {{- $webp := . | resources.Filter (images.Process $webpOptions) -}}
+      {{- $webpSrc = $webp.RelPermalink -}}
+      
+      {{- /* AVIF support (newer format, better compression) */ -}}
+      {{- $avifOptions := dict "method" "avif" "quality" 80 -}}
+      {{- if ge .Width 1200 -}}
+        {{- $avifOptions = merge $avifOptions (dict "width" 1200) -}}
+      {{- end -}}
+      {{- $avif := . | resources.Filter (images.Process $avifOptions) -}}
+      {{- $avifSrc = $avif.RelPermalink -}}
+    {{- end -}}
+    
+    {{- with $u.RawQuery -}}
+      {{- $src = printf "%s?%s" $src . -}}
+      {{- if $webpSrc -}}
+        {{- $webpSrc = printf "%s?%s" $webpSrc . -}}
+      {{- end -}}
+      {{- if $avifSrc -}}
+        {{- $avifSrc = printf "%s?%s" $avifSrc . -}}
+      {{- end -}}
+    {{- end -}}
+    {{- with $u.Fragment -}}
+      {{- $src = printf "%s#%s" $src . -}}
+      {{- if $webpSrc -}}
+        {{- $webpSrc = printf "%s#%s" $webpSrc . -}}
+      {{- end -}}
+      {{- if $avifSrc -}}
+        {{- $avifSrc = printf "%s#%s" $avifSrc . -}}
+      {{- end -}}
+    {{- end -}}
+  {{- else -}}
+    {{- /* For static images, use as-is but add lazy loading */ -}}
+    {{- $src = .Destination -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* Get image dimensions if available */ -}}
+{{- $width := "" -}}
+{{- $height := "" -}}
+{{- $isSmall := false -}}
+{{- if $imageResource -}}
+  {{- if and (ne $imageResource.MediaType.SubType "svg") $imageResource.Width -}}
+    {{- $width = $imageResource.Width -}}
+    {{- $height = $imageResource.Height -}}
+    {{- /* Consider image small if width < 400px */ -}}
+    {{- if lt $imageResource.Width 400 -}}
+      {{- $isSmall = true -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* Build attributes */ -}}
+{{- $attributes := .Attributes -}}
+{{- $class := $attributes.class | default "" -}}
+{{- if $isSmall -}}
+  {{- $class = printf "%s img-small" $class | trim -}}
+{{- end -}}
+
+{{- /* Always add lazy loading for performance */ -}}
+{{- $attributes = merge $attributes (dict "alt" .Text "loading" "lazy" "decoding" "async") -}}
+{{- if .Title -}}
+  {{- $attributes = merge $attributes (dict "title" (.Title | transform.HTMLEscape)) -}}
+{{- end -}}
+{{- if $class -}}
+  {{- $attributes = merge $attributes (dict "class" $class) -}}
+{{- end -}}
+{{- if and $width (not $attributes.width) -}}
+  {{- $attributes = merge $attributes (dict "width" $width) -}}
+{{- end -}}
+{{- if and $height (not $attributes.height) -}}
+  {{- $attributes = merge $attributes (dict "height" $height) -}}
+{{- end -}}
+
+{{- /* Output picture element for modern formats or simple img tag */ -}}
+{{- if and $avifSrc $webpSrc -}}
+<picture class="post-image-wrapper{{ if $isSmall }} img-small{{ end }}">
+  <source srcset="{{ $avifSrc }}" type="image/avif">
+  <source srcset="{{ $webpSrc }}" type="image/webp">
+  <img
+    {{- range $k, $v := $attributes -}}
+      {{- if $v -}}
+        {{- printf " %s=%q" $k $v | safeHTMLAttr -}}
+      {{- end -}}
+    {{- end -}}
+    src="{{ $src }}">
+</picture>
+{{- else -}}
+<img
+  {{- range $k, $v := $attributes -}}
+    {{- if $v -}}
+      {{- printf " %s=%q" $k $v | safeHTMLAttr -}}
+    {{- end -}}
+  {{- end -}}
+  src="{{ $src }}">
+{{- end -}}
+
