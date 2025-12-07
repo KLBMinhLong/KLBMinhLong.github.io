@@ -1077,7 +1077,11 @@ article.post-single header.post-header {
   margin-right: auto !important;
 }
 
-/* Responsive improvements */
+/* ========================================
+   RESPONSIVE DESIGN - MOBILE & TABLET
+   ======================================== */
+
+/* Base responsive improvements */
 @media (max-width: 768px) {
   .main {
     padding-inline: 1rem;
@@ -1094,6 +1098,468 @@ article.post-single header.post-header {
 
   .nav {
     font-size: 0.9rem;
+  }
+}
+
+/* ========================================
+   TABLES - Responsive với horizontal scroll
+   ======================================== */
+
+.post-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+  overflow-x: auto;
+  display: block;
+}
+
+.post-content table thead,
+.post-content table tbody,
+.post-content table tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.post-content table th,
+.post-content table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border: 1px solid var(--border);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.post-content table th {
+  background: var(--tertiary);
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.post-content table tbody tr:nth-child(even) {
+  background: var(--theme);
+}
+
+.post-content table tbody tr:hover {
+  background: var(--tertiary);
+}
+
+/* Mobile: Table wrapper với scroll */
+@media (max-width: 768px) {
+  .post-content {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .post-content table {
+    min-width: 100%;
+    font-size: 0.875rem;
+  }
+
+  .post-content table th,
+  .post-content table td {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  /* Stack table columns trên mobile cực nhỏ */
+  @media (max-width: 480px) {
+    .post-content table,
+    .post-content table thead,
+    .post-content table tbody,
+    .post-content table th,
+    .post-content table td,
+    .post-content table tr {
+      display: block;
+    }
+
+    .post-content table thead {
+      display: none;
+    }
+
+    .post-content table tr {
+      margin-bottom: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.5rem;
+      background: var(--entry);
+    }
+
+    .post-content table td {
+      border: none;
+      padding: 0.5rem 0;
+      text-align: left !important;
+      position: relative;
+      padding-left: 40% !important;
+    }
+
+    .post-content table td:before {
+      content: attr(data-label) ": ";
+      position: absolute;
+      left: 0;
+      width: 35%;
+      font-weight: 600;
+      color: var(--primary);
+    }
+  }
+}
+
+/* ========================================
+   CODE BLOCKS - Horizontal scroll, font size
+   ======================================== */
+
+.post-content pre,
+.post-content code {
+  font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+}
+
+.post-content pre {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.25rem;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  line-height: 1.6;
+  font-size: 0.9rem;
+}
+
+.post-content code {
+  background: var(--code-bg);
+  padding: 0.2em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.post-content pre code {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-size: inherit;
+}
+
+/* Mobile: Code blocks */
+@media (max-width: 768px) {
+  .post-content pre {
+    padding: 1rem;
+    font-size: 0.85rem;
+    margin: 1rem 0;
+    border-radius: 6px;
+  }
+
+  .post-content code {
+    font-size: 0.85em;
+  }
+
+  .post-content pre code {
+    font-size: 0.85rem;
+  }
+
+  /* Horizontal scroll indicator */
+  .post-content pre {
+    position: relative;
+  }
+
+  .post-content pre::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .post-content pre::-webkit-scrollbar-track {
+    background: var(--tertiary);
+    border-radius: 4px;
+  }
+
+  .post-content pre::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+  }
+
+  .post-content pre::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+  }
+}
+
+/* ========================================
+   TYPOGRAPHY - Mobile font sizes
+   ======================================== */
+
+@media (max-width: 768px) {
+  .post-content h1 {
+    font-size: 1.75rem;
+    line-height: 1.3;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .post-content h2 {
+    font-size: 1.5rem;
+    line-height: 1.3;
+    margin-top: 1.25rem;
+    margin-bottom: 0.875rem;
+  }
+
+  .post-content h3 {
+    font-size: 1.25rem;
+    line-height: 1.4;
+    margin-top: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .post-content h4 {
+    font-size: 1.1rem;
+    line-height: 1.4;
+    margin-top: 0.875rem;
+    margin-bottom: 0.625rem;
+  }
+
+  .post-content p {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .post-content ul,
+  .post-content ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .post-content li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+  }
+
+  .post-title {
+    font-size: 1.75rem !important;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-tagline {
+    font-size: 1.25rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+}
+
+/* ========================================
+   CONTAINERS & SPACING - Mobile padding
+   ======================================== */
+
+@media (max-width: 768px) {
+  .single .post-content {
+    max-width: 100%;
+    padding-inline: 1rem;
+  }
+
+  .main {
+    padding-inline: 1rem;
+  }
+
+  .post-entry {
+    padding: 1rem;
+  }
+
+  .about-section,
+  .contact-section {
+    padding: 1.5rem;
+  }
+
+  .hero-section {
+    padding: 2rem 1rem;
+  }
+}
+
+/* ========================================
+   MENU & NAVIGATION - Mobile friendly
+   ======================================== */
+
+@media (max-width: 768px) {
+  .nav-menu #menu {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .nav-menu #menu li a {
+    padding: 0.35rem 0.65rem;
+    font-size: 0.875rem;
+  }
+
+  .logo-text {
+    font-size: 1rem;
+  }
+
+  .logo-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .nav-top .search-container {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 0.5rem;
+  }
+}
+
+/* ========================================
+   FORMS - Mobile optimization
+   ======================================== */
+
+@media (max-width: 768px) {
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 16px; /* Tránh zoom trên iOS */
+    padding: 0.875rem;
+  }
+
+  .contact-form .form-group {
+    margin-bottom: 1.25rem;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
+  .form-message {
+    font-size: 0.875rem;
+    padding: 0.875rem;
+  }
+}
+
+/* ========================================
+   IMAGES & MEDIA - Mobile optimization
+   ======================================== */
+
+@media (max-width: 768px) {
+  .post-content img,
+  .post-content picture {
+    margin: 1rem auto;
+    border-radius: 6px;
+  }
+
+  .post-content .post-image-wrapper {
+    margin: 1rem auto;
+  }
+
+  /* Disable zoom on small images on mobile */
+  .post-content img.img-small:hover {
+    transform: scale(1.05);
+  }
+}
+
+/* ========================================
+   BLOCKQUOTES - Mobile styling
+   ======================================== */
+
+.post-content blockquote {
+  border-left: 4px solid var(--accent);
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  background: var(--tertiary);
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: var(--secondary);
+}
+
+@media (max-width: 768px) {
+  .post-content blockquote {
+    padding: 0.875rem 1rem;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+  }
+}
+
+/* ========================================
+   UTILITY CLASSES - Mobile helpers
+   ======================================== */
+
+/* Prevent horizontal scroll */
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  .main,
+  .single .post-content {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+}
+
+/* Touch-friendly tap targets */
+@media (max-width: 768px) {
+  a,
+  button {
+    min-height: 44px; /* iOS recommendation */
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-menu #menu li a {
+    min-height: 44px;
+  }
+}
+
+/* ========================================
+   ADDITIONAL MOBILE IMPROVEMENTS
+   ======================================== */
+
+@media (max-width: 480px) {
+  /* Extra small screens */
+  .main {
+    padding-inline: 0.75rem;
+  }
+
+  .single .post-content {
+    padding-inline: 0.75rem;
+  }
+
+  .post-title {
+    font-size: 1.5rem !important;
+  }
+
+  .hero-title {
+    font-size: 1.75rem;
+  }
+
+  .hero-tagline {
+    font-size: 1.1rem;
+  }
+
+  .about-intro-right h2 {
+    font-size: 1.75rem;
+  }
+
+  .contact-section h3,
+  .about-section h3 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Tablet optimizations */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .main {
+    padding-inline: 2rem;
+  }
+
+  .single .post-content {
+    max-width: 700px;
+  }
+
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 }
 
