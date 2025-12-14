@@ -335,6 +335,8 @@ a:hover,
   background: transparent;
   border-radius: 0;
   position: relative;
+  overflow-x: hidden; /* Không có horizontal scrollbar */
+  overflow-y: hidden;
 }
 
 /* Logo với icon */
@@ -391,6 +393,8 @@ a:hover,
   padding: 0;
   list-style: none;
   position: relative;
+  overflow-x: visible; /* Không có scrollbar */
+  overflow-y: visible;
 }
 
 .nav-menu #menu li {
@@ -459,11 +463,11 @@ a:hover,
   transform: translateX(-8px);
   visibility: hidden;
   /* Khi unhover: width thu lại trước, sau đó opacity/transform ẩn */
-  transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0.1s,
-              width 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s,
-              transform 0.25s cubic-bezier(0.4, 0, 0.2, 1) 0.1s,
-              margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0s,
-              visibility 0s linear 0.35s;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.15s,
+              width 0.35s cubic-bezier(0.4, 0, 0.2, 1) 0s,
+              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.15s,
+              margin-left 0.35s cubic-bezier(0.4, 0, 0.2, 1) 0s,
+              visibility 0s linear 0.45s;
   position: relative;
   z-index: 1;
   margin-left: 0;
@@ -487,10 +491,11 @@ a:hover,
   transform: translateX(0);
   margin-left: 0.5rem;
   visibility: visible;
-  /* Khi hover: text hiện ngay */
-  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1) 0s,
-              transform 0.2s cubic-bezier(0.4, 0, 0.2, 1) 0s,
-              margin-left 0.2s cubic-bezier(0.4, 0, 0.2, 1) 0s,
+  /* Khi hover: có delay nhẹ để tạo hiệu ứng mượt */
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.08s,
+              width 0.35s cubic-bezier(0.4, 0, 0.2, 1) 0.05s,
+              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) 0.08s,
+              margin-left 0.35s cubic-bezier(0.4, 0, 0.2, 1) 0.05s,
               visibility 0s linear 0s;
   pointer-events: auto;
   overflow: visible;
@@ -585,8 +590,17 @@ a:hover,
 }
 
 .nav-menu #menu li a:active::after {
-  width: 300px;
-  height: 300px;
+  width: 100px;
+  height: 100px;
+}
+
+/* Khi active/click: giữ nguyên text, chỉ tắt ripple nhanh */
+.nav-menu #menu li a:active {
+  /* Giữ nguyên width và text khi click */
+}
+
+.nav-menu #menu li a:active .menu-text {
+  /* Giữ nguyên text khi click */
 }
 
 /* About intro - 2-column layout (ảnh + giới thiệu) */
