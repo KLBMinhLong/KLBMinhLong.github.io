@@ -48,30 +48,35 @@ enableGitInfo = true
   [[menu.main]]
     identifier = "home"
     name = "Trang chủ"
+    pre = "🏠"
     url = "/"
     weight = 10
 
   [[menu.main]]
     identifier = "blog"
     name = "Bài viết"
+    pre = "📝"
     url = "/posts/"
     weight = 20
 
   [[menu.main]]
     identifier = "about"
     name = "Về tôi"
+    pre = "👤"
     url = "/about/"
     weight = 30
 
   [[menu.main]]
     identifier = "categories"
     name = "Danh mục"
-  url = "/categories/"
+    pre = "📂"
+    url = "/categories/"
     weight = 40
 
   [[menu.main]]
     identifier = "contact"
     name = "Liên hệ"
+    pre = "✉️"
     url = "/contact/"
     weight = 50
 
