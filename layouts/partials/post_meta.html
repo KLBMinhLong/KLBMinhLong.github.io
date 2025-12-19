@@ -1,0 +1,84 @@
+{{- $scratch := newScratch }}
+
+{{- if not .Date.IsZero -}}
+{{- $dateStr := .Date | time.Format (default ":date_long" site.Params.DateFormat) }}
+{{- $scratch.Add "meta" (slice (printf "<span class='post-date' data-date='%s' title='%s'>%s</span>" (.Date.Format "2006-01-02T15:04:05Z07:00") (.Date) $dateStr)) }}
+{{- end }}
+
+{{- if (.Param "ShowReadingTime") -}}
+{{- $scratch.Add "meta" (slice (printf "<span>%s</span>" (i18n "read_time" .ReadingTime | default (printf "%d min" .ReadingTime)))) }}
+{{- end }}
+
+{{- if (.Param "ShowWordCount") -}}
+{{- $scratch.Add "meta" (slice (printf "<span>%s</span>" (i18n "words" .WordCount | default (printf "%d words" .WordCount)))) }}
+{{- end }}
+
+{{- if not (.Param "hideAuthor") -}}
+{{- with (partial "author.html" .) }}
+{{- $scratch.Add "meta" (slice (printf "<span>%s</span>" .)) }}
+{{- end }}
+{{- end }}
+
+{{- with ($scratch.Get "meta") }}
+{{- delimit . "&nbsp;·&nbsp;" | safeHTML -}}
+{{- end -}}
+
+<script>
+(function() {
+  // Tính toán và hiển thị thời gian tương đối (X phút/giờ/ngày trước)
+  function updateRelativeTime() {
+    const dateElements = document.querySelectorAll('.post-date[data-date]');
+    const now = new Date();
+    
+    dateElements.forEach(function(el) {
+      const dateStr = el.getAttribute('data-date');
+      if (!dateStr) return;
+      
+      try {
+        const postDate = new Date(dateStr);
+        const diffMs = now - postDate;
+        const diffSeconds = Math.floor(diffMs / 1000);
+        const diffMinutes = Math.floor(diffSeconds / 60);
+        const diffHours = Math.floor(diffMinutes / 60);
+        const diffDays = Math.floor(diffHours / 24);
+        const diffMonths = Math.floor(diffDays / 30);
+        const diffYears = Math.floor(diffDays / 365);
+        
+        let relativeTime = '';
+        if (diffSeconds < 60) {
+          relativeTime = 'Vừa xong';
+        } else if (diffMinutes < 60) {
+          relativeTime = diffMinutes + ' phút trước';
+        } else if (diffHours < 24) {
+          relativeTime = diffHours + ' giờ trước';
+        } else if (diffDays < 30) {
+          relativeTime = diffDays + ' ngày trước';
+        } else if (diffMonths < 12) {
+          relativeTime = diffMonths + ' tháng trước';
+        } else {
+          relativeTime = diffYears + ' năm trước';
+        }
+        
+        // Cập nhật text nhưng giữ title với ngày đầy đủ
+        const title = el.getAttribute('title');
+        el.textContent = relativeTime;
+        if (title) {
+          el.setAttribute('title', title + ' (' + relativeTime + ')');
+        }
+      } catch (e) {
+        console.error('Lỗi tính toán thời gian:', e);
+      }
+    });
+  }
+  
+  // Chạy ngay khi DOM sẵn sàng
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateRelativeTime);
+  } else {
+    updateRelativeTime();
+  }
+  
+  // Cập nhật lại mỗi phút
+  setInterval(updateRelativeTime, 60000);
+})();
+</script>

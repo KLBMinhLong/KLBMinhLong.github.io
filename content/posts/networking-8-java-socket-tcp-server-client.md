@@ -116,40 +116,41 @@ Trong bài này, ta sẽ làm **Echo Server**: client gửi gì, server trả l�
 
 ### 4.1. TCP Server (single-thread)
 
+Dưới đây là ví dụ TCP Server đơn giản từ code thực tế:
+
 ```java
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.io.*;
+import java.net.*;
 
-public class EchoServer {
+public class SocketServerExample {
     public static void main(String[] args) {
-        int port = 5000;
-
-        try (ServerSocket serverSocket = new ServerSocket(port)) {
-            System.out.println("Echo server đang lắng nghe trên port " + port);
-
-            while (true) {
-                // Chờ một client kết nối
-                Socket clientSocket = serverSocket.accept();
-                System.out.println("Client mới kết nối từ " + clientSocket.getInetAddress());
-
-                // Tạo reader/writer cho socket
-                BufferedReader in = new BufferedReader(
-                        new InputStreamReader(clientSocket.getInputStream()));
-                PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-
-                String line;
-                while ((line = in.readLine()) != null) {
-                    System.out.println("Nhận từ client: " + line);
-                    // Gửi lại đúng nội dung cho client
-                    out.println("Echo: " + line);
-                }
-
-                clientSocket.close();
-            }
-        } catch (Exception e) {
+        try {
+            // Tạo ServerSocket và lắng nghe cổng 1234
+            ServerSocket serverSocket = new ServerSocket(1234);
+            System.out.println("Server đã khởi động và đang lắng nghe cổng 1234...");
+            
+            // Chấp nhận kết nối từ Client
+            Socket clientSocket = serverSocket.accept();
+            System.out.println("Client đã kết nối!");
+            
+            // Lấy luồng vào và ra để giao tiếp với Client
+            InputStream inputStream = clientSocket.getInputStream();
+            BufferedReader in = new BufferedReader(
+                new InputStreamReader(inputStream)
+            );
+            OutputStream outputStream = clientSocket.getOutputStream();
+            PrintWriter out = new PrintWriter(outputStream, true);
+            
+            // Đọc dữ liệu từ Client và gửi phản hồi
+            String clientMessage = in.readLine();
+            System.out.println("Client: " + clientMessage);
+            out.println("Xin chào, Client!");
+            
+            // Đóng kết nối
+            clientSocket.close();
+            serverSocket.close();
+            
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -158,52 +159,50 @@ public class EchoServer {
 
 **Giải thích nhanh:**
 
-- `ServerSocket serverSocket = new ServerSocket(port)` – mở "cửa" lắng nghe trên port 5000.
-- `accept()` – block cho đến khi có client kết nối.
+- `ServerSocket serverSocket = new ServerSocket(1234)` – mở "cửa" lắng nghe trên port 1234.
+- `accept()` – block cho đến khi có client kết nối, trả về một `Socket` mới.
 - `BufferedReader` + `PrintWriter` – đọc/ghi text line-by-line.
-- Vòng `while ((line = in.readLine()) != null)` – đọc liên tục cho đến khi client đóng kết nối.
+- `in.readLine()` – đọc một dòng từ client.
+- `out.println()` – gửi một dòng đến client.
 
 ### 4.2. TCP Client
 
+Ví dụ TCP Client tương ứng:
+
 ```java
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.Socket;
-import java.util.Scanner;
+import java.io.*;
+import java.net.*;
 
-public class EchoClient {
+public class SocketClientExample {
     public static void main(String[] args) {
-        String host = "localhost";
-        int port = 5000;
-
-        try (Socket socket = new Socket(host, port);
-             BufferedReader in = new BufferedReader(
-                     new InputStreamReader(socket.getInputStream()));
-             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-             Scanner scanner = new Scanner(System.in)) {
-
-            System.out.println("Đã kết nối tới server " + host + ":" + port);
-            System.out.println("Nhập message (gõ 'exit' để thoát):");
-
-            while (true) {
-                System.out.print("> ");
-                String msg = scanner.nextLine();
-                if ("exit".equalsIgnoreCase(msg)) {
-                    break;
-                }
-
-                // Gửi tới server
-                out.println(msg);
-
-                // Nhận lại từ server
-                String response = in.readLine();
-                System.out.println("Server trả lời: " + response);
-            }
-
-        } catch (Exception e) {
+        try {
+            // Thông tin máy chủ cần kết nối
+            String serverAddress = "localhost"; // Hoặc IP cụ thể như "172.20.10.3"
+            int serverPort = 1234;
+            
+            // Tạo kết nối tới máy chủ
+            Socket socket = new Socket(serverAddress, serverPort);
+            
+            // Lấy luồng vào và ra để giao tiếp với Server
+            InputStream inputStream = socket.getInputStream();
+            BufferedReader in = new BufferedReader(
+                new InputStreamReader(inputStream)
+            );
+            OutputStream outputStream = socket.getOutputStream();
+            PrintWriter out = new PrintWriter(outputStream, true);
+            
+            // Gửi thông điệp tới Server
+            out.println("Xin chào, Server!");
+            
+            // Đọc phản hồi từ Server và in ra màn hình
+            String serverResponse = in.readLine();
+            System.out.println("Server: " + serverResponse);
+            
+            // Đóng kết nối
+            socket.close();
+            
+        } catch (IOException e) {
             e.printStackTrace();
-        }
         }
     }
 }
@@ -211,8 +210,23 @@ public class EchoClient {
 
 **Chạy thử:**
 
-1. Run `EchoServer` trước (server lắng nghe).
-2. Run `EchoClient`, gõ vài dòng text → server in log và client nhận lại `"Echo: ..."`.
+1. **Chạy Server trước**: 
+   ```bash
+   javac SocketServerExample.java
+   java SocketServerExample
+   ```
+   Server sẽ in: `"Server đã khởi động và đang lắng nghe cổng 1234..."`
+
+2. **Chạy Client** (trong terminal khác):
+   ```bash
+   javac SocketClientExample.java
+   java SocketClientExample
+   ```
+   Client sẽ gửi "Xin chào, Server!" và nhận phản hồi "Xin chào, Client!"
+
+**Lưu ý:**
+- Nếu chạy trên máy khác, thay `"localhost"` bằng địa chỉ IP của máy chạy server.
+- Đảm bảo firewall không chặn port 1234.
 
 ---
 
@@ -288,69 +302,128 @@ class ClientHandler implements Runnable {
 
 ---
 
-## 6. UDP Socket (Tham khảo)
+## 6. Mô phỏng trực quan TCP và UDP
+
+Để hiểu rõ hơn về sự khác biệt giữa TCP và UDP, bạn có thể xem mô phỏng tương tác dưới đây:
+
+{{< tcp_udp_simulation >}}
+
+**Cách sử dụng mô phỏng:**
+
+1. **Chọn giao thức**: Chọn TCP hoặc UDP từ dropdown
+2. **Bắt đầu**: Nhấn nút "Bắt đầu" để xem quá trình truyền dữ liệu
+3. **Mô phỏng mất gói (TCP)**: Khi đang chạy TCP, nhấn "Mô phỏng Mất gói" để xem cơ chế retransmission
+4. **Điều chỉnh tốc độ**: Dùng slider để thay đổi tốc độ mô phỏng
+
+**Những gì bạn sẽ thấy:**
+
+- **TCP**: Bắt tay 3 bước (SYN, SYN-ACK, ACK), truyền dữ liệu với ACK, xử lý mất gói tin, đóng kết nối (FIN)
+- **UDP**: Gửi dữ liệu ngay lập tức, không có handshake, có thể mất gói tin hoặc sai thứ tự
+
+---
+
+## 7. UDP Socket (Tham khảo)
 
 Ngoài TCP, Java cũng hỗ trợ UDP Socket với `DatagramSocket` và `DatagramPacket`:
 
+### 7.1. UDP Server
+
 ```java
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
+import java.io.*;
+import java.net.*;
 
-// UDP Server
-public class UDPServer {
-    public static void main(String[] args) throws Exception {
-        DatagramSocket socket = new DatagramSocket(5000);
-        byte[] buffer = new byte[1024];
-        
+class UDPServer {
+    public static void main(String args[]) throws Exception {
+        // Tạo DatagramSocket lắng nghe trên port 9876
+        DatagramSocket serverSocket = new DatagramSocket(9876);
+
+        byte[] receiveData = new byte[1024];
+        byte[] sendData = new byte[1024];
+
         while (true) {
-            DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
-            socket.receive(packet);
+            // Tạo packet để nhận dữ liệu
+            DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+            serverSocket.receive(receivePacket);
             
-            String message = new String(packet.getData(), 0, packet.getLength());
-            System.out.println("Nhận: " + message);
-            
-            // Gửi lại
-            InetAddress clientAddress = packet.getAddress();
-            int clientPort = packet.getPort();
-            byte[] response = ("Echo: " + message).getBytes();
-            DatagramPacket responsePacket = new DatagramPacket(
-                response, response.length, clientAddress, clientPort
-            );
-            socket.send(responsePacket);
-        }
-    }
-}
+            // Chuyển đổi byte thành String
+            String sentence = new String(receivePacket.getData());
+            System.out.println("RECEIVED: " + sentence);
 
-// UDP Client
-public class UDPClient {
-    public static void main(String[] args) throws Exception {
-        DatagramSocket socket = new DatagramSocket();
-        InetAddress serverAddress = InetAddress.getByName("localhost");
-        
-        String message = "Xin chào từ UDP Client!";
-        byte[] data = message.getBytes();
-        DatagramPacket packet = new DatagramPacket(
-            data, data.length, serverAddress, 5000
-        );
-        socket.send(packet);
-        
-        // Nhận phản hồi
-        byte[] buffer = new byte[1024];
-        DatagramPacket response = new DatagramPacket(buffer, buffer.length);
-        socket.receive(response);
-        
-        String responseMessage = new String(
-            response.getData(), 0, response.getLength()
-        );
-        System.out.println("Nhận từ server: " + responseMessage);
-        
-        socket.close();
+            // Lấy thông tin client (IP và port)
+            InetAddress IPAddress = receivePacket.getAddress();
+            int port = receivePacket.getPort();
+            
+            // Xử lý dữ liệu (ví dụ: chuyển thành chữ hoa)
+            String capitalizedSentence = sentence.toUpperCase();
+            sendData = capitalizedSentence.getBytes();
+
+            // Tạo và gửi packet phản hồi
+            DatagramPacket sendPacket = new DatagramPacket(
+                sendData, sendData.length, IPAddress, port
+            );
+            serverSocket.send(sendPacket);
+        }
     }
 }
 ```
 
-## 7. Tóm tắt theo phương pháp Feynman
+### 7.2. UDP Client
+
+```java
+import java.io.*;
+import java.net.*;
+
+class UDPClient {
+    public static void main(String args[]) throws Exception {
+        // Tạo DatagramSocket cho client
+        BufferedReader inFromUser = new BufferedReader(
+            new InputStreamReader(System.in)
+        );
+        DatagramSocket clientSocket = new DatagramSocket();
+        
+        // Địa chỉ server
+        InetAddress IPAddress = InetAddress.getByName("localhost");
+
+        byte[] sendData = new byte[1024];
+        byte[] receiveData = new byte[1024];
+
+        // Nhập message từ người dùng
+        System.out.print("Enter message: ");
+        String sentence = inFromUser.readLine();
+        sendData = sentence.getBytes();
+
+        // Tạo và gửi packet
+        DatagramPacket sendPacket = new DatagramPacket(
+            sendData, sendData.length, IPAddress, 9876
+        );
+        clientSocket.send(sendPacket);
+
+        // Nhận phản hồi từ server
+        DatagramPacket receivePacket = new DatagramPacket(
+            receiveData, receiveData.length
+        );
+        clientSocket.receive(receivePacket);
+        
+        String modifiedSentence = new String(receivePacket.getData());
+        System.out.println("FROM SERVER: " + modifiedSentence);
+        
+        clientSocket.close();
+    }
+}
+```
+
+**So sánh UDP và TCP:**
+
+| Đặc điểm | UDP | TCP |
+|----------|-----|-----|
+| **Kết nối** | Không cần (Connectionless) | Cần thiết lập (Connection-oriented) |
+| **Độ tin cậy** | Không đảm bảo | Đảm bảo |
+| **Thứ tự** | Không đảm bảo | Đảm bảo |
+| **Tốc độ** | Nhanh hơn | Chậm hơn |
+| **Overhead** | Thấp | Cao |
+| **API Java** | `DatagramSocket`, `DatagramPacket` | `Socket`, `ServerSocket` |
+
+## 8. Tóm tắt theo phương pháp Feynman
 
 1. **Socket là gì?**  
    - Giống như **cửa của một căn hộ** trong một toà nhà (IP + port).  
@@ -370,7 +443,7 @@ public class UDPClient {
 
 ---
 
-## 8. Best Practices
+## 9. Best Practices
 
 ### 1. Luôn đóng Socket và Streams
 
@@ -420,7 +493,7 @@ while (true) {
 }
 ```
 
-## 9. Kết luận
+## 10. Kết luận
 
 Trong bài 8, bạn đã học được:
 
