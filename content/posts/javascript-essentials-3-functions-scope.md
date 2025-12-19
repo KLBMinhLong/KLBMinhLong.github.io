@@ -1,7 +1,7 @@
 ---
 title: "Functions và Scope trong JavaScript"
-date: 2025-01-07
-lastmod: 2025-01-07
+date: 2025-12-13
+lastmod: 2025-12-13
 draft: false
 author: "Nguyễn Minh Long"
 description: "Tìm hiểu về Functions (hàm) trong JavaScript: function declarations, expressions, arrow functions, scope, hoisting và closures - kiến thức cốt lõi cho mọi lập trình viên JavaScript."

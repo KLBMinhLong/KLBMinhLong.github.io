@@ -1,7 +1,7 @@
 ---
 title: "Git Cơ Bản: Hướng Dẫn Sử Dụng Version Control cho Developer"
-date: 2025-01-17
-lastmod: 2025-01-17
+date: 2025-12-18
+lastmod: 2025-12-18
 draft: false
 author: "Nguyễn Minh Long"
 description: "Tìm hiểu Git từ cơ bản: cài đặt, các lệnh quan trọng (init, add, commit, status, log), branching, merging, và workflow thực tế cho developer."

@@ -1,7 +1,7 @@
 ---
 title: "Asynchronous JavaScript: Promises và Async/Await"
-date: 2025-01-09
-lastmod: 2025-01-09
+date: 2025-12-14
+lastmod: 2025-12-14
 draft: false
 author: "Nguyễn Minh Long"
 description: "Tìm hiểu về Asynchronous JavaScript: Callbacks, Promises và Async/Await - cách xử lý các tác vụ bất đồng bộ trong JavaScript, bao gồm error handling và best practices."

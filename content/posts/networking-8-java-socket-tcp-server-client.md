@@ -1,7 +1,7 @@
 ---
 title: "Lập trình Socket trong Java: TCP Server/Client"
-date: 2025-01-12
-lastmod: 2025-01-12
+date: 2025-12-15
+lastmod: 2025-12-15
 draft: false
 author: "Nguyễn Minh Long"
 description: "Xây dựng TCP server/client trong Java với java.net.Socket và java.net.ServerSocket, kèm ví dụ echo server."

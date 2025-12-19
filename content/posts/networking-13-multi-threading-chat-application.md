@@ -1,7 +1,7 @@
 ---
 title: "Xây dựng Ứng dụng Chat Multi-threading với Java Socket"
-date: 2025-01-19
-lastmod: 2025-01-19
+date: 2025-12-18
+lastmod: 2025-12-18
 draft: false
 author: "Nguyễn Minh Long"
 description: "Học cách xây dựng ứng dụng chat đa luồng với Java Socket, xử lý nhiều client đồng thời, broadcast message và logging."
