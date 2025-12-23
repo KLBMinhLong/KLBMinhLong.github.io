@@ -32,7 +32,47 @@
       
       {{- /* Right: Image/Avatar */ -}}
       <div class="hero-right" data-aos="fade-left" data-aos-delay="200">
-        {{- $avatar := site.Params.profileMode.imageUrl | default "/images/profile/avatar.png" }}
+        {{- /* Avatar fallback order:
+              1) params.profileMode.imageUrl (nếu có)
+              2) params.images[0] (đang set trong hugo.toml)
+              3) params.label.icon
+              4) /images/icon.jpg (fallback cuối) */ -}}
+        {{- $avatar := "" -}}
+        {{- with site.Params.profileMode -}}
+          {{- with .imageUrl -}}
+            {{- $avatar = . -}}
+          {{- end -}}
+        {{- end -}}
+        {{- /* ưu tiên ảnh profile thực tế nếu tồn tại trong static */ -}}
+        {{- if eq $avatar "" -}}
+          {{- $candidate := "/images/profile/GrayscaleVersion.png" -}}
+          {{- if fileExists (printf "static%s" $candidate) -}}
+            {{- $avatar = $candidate -}}
+          {{- end -}}
+        {{- end -}}
+        {{- if eq $avatar "" -}}
+          {{- $candidate := "/images/profile/BackgroundWhite.png" -}}
+          {{- if fileExists (printf "static%s" $candidate) -}}
+            {{- $avatar = $candidate -}}
+          {{- end -}}
+        {{- end -}}
+        {{- if eq $avatar "" -}}
+          {{- with site.Params.images -}}
+            {{- if gt (len .) 0 -}}
+              {{- $avatar = (index . 0) -}}
+            {{- end -}}
+          {{- end -}}
+        {{- end -}}
+        {{- if eq $avatar "" -}}
+          {{- with site.Params.label -}}
+            {{- with .icon -}}
+              {{- $avatar = . -}}
+            {{- end -}}
+          {{- end -}}
+        {{- end -}}
+        {{- if eq $avatar "" -}}
+          {{- $avatar = "/images/icon.jpg" -}}
+        {{- end -}}
         <img src="{{ $avatar }}" 
              alt="{{ site.Params.author | default "Avatar" }}" 
              class="hero-image"
@@ -131,11 +171,14 @@
 .hero-image {
   width: 100%;
   max-width: 400px;
+  aspect-ratio: 1 / 1;
   height: auto;
   border-radius: 1.5rem;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   transition: transform 0.3s ease;
   object-fit: cover;
+  object-position: center 20%;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .hero-image:hover {

@@ -109,7 +109,13 @@
   </header>
   {{- if (ne (.Param "hideSummary") true) }}
   <div class="entry-content">
-    <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
+    {{- /* Summary trên Home: làm phẳng whitespace + giới hạn ký tự để không “kéo cả bài” */ -}}
+    {{- $summary := .Summary | plainify | htmlUnescape | replaceRE "\\s+" " " | strings.TrimSpace -}}
+    {{- if gt (len $summary) 220 -}}
+      {{- /* truncate nhưng không thêm "..." (để ellipsis do CSS line-clamp xử lý) */ -}}
+      {{- $summary = ($summary | truncate 220 "") -}}
+    {{- end -}}
+    <p>{{ $summary }}</p>
   </div>
   {{- end }}
   {{- if not (.Param "hideMeta") }}

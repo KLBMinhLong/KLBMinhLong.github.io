@@ -152,19 +152,20 @@
   --color-accent-cyan: #22D3EE;       /* Cyan 400 */
   --color-accent-pink: #F472B6;       /* Pink 400 */
   
-  /* Background Colors */
-  --color-bg-primary: #0F172A;        /* Slate 900 */
-  --color-bg-secondary: #1E293B;      /* Slate 800 */
-  --color-bg-tertiary: #334155;       /* Slate 700 */
+  /* Background Colors
+     Lưu ý: tách rõ bg vs surface để card không “chìm” vào nền. */
+  --color-bg-primary: #0B1220;        /* darker than Slate 900 */
+  --color-bg-secondary: #0F172A;      /* Slate 900 */
+  --color-bg-tertiary: #111827;       /* Gray 900 */
   
-  /* Surface Colors */
-  --color-surface: #1E293B;
-  --color-surface-hover: #334155;
+  /* Surface Colors (cards, panels) */
+  --color-surface: #162033;           /* slightly lighter than bg-secondary */
+  --color-surface-hover: #1E293B;     /* Slate 800 */
   
   /* Border Colors */
-  --color-border-light: #334155;      /* Slate 700 */
-  --color-border-medium: #475569;     /* Slate 600 */
-  --color-border-dark: #64748B;       /* Slate 500 */
+  --color-border-light: #223049;      /* custom */
+  --color-border-medium: #334155;     /* Slate 700 */
+  --color-border-dark: #475569;       /* Slate 600 */
   
   /* Shadows (darker for dark mode) */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);

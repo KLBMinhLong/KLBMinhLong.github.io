@@ -35,6 +35,12 @@
       if (!dateStr) return;
       
       try {
+        // Lưu title gốc để tránh bị append "(x ngày trước)" nhiều lần
+        if (!el.hasAttribute('data-title-base')) {
+          const baseTitle = el.getAttribute('title') || '';
+          el.setAttribute('data-title-base', baseTitle);
+        }
+
         const postDate = new Date(dateStr);
         const diffMs = now - postDate;
         const diffSeconds = Math.floor(diffMs / 1000);
@@ -60,7 +66,7 @@
         }
         
         // Cập nhật text nhưng giữ title với ngày đầy đủ
-        const title = el.getAttribute('title');
+        const title = el.getAttribute('data-title-base');
         el.textContent = relativeTime;
         if (title) {
           el.setAttribute('title', title + ' (' + relativeTime + ')');

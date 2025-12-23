@@ -5,7 +5,8 @@
 /* Container System */
 .container {
   width: 100%;
-  max-width: 1280px;
+  /* Giảm cảm giác “trống 2 bên” trên màn hình lớn nhưng vẫn giữ độ đọc tốt */
+  max-width: 1360px;
   margin: 0 auto;
   padding-inline: var(--spacing-6);
 }
