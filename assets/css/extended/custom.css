@@ -574,8 +574,8 @@ a:hover,
   stroke: var(--accent);
 }
 
-/* Ripple effect on click */
-.nav-menu #menu li a::after {
+/* Ripple effect on click - ĐÃ TẮT */
+/* .nav-menu #menu li a::after {
   content: "";
   position: absolute;
   top: 50%;
@@ -592,9 +592,9 @@ a:hover,
 .nav-menu #menu li a:active::after {
   width: 100px;
   height: 100px;
-}
+} */
 
-/* Khi active/click: giữ nguyên text, chỉ tắt ripple nhanh */
+/* Khi active/click: giữ nguyên text */
 .nav-menu #menu li a:active {
   /* Giữ nguyên width và text khi click */
 }
@@ -2115,14 +2115,15 @@ body {
               border-color 0.3s ease;
 }
 
-/* Button animations */
+/* Button animations - Đã tắt ripple effect */
 .submit-btn,
 .hero-button {
   position: relative;
   overflow: hidden;
 }
 
-.submit-btn::before,
+/* Ripple effect đã tắt */
+/* .submit-btn::before,
 .hero-button::before {
   content: '';
   position: absolute;
@@ -2140,7 +2141,7 @@ body {
 .hero-button:hover::before {
   width: 300px;
   height: 300px;
-}
+} */
 
 /* Image loading animation */
 .post-content img[loading="lazy"] {
