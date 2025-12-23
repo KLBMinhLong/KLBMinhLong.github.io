@@ -1,7 +1,7 @@
 ---
 title: "Quy Trình Làm Việc với GitHub và GitLab: Từ Local đến Remote"
-date: 2025-12-19
-lastmod: 2025-12-19
+date: 2025-12-19T08:00:00+07:00
+lastmod: 2025-12-19T08:00:00+07:00
 draft: false
 author: "Nguyễn Minh Long"
 description: "Hướng dẫn làm việc với GitHub và GitLab: clone repository, push/pull, pull requests, merge requests, issues, và quy trình làm việc nhóm hiệu quả."

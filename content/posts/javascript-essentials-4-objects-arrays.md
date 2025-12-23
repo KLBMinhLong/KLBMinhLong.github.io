@@ -1,7 +1,7 @@
 ---
 title: "Objects và Arrays trong JavaScript"
-date: 2025-12-13
-lastmod: 2025-12-13
+date: 2025-12-13T14:00:00+07:00
+lastmod: 2025-12-13T14:00:00+07:00
 draft: false
 author: "Nguyễn Minh Long"
 description: "Tìm hiểu cách làm việc với Objects và Arrays trong JavaScript - cấu trúc dữ liệu quan trọng nhất, bao gồm object literals, array methods, destructuring và spread operator."

@@ -1,7 +1,7 @@
 ---
 title: "Giới thiệu về Lập trình Mạng (Network Programming)"
-date: 2025-12-15
-lastmod: 2025-12-15
+date: 2025-12-15T08:00:00+07:00
+lastmod: 2025-12-15T08:00:00+07:00
 draft: false
 author: "Nguyễn Minh Long"
 description: "Tổng quan về lập trình mạng: Network Programming là gì, mô hình TCP/IP, khái niệm Socket và kiến trúc Client-Server - nền tảng quan trọng cho mọi lập trình viên mạng."

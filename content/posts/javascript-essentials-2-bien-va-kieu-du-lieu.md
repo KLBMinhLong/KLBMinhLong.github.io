@@ -1,7 +1,7 @@
 ---
 title: "Biến, Kiểu Dữ Liệu và Toán Tử trong JavaScript"
-date: 2025-12-12
-lastmod: 2025-12-12
+date: 2025-12-12T14:00:00+07:00
+lastmod: 2025-12-12T14:00:00+07:00
 draft: false
 author: "Nguyễn Minh Long"
 description: "Tìm hiểu về biến (var, let, const), kiểu dữ liệu nguyên thủy và toán tử trong JavaScript - nền tảng quan trọng cho mọi lập trình viên JavaScript."

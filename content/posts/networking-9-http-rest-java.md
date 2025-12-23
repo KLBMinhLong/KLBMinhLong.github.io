@@ -1,7 +1,7 @@
 ---
 title: "HTTP và RESTful API với Java"
-date: 2025-12-16
-lastmod: 2025-12-16
+date: 2025-12-16T08:00:00+07:00
+lastmod: 2025-12-16T08:00:00+07:00
 draft: false
 author: "Nguyễn Minh Long"
 description: "Giới thiệu HTTP protocol, REST principles và cách sử dụng Java HTTP Client (Java 11+) để gọi RESTful API với ví dụ thực tế."

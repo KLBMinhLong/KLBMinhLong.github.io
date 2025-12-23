@@ -1,7 +1,7 @@
 ---
 title: "ES6+ Features: Modules, Classes và More"
-date: 2025-12-14
-lastmod: 2025-12-14
+date: 2025-12-14T14:00:00+07:00
+lastmod: 2025-12-14T14:00:00+07:00
 draft: false
 author: "Nguyễn Minh Long"
 description: "Tìm hiểu các tính năng mới của ES6+: ES6 Modules (import/export), Classes, Template literals, Optional chaining và nhiều tính năng hiện đại khác trong JavaScript."

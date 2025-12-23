@@ -1,7 +1,7 @@
 ---
 title: "CORS và Các Vấn đề Bảo Mật trong Web Development"
-date: 2025-12-17
-lastmod: 2025-12-17
+date: 2025-12-17T14:00:00+07:00
+lastmod: 2025-12-17T14:00:00+07:00
 draft: false
 author: "Nguyễn Minh Long"
 description: "Tìm hiểu về CORS, Same-Origin Policy, và các vấn đề bảo mật trong web development: cách xử lý CORS, best practices, và các lỗ hổng bảo mật phổ biến."

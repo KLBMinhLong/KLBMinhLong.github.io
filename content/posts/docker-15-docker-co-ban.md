@@ -1,7 +1,7 @@
 ---
 title: "Docker Cơ Bản cho Developer: Containerization từ A đến Z"
-date: 2025-12-19
-lastmod: 2025-12-19
+date: 2025-12-19T14:00:00+07:00
+lastmod: 2025-12-19T14:00:00+07:00
 draft: false
 author: "Nguyễn Minh Long"
 description: "Hướng dẫn Docker từ cơ bản: container vs VM, Dockerfile, docker-compose, images, volumes, networks, và best practices cho backend/DevOps."
