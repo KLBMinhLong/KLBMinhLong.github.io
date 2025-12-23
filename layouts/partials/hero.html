@@ -1,18 +1,204 @@
+{{- /* ========================================
+     HERO SECTION - Modern Design
+     ======================================== */ -}}
 <section class="hero-section">
+  <div class="hero-container">
     <div class="hero-content">
-        <div class="hero-left">
-            <h1 class="hero-title">Nguyễn Minh Long</h1>
-            <p class="hero-tagline">Khám phá thế giới số - Kiến Thức Căn Bản <br> Hiệu Quả Tức Thì</p>
-            <div class="hero-description">
-                <p>Chia sẻ kiến thức về <strong>Lập trình mạng</strong>, <strong>Java</strong> & <strong>JavaScript</strong></p>
-            </div>
-            <div class="hero-cta">
-                <a href="/posts/" class="hero-button">Xem Blog →</a>
-            </div>
+      {{- /* Left: Text Content */ -}}
+      <div class="hero-left" data-aos="fade-right">
+        <h1 class="hero-title">
+          Xin chào, tôi là <span class="hero-title-gradient">{{ site.Params.author | default "Minh Long" }}</span>
+        </h1>
+        <p class="hero-tagline">
+          {{ site.Params.description | default "Full-stack Developer & Network Programmer" }}
+        </p>
+        <div class="hero-description">
+          <p>
+            Tôi viết blog về <strong>Java</strong>, <strong>JavaScript</strong> và 
+            <strong>Lập trình mạng</strong>. Chia sẻ kiến thức và kinh nghiệm lập trình 
+            để giúp cộng đồng developer Việt Nam.
+          </p>
         </div>
-        <div class="hero-right">
-            <img src="/images/profile/BackgroundWhite.png" alt="Nguyễn Minh Long" class="hero-image" />
+        <div class="hero-cta">
+          <a href="/posts" class="btn btn-primary">
+            <span>Xem Bài Viết</span>
+            <i data-lucide="arrow-right" style="width: 20px; height: 20px;"></i>
+          </a>
+          <a href="/about" class="btn btn-ghost">
+            <span>Về Tôi</span>
+          </a>
         </div>
+      </div>
+      
+      {{- /* Right: Image/Avatar */ -}}
+      <div class="hero-right" data-aos="fade-left" data-aos-delay="200">
+        {{- $avatar := site.Params.profileMode.imageUrl | default "/images/profile/avatar.png" }}
+        <img src="{{ $avatar }}" 
+             alt="{{ site.Params.author | default "Avatar" }}" 
+             class="hero-image"
+             loading="eager">
+      </div>
     </div>
+  </div>
 </section>
 
+{{- /* Hero Section Styles */ -}}
+<style>
+.hero-section {
+  width: 100%;
+  min-height: 65vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gradient-primary);
+  position: relative;
+  overflow: hidden;
+  padding: 4rem 0;
+  margin-bottom: 4rem;
+}
+
+/* Background Pattern */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.hero-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-content {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  color: white;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.hero-title-gradient {
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+}
+
+.hero-tagline {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  color: rgba(255, 255, 255, 0.95);
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+
+.hero-description {
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.hero-description strong {
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 600;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.hero-image {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  border-radius: 1.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease;
+  object-fit: cover;
+}
+
+.hero-image:hover {
+  transform: scale(1.05) rotate(2deg);
+}
+
+/* Button overrides for hero */
+.hero-cta .btn {
+  padding: 0.875rem 1.75rem;
+  font-size: 1rem;
+}
+
+.hero-cta .btn-ghost {
+  border-color: rgba(255, 255, 255, 0.5);
+  color: white;
+}
+
+.hero-cta .btn-ghost:hover {
+  background: white;
+  color: var(--color-primary);
+  border-color: white;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: auto;
+    padding: 3rem 0;
+  }
+  
+  .hero-container {
+    padding: 0 1.5rem;
+  }
+  
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    text-align: center;
+  }
+  
+  .hero-right {
+    order: -1;
+  }
+  
+  .hero-image {
+    max-width: 280px;
+    margin: 0 auto;
+  }
+  
+  .hero-cta {
+    justify-content: center;
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+  }
+  
+  .hero-tagline {
+    font-size: 1.25rem;
+  }
+  
+  .hero-description {
+    font-size: 1rem;
+  }
+}
+</style>

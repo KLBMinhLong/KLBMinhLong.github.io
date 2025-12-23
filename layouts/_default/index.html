@@ -43,8 +43,8 @@
 
 {{- $paginator := .Paginate $pages }}
 
-{{- if and .IsHome site.Params.homeInfoParams (eq $paginator.PageNumber 1) }}
-{{- partial "home_info.html" . }}
+{{- if and .IsHome (eq $paginator.PageNumber 1) }}
+{{- partial "hero.html" . }}
 {{- end }}
 
 {{- $term := .Data.Term }}
