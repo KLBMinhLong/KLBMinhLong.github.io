@@ -26,7 +26,8 @@
 </header>
 {{- end }}
 
-{{- if .Content }}
+{{- /* Render .Content only for non-home pages */ -}}
+{{- if and .Content (not .IsHome) }}
 <div class="post-content">
   {{- if not (.Param "disableAnchoredHeadings") }}
   {{- partial "anchored_headings.html" .Content -}}
@@ -44,9 +45,51 @@
 {{- $paginator := .Paginate $pages }}
 
 {{- if and .IsHome (eq $paginator.PageNumber 1) }}
-{{- partial "hero.html" . }}
+{{- /* Hero already rendered in baseof.html */ -}}
+
+{{- /* Certificates Section */ -}}
+<section class="certificates-section">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <h2 class="section-title">Chứng chỉ nổi bật</h2>
+    </div>
+    <div class="certificates-grid">
+      <a class="certificate-card" href="/images/certificates/NetworkingBasicsUpdate20251118-32-7k75aj.pdf" target="_blank" rel="noopener" data-aos="fade-up" data-aos-delay="100">
+        <img src="/images/certificates/networking-basics.png" alt="Chứng chỉ Networking Basics" loading="lazy" />
+        <h3>Networking Basics</h3>
+        <p>Cisco Networking Academy</p>
+        <span class="cert-badge">Xem chứng chỉ</span>
+      </a>
+      <a class="certificate-card" href="/images/certificates/JavaScriptEssentials1Update20251118-31-d62o4j.pdf" target="_blank" rel="noopener" data-aos="fade-up" data-aos-delay="200">
+        <img src="/images/certificates/javascript-essentials-1.png" alt="Chứng chỉ JavaScript Essentials 1" loading="lazy" />
+        <h3>JavaScript Essentials 1</h3>
+        <p>Cisco + OpenEDG</p>
+        <span class="cert-badge">Xem chứng chỉ</span>
+      </a>
+      <a class="certificate-card" href="/images/certificates/JavaScriptEssentials2Update20251121-32-bxp5cb.pdf" target="_blank" rel="noopener" data-aos="fade-up" data-aos-delay="300">
+        <img src="/images/certificates/javascript-essentials-2.png" alt="Chứng chỉ JavaScript Essentials 2" loading="lazy" />
+        <h3>JavaScript Essentials 2</h3>
+        <p>Cisco + OpenEDG</p>
+        <span class="cert-badge">Xem chứng chỉ</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+{{- /* Blog Posts Section Header */ -}}
+<section class="blog-posts-section">
+  <div class="container">
+    <div class="section-header" data-aos="fade-up">
+      <h2 class="section-title">Bài viết mới nhất</h2>
+      <p class="section-description">Khám phá các bài viết về Java, JavaScript và Lập trình mạng</p>
+    </div>
+  </div>
+</section>
 {{- end }}
 
+{{- /* Blog Posts Grid */ -}}
+<div class="container">
+  <div class="posts-grid">
 {{- $term := .Data.Term }}
 {{- $class := "post-entry" }}
 {{- if (and (eq .Kind `term`) (eq .Data.Singular `tag`)) }}
@@ -77,8 +120,11 @@
   <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
 </article>
 {{- end }}
+  </div>{{/* .posts-grid */}}
+</div>{{/* .container */}}
 
 {{- if gt $paginator.TotalPages 1 }}
+<div class="container">
 <footer class="page-footer">
   <nav class="pagination">
     {{- if $paginator.HasPrev }}
@@ -89,6 +135,7 @@
     {{- end }}
   </nav>
 </footer>
+</div>{{/* .container */}}
 {{- end }}
 
 {{- end }}{{/* End main */}}
