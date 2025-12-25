@@ -1,0 +1,54 @@
+{{- define "main" }}
+
+{{- if .Title }}
+<header class="page-header">
+    <h1>{{ .Title }}</h1>
+    {{- if .Description }}
+    <div class="post-description">
+        {{ .Description }}
+    </div>
+    {{- end }}
+</header>
+{{- end }}
+
+<div class="categories-page-content">
+  {{- if .Content }}
+  <div class="post-content">
+    {{ .Content }}
+  </div>
+  {{- end }}
+
+  <section class="categories-section">
+    <h2>📂 Danh mục</h2>
+    <ul class="terms-tags">
+        {{- $type := .Type }}
+        {{- range $key, $value := .Data.Terms.Alphabetical }}
+        {{- $name := .Name }}
+        {{- $count := .Count }}
+        {{- with site.GetPage (printf "/%s/%s" $type $name) }}
+        <li>
+            <a href="{{ .Permalink }}">{{ .Name }} <sup><strong><sup>{{ $count }}</sup></strong></sup> </a>
+        </li>
+        {{- end }}
+        {{- end }}
+    </ul>
+  </section>
+
+  <section class="tags-section">
+    <h2>🏷️ Tags</h2>
+    <ul class="terms-tags">
+        {{- range $key, $value := site.Taxonomies.tags.Alphabetical }}
+        {{- $name := .Name }}
+        {{- $count := .Count }}
+        {{- with site.GetPage (printf "/tags/%s" $name) }}
+        <li>
+            <a href="{{ .Permalink }}">{{ .Name }} <sup><strong><sup>{{ $count }}</sup></strong></sup> </a>
+        </li>
+        {{- end }}
+        {{- end }}
+    </ul>
+  </section>
+</div>
+
+{{- end }}{{/* end main */ -}}
+

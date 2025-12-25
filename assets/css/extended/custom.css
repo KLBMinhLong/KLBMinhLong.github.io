@@ -73,7 +73,7 @@
   margin: 2rem auto;
   border-radius: 8px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease;
 }
 
 .post-content picture img {
@@ -113,7 +113,6 @@
 /* Zoom ảnh nhỏ khi hover */
 .post-content img.img-small:hover,
 .post-content picture.img-small:hover {
-  transform: scale(1.15);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
   z-index: 10;
   position: relative;
@@ -177,7 +176,7 @@
   
   .post-content img.img-small:hover,
   .post-content picture.img-small:hover {
-    transform: scale(1.05); /* Nhẹ hơn trên mobile */
+    /* Đã bỏ transform scale */
   }
   
   .post-content img[loading="lazy"] {
@@ -190,16 +189,14 @@ a,
 .post-content a,
 .archive-entry a {
   color: var(--secondary);
-  text-decoration-color: rgba(0, 0, 0, 0.1);
-  text-underline-offset: 3px;
-  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 a:hover,
 .post-content a:hover,
 .archive-entry a:hover {
   color: var(--accent);
-  text-decoration-color: var(--accent);
 }
 
 /* Card bài viết ở trang Home/Blog – giống \"thumbnail\" trong ảnh 1 */
@@ -207,13 +204,12 @@ a:hover,
   border-radius: 10px;
   border: 1px solid var(--border);
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
   width: 100%;
   max-width: 100%;
 }
 
 .post-entry:hover {
-  transform: translateY(-3px);
   border-color: var(--accent);
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.16);
 }
@@ -261,7 +257,7 @@ a:hover,
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
   text-decoration: none;
   color: var(--content);
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease, background 0.15s ease;
 }
 
 .home-certificates .cert-card img {
@@ -291,7 +287,6 @@ a:hover,
 }
 
 .home-certificates .cert-card:hover {
-  transform: translateY(-4px);
   border-color: var(--accent);
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
 }
@@ -371,18 +366,11 @@ a:hover,
 }
 
 .logo-text::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--accent);
-  transition: width 0.3s ease;
+  display: none;
 }
 
 .logo-link:hover .logo-text::after {
-  width: 100%;
+  display: none;
 }
 
 .nav-menu #menu {
@@ -527,12 +515,16 @@ a:hover,
 .nav-menu #menu li a .menu-text.active {
   color: var(--accent);
   font-weight: 600;
+  text-decoration: none !important;
+  border-bottom: none !important;
 }
 
 /* Active state - highlight cả link */
 .nav-menu #menu li a.active-link {
   background: rgba(var(--accent-rgb, 122, 184, 255), 0.1);
   color: var(--accent);
+  text-decoration: none !important;
+  border-bottom: none !important;
 }
 
 .nav-menu #menu li a.active-link .menu-icon {
@@ -547,6 +539,8 @@ a:hover,
 .nav-menu #menu li a:has(.menu-text.active) {
   background: rgba(var(--accent-rgb, 122, 184, 255), 0.1);
   color: var(--accent);
+  text-decoration: none !important;
+  border-bottom: none !important;
 }
 
 .nav-menu #menu li a:has(.menu-text.active) .menu-icon {
@@ -555,6 +549,27 @@ a:hover,
 
 .nav-menu #menu li a:has(.menu-text.active) .menu-icon svg {
   stroke: var(--accent);
+}
+
+/* Đảm bảo tất cả menu items không có underline */
+.nav-menu #menu li a,
+.nav-menu #menu li a .menu-text,
+.nav-menu #menu li a.active-link,
+.nav-menu #menu li a.active-link .menu-text,
+.nav-menu #menu li a .menu-text.active {
+  text-decoration: none !important;
+  border-bottom: none !important;
+  text-underline-offset: 0 !important;
+  text-decoration-color: transparent !important;
+}
+
+/* Override theme CSS cho active state */
+#menu .active,
+#menu a.active,
+.nav-menu #menu .active,
+.nav-menu #menu a.active {
+  border-bottom: none !important;
+  text-decoration: none !important;
 }
 
 /* Hover state */
@@ -632,11 +647,10 @@ a:hover,
   height: auto;
   border-radius: 12px;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease;
 }
 
 .about-intro-left img:hover {
-  transform: translateY(-5px);
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
 }
 
@@ -667,11 +681,10 @@ a:hover,
   border-radius: 12px;
   padding: 2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .about-section:hover {
-  transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   border-color: var(--accent);
 }
@@ -768,12 +781,11 @@ a:hover,
   background: var(--theme);
   border-radius: 8px;
   border: 1px solid var(--border);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
   width: 100%;
 }
 
 .about-cert-link:hover {
-  transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-color: var(--accent);
 }
@@ -785,11 +797,10 @@ a:hover,
   object-fit: cover;
   flex-shrink: 0;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
 }
 
 .about-cert-link:hover .about-cert-image {
-  transform: scale(1.05);
+  /* Đã bỏ transform scale */
 }
 
 .about-cert-info {
@@ -836,7 +847,6 @@ a:hover,
 
 .about-section-contact a:hover {
   color: var(--primary);
-  text-decoration: underline;
 }
 
 @media (max-width: 768px) {
@@ -887,11 +897,10 @@ a:hover,
   border-radius: 12px;
   padding: 2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .contact-section:hover {
-  transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   border-color: var(--accent);
 }
@@ -910,6 +919,29 @@ a:hover,
 .contact-items {
   display: grid;
   gap: 1.5rem;
+}
+
+/* Đảm bảo tất cả link trong contact section không có underline */
+.contact-section a,
+.contact-info a,
+.contact-item a,
+.contact-details a,
+#email-link,
+a[href^="tel:"] {
+  text-decoration: none !important;
+  border-bottom: none !important;
+  text-underline-offset: 0 !important;
+  text-decoration-color: transparent !important;
+}
+
+.contact-section a:hover,
+.contact-info a:hover,
+.contact-item a:hover,
+.contact-details a:hover,
+#email-link:hover,
+a[href^="tel:"]:hover {
+  text-decoration: none !important;
+  border-bottom: none !important;
 }
 
 .contact-item {
@@ -960,14 +992,18 @@ a:hover,
 
 .contact-details a {
   color: var(--accent);
-  text-decoration: none;
+  text-decoration: none !important;
   font-size: 1rem;
   transition: color 0.2s ease;
+  border-bottom: none !important;
+  text-underline-offset: 0 !important;
+  text-decoration-color: transparent !important;
 }
 
 .contact-details a:hover {
   color: var(--primary);
-  text-decoration: underline;
+  text-decoration: none !important;
+  border-bottom: none !important;
 }
 
 /* Social Icons */
@@ -987,12 +1023,11 @@ a:hover,
   background: var(--primary);
   color: var(--theme);
   text-decoration: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .social-icon:hover {
-  transform: translateY(-3px) scale(1.05);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 
@@ -1050,33 +1085,33 @@ a:hover,
 
 .submit-btn {
   padding: 0.875rem 2rem;
-  background: var(--accent);
+  background: #999999;
   color: var(--theme);
   border: none;
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
   align-self: start;
 }
 
 [data-theme="dark"] .submit-btn {
+  background: #666666;
   color: var(--primary);
 }
 
 .submit-btn:hover {
-  background: var(--primary);
-  transform: translateY(-2px);
+  background: var(--accent);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 [data-theme="dark"] .submit-btn:hover {
-  background: var(--secondary);
+  background: var(--accent);
 }
 
 .submit-btn:active {
-  transform: translateY(0);
+  /* Đã bỏ transform */
 }
 
 .form-message {
@@ -1638,7 +1673,7 @@ article.post-single header.post-header {
 
   /* Disable zoom on small images on mobile */
   .post-content img.img-small:hover {
-    transform: scale(1.05);
+    /* Đã bỏ transform scale */
   }
 }
 
@@ -1844,7 +1879,6 @@ article.post-single header.post-header {
 .hero-button:hover {
   background: var(--accent);
   color: var(--theme);
-  transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(122, 184, 255, 0.3);
 }
 
@@ -1956,7 +1990,6 @@ article.post-single header.post-header {
   background: var(--accent);
   color: var(--theme);
   border-color: var(--accent);
-  transform: translateX(4px);
 }
 
 /* Footer improvements */
@@ -2110,8 +2143,7 @@ body {
 .cert-card,
 .about-section,
 .contact-section {
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+  transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
               border-color 0.3s ease;
 }
 
@@ -2203,7 +2235,6 @@ button:focus-visible {
   background: var(--accent);
   color: var(--theme);
   border-color: var(--accent);
-  transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(122, 184, 255, 0.2);
 }
 
@@ -2223,6 +2254,31 @@ button:focus-visible {
     grid-template-columns: 1fr;
     gap: 0.75rem;
   }
+}
+
+/* Categories page - với sections cho categories và tags */
+.categories-page-content {
+  margin-top: 2rem;
+}
+
+.categories-section,
+.tags-section {
+  margin-bottom: 3rem;
+}
+
+.categories-section h2,
+.tags-section h2 {
+  font-size: 1.75rem;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--accent);
+  display: inline-block;
+}
+
+.categories-section:last-child,
+.tags-section:last-child {
+  margin-bottom: 0;
 }
 
 /* Logo switches spacing */
