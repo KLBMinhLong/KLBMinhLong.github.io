@@ -1,7 +1,7 @@
 baseURL = "https://klbminhlong.github.io/"
 languageCode = "vi-vn"
 defaultContentLanguage = "vi"
-title = "Nguyễn Minh Long - Network Programming Blog"
+title = "Lập Trình Mạng - MLBlog"
 theme = "PaperMod"
 
 [pagination]
@@ -30,7 +30,7 @@ enableGitInfo = true
     favicon = "/favicon.ico"
 
   [params.label]
-    text = "Nguyễn Minh Long - Network Programming Blog"
+    text = "Lập Trình Mạng - MLBlog"
     icon = "/images/icon.jpg"      # đặt file tại static/images/icon.jpg
     iconHeight = 48
 
