@@ -81,6 +81,33 @@ Mình đặc biệt quan tâm đến **Lập trình mạng (Network Programming)
         </div>
       </a>
     </div>
+    <div class="about-cert-item">
+      <a href="/images/certificates/GeminiCertifiedUniversityStudent.pdf" target="_blank" rel="noopener" class="about-cert-link">
+        <img src="/images/certificates/GeminiCertifiedUniversityStudent.png" alt="Chứng chỉ Gemini Certified University Student" class="about-cert-image" />
+        <div class="about-cert-info">
+          <strong>Gemini Certified University Student</strong>
+          <span>Google for Education</span>
+        </div>
+      </a>
+    </div>
+    <div class="about-cert-item">
+      <a href="/images/certificates/GoogleCertifiedEducator.pdf" target="_blank" rel="noopener" class="about-cert-link">
+        <img src="/images/certificates/GoogleCertifiedEducator.png" alt="Chứng chỉ Google Certified Educator" class="about-cert-image" />
+        <div class="about-cert-info">
+          <strong>Google Certified Educator</strong>
+          <span>Google for Education - Level 1</span>
+        </div>
+      </a>
+    </div>
+    <div class="about-cert-item">
+      <a href="/images/certificates/IntroductiontoCybersecurity.pdf" target="_blank" rel="noopener" class="about-cert-link">
+        <img src="/images/certificates/IntroductiontoCybersecurity.png" alt="Chứng chỉ Introduction to Cybersecurity" class="about-cert-image" />
+        <div class="about-cert-info">
+          <strong>Introduction to Cybersecurity</strong>
+          <span>Cisco Networking Academy</span>
+        </div>
+      </a>
+    </div>
   </div>
 </div>
 
