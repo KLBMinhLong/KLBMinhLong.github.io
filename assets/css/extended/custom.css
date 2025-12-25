@@ -1995,9 +1995,19 @@ article.post-single header.post-header {
 /* Footer improvements - Simple & Clean */
 .footer {
   margin-top: 4rem;
+  margin-left: 0;
+  margin-right: 0;
   padding: 2rem 0;
   border-top: 1px solid var(--border);
   background: var(--entry);
+  width: 100vw;
+  max-width: 100vw;
+  box-sizing: border-box;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
 }
 
 .footer-content {
@@ -2008,6 +2018,7 @@ article.post-single header.post-header {
   flex-direction: column;
   align-items: center;
   gap: 1.25rem;
+  width: 100%;
 }
 
 .footer-links {
@@ -2078,6 +2089,27 @@ article.post-single header.post-header {
 
 .footer-copyright a:hover {
   color: var(--primary);
+}
+
+.footer-report-link {
+  margin-top: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+  width: 100%;
+  text-align: center;
+}
+
+.footer-report-link a {
+  color: var(--border);
+  text-decoration: none !important;
+  font-size: 0.75rem;
+  opacity: 0.6;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.footer-report-link a:hover {
+  opacity: 1;
+  color: var(--secondary);
 }
 
 @media (max-width: 768px) {
