@@ -9,52 +9,6 @@ showToc: true
 
 # ĐỒ ÁN MÔN HỌC LẬP TRÌNH MẠNG
 
-## PHÁT TRIỂN BLOG CÁ NHÂN CHIA SẺ VỀ LẬP TRÌNH MẠNG
-
-**Ngành:** CÔNG NGHỆ THÔNG TIN
-
-**Giảng viên hướng dẫn:** [Tên giảng viên]
-
-**Sinh viên thực hiện:** Nguyễn Minh Long
-
-**MSSV:** [Mã số sinh viên]
-
-**Lớp:** [Tên lớp]
-
-**TP. Hồ Chí Minh, 2025**
-
----
-
-## MỤC LỤC
-
-1. [LỜI NÓI ĐẦU](#lời-nói-đầu)
-2. [CHƯƠNG 1. TỔNG QUAN VỀ ĐỀ TÀI](#chương-1-tổng-quan-về-đề-tài)
-   - 1.1. Lý do chọn đề tài
-   - 1.2. Yêu cầu đề tài
-   - 1.3. Nội dung đề tài
-3. [CHƯƠNG 2. TỔNG QUAN VỀ BLOG VÀ STATIC SITE GENERATOR](#chương-2-tổng-quan-về-blog-và-static-site-generator)
-   - 2.1. Khái niệm về Blog
-   - 2.2. Static Site Generator (SSG)
-   - 2.3. Hugo Framework
-   - 2.4. GitHub Pages
-4. [CHƯƠNG 3. KHẢO SÁT VÀ THIẾT KẾ HỆ THỐNG](#chương-3-khảo-sát-và-thiết-kế-hệ-thống)
-   - 3.1. Phân tích yêu cầu
-   - 3.2. Kiến trúc hệ thống
-   - 3.3. Công nghệ sử dụng
-   - 3.4. Thiết kế giao diện
-5. [CHƯƠNG 4. XÂY DỰNG VÀ TRIỂN KHAI BLOG](#chương-4-xây-dựng-và-triển-khai-blog)
-   - 4.1. Cài đặt môi trường phát triển
-   - 4.2. Cấu hình Hugo và Theme
-   - 4.3. Xây dựng nội dung
-   - 4.4. Tùy chỉnh giao diện
-   - 4.5. Triển khai lên GitHub Pages
-6. [CHƯƠNG 5. KẾT LUẬN](#chương-5-kết-luận)
-   - 5.1. Những kiến thức đạt được
-   - 5.2. Định hướng tương lai
-7. [TÀI LIỆU THAM KHẢO](#tài-liệu-tham-khảo)
-
----
-
 ## LỜI NÓI ĐẦU
 
 Ngày nay, với sự phát triển mạnh mẽ của công nghệ thông tin, việc chia sẻ kiến thức trở nên quan trọng hơn bao giờ hết. Blog cá nhân đã trở thành một công cụ hiệu quả để các lập trình viên, sinh viên IT chia sẻ kinh nghiệm, kiến thức và kết nối với cộng đồng.
