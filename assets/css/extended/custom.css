@@ -34,6 +34,12 @@
   padding-inline: 1.5rem;
 }
 
+/* Tăng max-width cho CV page */
+.cv-page ~ .main,
+article.cv-page ~ .main {
+  max-width: 1100px !important;
+}
+
 /* Hero section full-width */
 .hero-section {
   width: 100%;
@@ -2274,6 +2280,16 @@ body {
   opacity: 0;
 }
 
+/* Tắt animation cho CV content */
+.cv-content > *,
+.cv-content h1,
+.cv-content h2,
+.cv-content h3 {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
 .post-content > h3 {
   animation: slideInUp 0.6s ease 0.15s forwards;
   opacity: 0;
@@ -2532,87 +2548,193 @@ button:focus-visible {
 }
 
 /* ============================================
-   CV Page Styles
+   CV PAGE - PROFESSIONAL LAYOUT FOR RECRUITMENT
    ============================================ */
 
-/* CV Page specific styles */
+/* Tắt animation cho CV page */
+.cv-page .post-content,
+.cv-page .post-content *,
+.cv-container,
+.cv-container * {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* CV Page base */
 .cv-page .post-content {
   max-width: 100%;
   margin: 0;
   padding: 0;
 }
 
+/* Main container */
 .cv-container {
   max-width: 900px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 3rem 2.5rem;
   background: var(--entry);
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 0;
+  box-shadow: none;
+  line-height: 1.6;
+  font-size: 0.95rem;
 }
 
+/* Bỏ underline cho links */
+.cv-container a {
+  text-decoration: none !important;
+  border-bottom: none !important;
+  color: var(--content);
+  transition: color 0.2s;
+}
+
+.cv-container a:hover {
+  color: var(--accent);
+}
+
+/* ===== HEADER ===== */
 .cv-header {
-  border-bottom: 2px solid var(--border);
-  padding-bottom: 1.5rem;
-  margin-bottom: 2rem;
+  display: flex;
+  gap: 2rem;
+  padding-bottom: 2rem;
+  margin-bottom: 2.5rem;
+  border-bottom: 2px solid var(--primary);
+  align-items: flex-start;
+}
+
+.cv-header-left {
+  flex-shrink: 0;
+}
+
+.cv-profile-image {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--border);
+}
+
+.cv-header-right {
+  flex: 1;
 }
 
 .cv-name {
   font-size: 2.5rem;
   font-weight: 700;
   color: var(--primary);
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.25rem 0;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
 }
 
 .cv-title {
   font-size: 1.2rem;
   color: var(--secondary);
-  margin: 0 0 1.5rem 0;
+  margin: 0 0 1.25rem 0;
+  font-weight: 500;
 }
 
 .cv-contact-info {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 0.75rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
 }
 
 .cv-contact-item {
-  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
   color: var(--content);
 }
 
-.cv-contact-item strong {
-  color: var(--primary);
-  margin-right: 0.5rem;
+.cv-icon {
+  flex-shrink: 0;
+  stroke: var(--secondary);
+  width: 14px;
+  height: 14px;
 }
 
-.cv-contact-item a {
-  color: var(--accent);
-  text-decoration: none;
-  transition: opacity 0.2s;
+/* ===== BODY LAYOUT ===== */
+.cv-body {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2.5rem;
+  align-items: start;
 }
 
-.cv-contact-item a:hover {
-  opacity: 0.8;
-  text-decoration: underline;
+.cv-main-content {
+  min-width: 0;
 }
 
+.cv-sidebar {
+  min-width: 0;
+  background: var(--theme);
+  padding: 1.5rem;
+  border-radius: 4px;
+  border-left: 3px solid var(--primary);
+  position: sticky;
+  top: 2rem;
+  align-self: start;
+}
+
+/* ===== SECTIONS ===== */
 .cv-section {
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
   page-break-inside: avoid;
 }
 
-.cv-section-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--primary);
-  margin: 0 0 1.5rem 0;
-  padding-bottom: 0.5rem;
-  border-bottom: 2px solid var(--border);
+.cv-section:last-child {
+  margin-bottom: 0;
 }
 
+.cv-section-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0 0 0.75rem 0;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--border);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: block;
+}
+
+/* Style cho Font Awesome icons */
+.cv-section-title i {
+  margin-right: 0.5rem;
+  color: var(--primary);
+  font-size: 1rem;
+}
+
+.cv-icon {
+  flex-shrink: 0;
+  color: var(--secondary);
+  width: 14px;
+  font-size: 14px;
+}
+
+.cv-download-btn i {
+  margin-right: 0.5rem;
+  font-size: 14px;
+}
+
+.cv-sidebar .cv-section {
+  margin-bottom: 1.25rem;
+}
+
+.cv-sidebar .cv-section-title {
+  font-size: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* ===== ITEMS (Education, etc) ===== */
 .cv-item {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.cv-item:last-child {
+  margin-bottom: 0;
 }
 
 .cv-item-header {
@@ -2620,12 +2742,11 @@ button:focus-visible {
   justify-content: space-between;
   align-items: baseline;
   margin-bottom: 0.5rem;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
 .cv-item-header h3 {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 600;
   color: var(--primary);
   margin: 0;
@@ -2633,34 +2754,93 @@ button:focus-visible {
 
 .cv-date {
   color: var(--secondary);
-  font-size: 0.95rem;
+  font-size: 0.875rem;
   font-weight: 500;
+  white-space: nowrap;
 }
 
 .cv-item-detail {
   color: var(--content);
   line-height: 1.6;
   margin: 0;
+  font-size: 0.9rem;
 }
 
-.cv-skills-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 1.5rem;
+/* ===== PROJECTS ===== */
+.cv-project {
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px dashed var(--border);
 }
 
+.cv-project:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.cv-project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.5rem;
+  gap: 1rem;
+}
+
+.cv-project-header h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin: 0;
+}
+
+.cv-project-tech {
+  color: var(--secondary);
+  font-size: 0.85rem;
+  margin: 0.2rem 0 0.4rem 0;
+  font-style: italic;
+}
+
+.cv-project-desc {
+  color: var(--content);
+  line-height: 1.5;
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.cv-project-link {
+  margin-top: 0.5rem;
+}
+
+.cv-project-link a {
+  display: inline-block;
+  color: var(--accent);
+  font-size: 0.85rem;
+  word-break: break-all;
+}
+
+.cv-icon-inline {
+  width: 12px;
+  height: 12px;
+  stroke: currentColor;
+}
+
+/* ===== SKILLS ===== */
 .cv-skill-category {
-  background: var(--tertiary);
-  padding: 1.25rem;
-  border-radius: 6px;
+  margin-bottom: 1.25rem;
+}
+
+.cv-skill-category:last-child {
+  margin-bottom: 0;
 }
 
 .cv-skill-category h3 {
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 0.85rem;
+  font-weight: 700;
   color: var(--primary);
-  margin: 0 0 0.75rem 0;
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .cv-skill-category ul {
@@ -2671,84 +2851,36 @@ button:focus-visible {
 
 .cv-skill-category ul li {
   color: var(--content);
-  line-height: 1.8;
-  padding-left: 0;
+  line-height: 1.6;
+  font-size: 0.85rem;
+  margin-bottom: 0.35rem;
+  padding-left: 1rem;
+  position: relative;
 }
 
 .cv-skill-category ul li::before {
-  content: "▸ ";
-  color: var(--accent);
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--primary);
   font-weight: bold;
-  margin-right: 0.5rem;
 }
 
 .cv-specialization {
   background: var(--tertiary);
   padding: 1rem;
-  border-radius: 6px;
-  border-left: 4px solid var(--accent);
+  border-radius: 4px;
   margin-top: 1rem;
+  border-left: 3px solid var(--accent);
 }
 
 .cv-specialization p {
-  margin: 0.5rem 0;
+  margin: 0.35rem 0;
   color: var(--content);
+  font-size: 0.85rem;
 }
 
-.cv-project {
-  margin-bottom: 2rem;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border);
-}
-
-.cv-project:last-child {
-  border-bottom: none;
-}
-
-.cv-project-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 0.75rem;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.cv-project-header h3 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--primary);
-  margin: 0;
-}
-
-.cv-project-tech {
-  color: var(--secondary);
-  font-size: 0.95rem;
-  margin: 0.5rem 0;
-}
-
-.cv-project-desc {
-  color: var(--content);
-  line-height: 1.7;
-  margin: 0.75rem 0;
-}
-
-.cv-project-link {
-  margin-top: 0.5rem;
-}
-
-.cv-project-link a {
-  color: var(--accent);
-  text-decoration: none;
-  font-weight: 500;
-  transition: opacity 0.2s;
-}
-
-.cv-project-link a:hover {
-  opacity: 0.8;
-  text-decoration: underline;
-}
-
+/* ===== CERTIFICATES ===== */
 .cv-certificates ul {
   list-style: none;
   padding: 0;
@@ -2757,23 +2889,35 @@ button:focus-visible {
 
 .cv-certificates ul li {
   color: var(--content);
-  line-height: 2;
-  padding-left: 1.5rem;
+  line-height: 1.6;
+  font-size: 0.85rem;
+  margin-bottom: 0.6rem;
+  padding-left: 1rem;
   position: relative;
+}
+
+.cv-certificates ul li:last-child {
+  margin-bottom: 0;
 }
 
 .cv-certificates ul li::before {
   content: "✓";
   position: absolute;
   left: 0;
-  color: var(--accent);
+  color: var(--primary);
   font-weight: bold;
 }
 
+/* ===== LANGUAGES & INTERESTS ===== */
 .cv-languages p,
 .cv-interests ul li {
   color: var(--content);
-  line-height: 1.8;
+  line-height: 1.6;
+  font-size: 0.85rem;
+}
+
+.cv-languages p {
+  margin: 0.35rem 0;
 }
 
 .cv-interests ul {
@@ -2783,89 +2927,120 @@ button:focus-visible {
 }
 
 .cv-interests ul li {
-  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+  padding-left: 1rem;
   position: relative;
+}
+
+.cv-interests ul li:last-child {
+  margin-bottom: 0;
 }
 
 .cv-interests ul li::before {
   content: "•";
   position: absolute;
   left: 0;
-  color: var(--accent);
-  font-size: 1.2rem;
-  line-height: 1.5;
+  color: var(--primary);
 }
 
-.cv-footer {
-  margin-top: 3rem;
+/* ===== BOTTOM SECTIONS (Ngôn ngữ & Sở thích) ===== */
+.cv-bottom-sections {
+  margin-top: 2rem;
   padding-top: 2rem;
-  border-top: 2px solid var(--border);
+  border-top: 1px solid var(--border);
+}
+
+.cv-bottom-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+}
+
+@media (max-width: 768px) {
+  .cv-bottom-row {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* ===== FOOTER ===== */
+.cv-footer {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
   text-align: center;
 }
 
 .cv-footer-note {
   color: var(--secondary);
-  font-size: 0.9rem;
-  margin-bottom: 1.5rem;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
 }
 
 .cv-download-actions {
   display: flex;
   justify-content: center;
   gap: 1rem;
-  flex-wrap: wrap;
 }
 
 .cv-download-btn {
-  background: var(--accent);
-  color: white;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--primary);
+  color: var(--entry);
   border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 6px;
-  font-size: 1rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
 }
 
 .cv-download-btn:hover {
   background: var(--secondary);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
 }
 
-.cv-download-btn:active {
-  transform: translateY(0);
+.cv-download-btn i {
+  font-size: 14px;
 }
 
-/* Print styles for CV */
+/* ===== PRINT STYLES ===== */
 @media print {
-  /* Ẩn header và footer của website khi in CV */
   .header,
   .nav,
   .footer,
   .top-link,
-  .post-header {
+  .post-header,
+  .cv-download-actions,
+  .cv-footer-note {
     display: none !important;
   }
 
-  /* Ẩn main wrapper padding khi in */
   .main {
     padding: 0 !important;
     max-width: 100% !important;
   }
 
-  /* CV container styles */
   .cv-container {
-    box-shadow: none;
-    padding: 0;
     max-width: 100%;
-    margin: 0;
+    padding: 0;
+    box-shadow: none;
   }
 
-  .cv-header {
-    page-break-after: avoid;
+  .cv-body {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem;
+  }
+
+  .cv-sidebar {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    border-left: 2px solid var(--border) !important;
+    padding-left: 1rem !important;
   }
 
   .cv-section {
@@ -2876,62 +3051,68 @@ button:focus-visible {
     page-break-inside: avoid;
   }
 
-  .cv-download-actions {
-    display: none;
-  }
-
-  .cv-footer-note {
-    display: none;
-  }
-
-  /* Body và html không có margin khi in */
   body,
   html {
     margin: 0 !important;
     padding: 0 !important;
   }
 
-  /* Đảm bảo CV content hiển thị đầy đủ */
-  .cv-page .post-content {
-    margin: 0 !important;
-    padding: 0 !important;
-    max-width: 100% !important;
-  }
-
   a {
     color: var(--content) !important;
-    text-decoration: none !important;
   }
 
   a[href^="http"]::after {
     content: " (" attr(href) ")";
-    font-size: 0.9em;
+    font-size: 0.75em;
     color: var(--secondary);
   }
 }
 
-/* Responsive CV */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .cv-container {
-    padding: 1rem;
+    padding: 2rem 1.5rem;
+  }
+
+  .cv-header {
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+  }
+
+  .cv-profile-image {
+    width: 120px;
+    height: 120px;
   }
 
   .cv-name {
     font-size: 2rem;
   }
 
-  .cv-contact-info {
-    grid-template-columns: 1fr;
+  .cv-title {
+    font-size: 1.1rem;
   }
 
-  .cv-skills-grid {
+  .cv-contact-info {
     grid-template-columns: 1fr;
+    text-align: center;
+    justify-items: center;
+  }
+
+  .cv-body {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .cv-sidebar {
+    position: static;
   }
 
   .cv-item-header,
   .cv-project-header {
     flex-direction: column;
     align-items: flex-start;
+    gap: 0.25rem;
   }
 }
 

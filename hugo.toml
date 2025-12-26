@@ -96,6 +96,12 @@ enableGitInfo = true
 [markup]
   [markup.goldmark.renderer]
     unsafe = true
+    hardWraps = false
+    xHTML = false
+
+  [markup.goldmark.parser]
+    attribute = true
+    autoHeadingID = true
 
   [markup.highlight]
     noClasses = false
