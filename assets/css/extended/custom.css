@@ -863,26 +863,9 @@ a:hover,
 }
 
 .cv-download-link {
-  display: inline-block;
-  padding: 0.75rem 1.5rem;
-  background: var(--accent);
-  color: white;
-  text-decoration: none;
-  border-radius: 6px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.cv-download-link:hover {
-  background: var(--secondary);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  color: white;
-}
-
-.cv-download-link-btn {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   padding: 0.75rem 1.5rem;
   background: var(--tertiary);
   color: var(--primary);
@@ -894,12 +877,47 @@ a:hover,
   transition: all 0.3s ease;
   font-size: 1rem;
   font-family: inherit;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cv-download-link:hover {
+  background: var(--border);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: var(--primary);
+}
+
+.cv-download-link i {
+  font-size: 0.9rem;
+}
+
+.cv-download-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--tertiary);
+  color: var(--primary);
+  border: 2px solid var(--border);
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  font-family: inherit;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .cv-download-link-btn:hover {
   background: var(--border);
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: var(--primary);
+}
+
+.cv-download-link-btn i {
+  font-size: 0.9rem;
 }
 
 @media (max-width: 768px) {
@@ -3009,62 +3027,234 @@ button:focus-visible {
 
 /* ===== PRINT STYLES ===== */
 @media print {
+  /* Ẩn các phần không cần thiết */
   .header,
   .nav,
   .footer,
   .top-link,
   .post-header,
   .cv-download-actions,
-  .cv-footer-note {
+  .cv-footer-note,
+  .cv-bottom-sections {
     display: none !important;
   }
 
-  .main {
-    padding: 0 !important;
-    max-width: 100% !important;
-  }
-
-  .cv-container {
-    max-width: 100%;
-    padding: 0;
-    box-shadow: none;
-  }
-
-  .cv-body {
-    grid-template-columns: 1fr !important;
-    gap: 1.5rem;
-  }
-
-  .cv-sidebar {
-    background: transparent !important;
-    border: none !important;
-    padding: 0 !important;
-    border-left: 2px solid var(--border) !important;
-    padding-left: 1rem !important;
-  }
-
-  .cv-section {
-    page-break-inside: avoid;
-  }
-
-  .cv-project {
-    page-break-inside: avoid;
+  /* Reset margins và padding */
+  * {
+    box-shadow: none !important;
   }
 
   body,
   html {
     margin: 0 !important;
     padding: 0 !important;
+    background: white !important;
   }
 
+  .main {
+    padding: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+  }
+
+  /* CV Container */
+  .cv-container {
+    max-width: 100% !important;
+    padding: 1.5rem 2rem !important;
+    margin: 0 !important;
+    background: white !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* Header */
+  .cv-header {
+    display: flex !important;
+    gap: 1.5rem !important;
+    border-bottom: 2px solid #000 !important;
+    padding-bottom: 1rem !important;
+    margin-bottom: 1.5rem !important;
+    page-break-after: avoid !important;
+  }
+
+  .cv-profile-image {
+    width: 120px !important;
+    height: 120px !important;
+    border: 2px solid #000 !important;
+  }
+
+  .cv-name {
+    font-size: 2rem !important;
+    color: #000 !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  .cv-title {
+    font-size: 1.1rem !important;
+    color: #333 !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .cv-contact-info {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.4rem !important;
+    font-size: 0.85rem !important;
+  }
+
+  .cv-contact-item {
+    font-size: 0.85rem !important;
+    color: #000 !important;
+  }
+
+  .cv-icon {
+    color: #000 !important;
+    font-size: 12px !important;
+  }
+
+  /* Body Layout - Giữ 2 cột khi in */
+  .cv-body {
+    display: grid !important;
+    grid-template-columns: 1fr 1.8fr !important;
+    gap: 2rem !important;
+    margin-top: 0 !important;
+  }
+
+  /* Sidebar */
+  .cv-sidebar {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    border-left: 2px solid #000 !important;
+    padding-left: 1rem !important;
+    position: static !important;
+    max-width: none !important;
+  }
+
+  /* Main Content */
+  .cv-main-content {
+    padding: 0 !important;
+  }
+
+  /* Sections */
+  .cv-section {
+    margin-bottom: 1.25rem !important;
+    page-break-inside: avoid !important;
+  }
+
+  .cv-section-title {
+    font-size: 1rem !important;
+    color: #000 !important;
+    border-bottom: 2px solid #000 !important;
+    padding-bottom: 0.3rem !important;
+    margin-bottom: 0.75rem !important;
+    page-break-after: avoid !important;
+  }
+
+  .cv-section-title i {
+    color: #000 !important;
+    font-size: 0.9rem !important;
+  }
+
+  /* Items */
+  .cv-item {
+    margin-bottom: 1rem !important;
+  }
+
+  .cv-item-header h3 {
+    font-size: 1rem !important;
+    color: #000 !important;
+  }
+
+  .cv-date {
+    color: #333 !important;
+    font-size: 0.85rem !important;
+  }
+
+  .cv-item-detail {
+    font-size: 0.85rem !important;
+    color: #000 !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Projects */
+  .cv-project {
+    margin-bottom: 1rem !important;
+    padding-bottom: 0.75rem !important;
+    border-bottom: 1px dashed #ccc !important;
+    page-break-inside: avoid !important;
+  }
+
+  .cv-project:last-child {
+    border-bottom: none !important;
+  }
+
+  .cv-project-header h3 {
+    font-size: 0.95rem !important;
+    color: #000 !important;
+  }
+
+  .cv-project-tech {
+    font-size: 0.8rem !important;
+    color: #333 !important;
+    margin: 0.2rem 0 0.3rem 0 !important;
+  }
+
+  .cv-project-desc {
+    font-size: 0.85rem !important;
+    color: #000 !important;
+    line-height: 1.5 !important;
+  }
+
+  /* Skills */
+  .cv-skill-category {
+    margin-bottom: 1rem !important;
+  }
+
+  .cv-skill-category h3 {
+    font-size: 0.8rem !important;
+    color: #000 !important;
+    margin-bottom: 0.4rem !important;
+  }
+
+  .cv-skill-category ul li {
+    font-size: 0.8rem !important;
+    color: #000 !important;
+    line-height: 1.5 !important;
+    margin-bottom: 0.3rem !important;
+  }
+
+  /* Certificates */
+  .cv-certificates ul li {
+    font-size: 0.8rem !important;
+    color: #000 !important;
+    line-height: 1.5 !important;
+    margin-bottom: 0.4rem !important;
+  }
+
+  /* Links */
   a {
-    color: var(--content) !important;
+    color: #000 !important;
+    text-decoration: underline !important;
   }
 
   a[href^="http"]::after {
     content: " (" attr(href) ")";
     font-size: 0.75em;
-    color: var(--secondary);
+    color: #666;
+  }
+
+  /* Đảm bảo không bị cắt */
+  .cv-page .post-content {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+
+  /* Tắt tất cả animations */
+  * {
+    animation: none !important;
+    transition: none !important;
   }
 }
 
