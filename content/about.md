@@ -19,6 +19,11 @@ Xin chào, mình là **Nguyễn Minh Long**, sinh viên năm 4 ngành **Công ng
 
 Mình đặc biệt quan tâm đến **Lập trình mạng (Network Programming)**, **Java**, **JavaScript** và phát triển **Web**. Mình luôn tìm kiếm cơ hội để học hỏi và chia sẻ kiến thức về các công nghệ hiện đại.
 
+<div class="about-cv-download">
+  <a href="/cv/" class="cv-download-link">📄 Xem CV đầy đủ</a>
+  <a href="/cv/" onclick="setTimeout(() => window.print(), 500); return false;" class="cv-download-link-btn">⬇️ Tải CV (PDF)</a>
+</div>
+
   </div>
 </div>
 
