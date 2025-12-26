@@ -2,6 +2,7 @@
 title: "CV - Nguyễn Minh Long"
 date: 2025-01-01
 type: "page"
+layout: "cv"
 showToc: false
 ---
 
